@@ -13,7 +13,7 @@
   --bg:#09090f;--bg2:#111119;--bg3:#1c1c28;--card:#15151e;
   --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
   --text:#eeeef5;--muted:#7878a0;--accent:#e63946;--gold:#f5c518;
-  --green:#22c55e;--purple:#a855f7;
+  --green:#22c55e;--purple:#a855f7;--blue:#3b82f6;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;}
@@ -28,10 +28,10 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 
 /* LOGIN */
 #screen-login{align-items:center;justify-content:center;padding:2rem;overflow:hidden;position:relative;}
-#screen-login::before{content:'';position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(230,57,70,0.08) 0%,transparent 65%);top:-150px;left:50%;transform:translateX(-50%);pointer-events:none;}
+#screen-login::before{content:'';position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(230,57,70,.08) 0%,transparent 65%);top:-150px;left:50%;transform:translateX(-50%);pointer-events:none;}
 .login-card{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:2.5rem 2.25rem;width:100%;max-width:420px;position:relative;z-index:1;}
 .login-logo{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:var(--accent);letter-spacing:4px;display:block;text-align:center;}
-.login-tag{color:var(--muted);font-size:0.82rem;margin-top:0.3rem;display:block;text-align:center;margin-bottom:2rem;}
+.login-tag{color:var(--muted);font-size:.82rem;margin-top:.3rem;display:block;text-align:center;margin-bottom:2rem;}
 .tab-row{display:flex;background:var(--bg3);border-radius:10px;padding:4px;margin-bottom:1.75rem;gap:4px;}
 .tab-btn{flex:1;padding:.55rem;border:none;border-radius:7px;background:transparent;color:var(--muted);font-size:.84rem;font-weight:500;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;}
 .tab-btn.active{background:var(--accent);color:#fff;}
@@ -79,8 +79,8 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
 /* SEC */
 .sec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;}
 .sec-title{font-size:1rem;font-weight:600;display:flex;align-items:center;gap:.5rem;}
-.sec-dot{width:5px;height:5px;background:var(--accent);border-radius:50%;}
 .sec-dot-gold{width:5px;height:5px;background:var(--gold);border-radius:50%;}
+.sec-dot{width:5px;height:5px;background:var(--accent);border-radius:50%;}
 
 /* CARD GRID */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:1.1rem;}
@@ -95,60 +95,58 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
 .card-foot{display:flex;align-items:center;justify-content:space-between;}
 .card-year{font-size:.7rem;color:var(--muted);}
 .card-star{font-size:.72rem;font-weight:700;color:var(--gold);}
-.type-badge{position:absolute;top:7px;left:7px;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:.15rem .38rem;border-radius:4px;}
+.type-badge{position:absolute;top:7px;left:7px;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:.15rem .38rem;border-radius:4px;pointer-events:none;}
 .tb-movie{background:rgba(230,57,70,.85);color:#fff;}
 .tb-series{background:rgba(59,130,246,.85);color:#fff;}
-/* ── WATCHLIST HEART BUTTON ── */
-.wl-btn{position:absolute;top:7px;right:7px;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.65);border:1.5px solid rgba(255,255,255,.15);color:rgba(255,255,255,.7);font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:3;line-height:1;}
-.wl-btn:hover{background:rgba(168,85,247,.5);border-color:var(--purple);color:#fff;transform:scale(1.1);}
-.wl-btn.in-wl{background:rgba(168,85,247,.75);border-color:var(--purple);color:#fff;}
+.wl-btn{position:absolute;top:7px;right:7px;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.65);border:1.5px solid rgba(255,255,255,.15);color:rgba(255,255,255,.75);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:3;line-height:1;padding:0;}
+.wl-btn:hover{background:rgba(168,85,247,.55);border-color:var(--purple);color:#fff;transform:scale(1.12);}
+.wl-btn.in-wl{background:rgba(168,85,247,.8);border-color:var(--purple);color:#fff;}
 .card-admin-row{display:flex;gap:.35rem;margin-top:.5rem;}
 
-/* TOP PICKS CARDS */
-.picks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.25rem;}
+/* TOP PICK CARDS */
+.picks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1.25rem;}
 .pick-card{background:var(--card);border:1px solid rgba(245,197,24,.2);border-radius:14px;overflow:hidden;cursor:pointer;transition:transform .22s,box-shadow .22s;position:relative;}
 .pick-card:hover{transform:translateY(-4px);box-shadow:0 14px 35px rgba(0,0,0,.5);}
-.pick-img{width:100%;height:140px;object-fit:cover;background:var(--bg3);display:block;}
-.pick-img-ph{width:100%;height:140px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:2.5rem;}
-.pick-badge{position:absolute;top:8px;left:8px;background:rgba(245,197,24,.9);color:#000;font-size:.62rem;font-weight:700;padding:.18rem .45rem;border-radius:4px;text-transform:uppercase;}
+.pick-img{width:100%;height:145px;object-fit:cover;background:var(--bg3);display:block;}
+.pick-img-ph{width:100%;height:145px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:2.5rem;}
+.pick-badge{position:absolute;top:8px;left:8px;background:rgba(245,197,24,.9);color:#000;font-size:.62rem;font-weight:700;padding:.18rem .45rem;border-radius:4px;text-transform:uppercase;pointer-events:none;}
+/* watchlist button on pick card */
+.pick-wl-btn{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.65);border:1.5px solid rgba(255,255,255,.15);color:rgba(255,255,255,.75);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:3;line-height:1;padding:0;}
+.pick-wl-btn:hover{background:rgba(168,85,247,.55);border-color:var(--purple);color:#fff;transform:scale(1.12);}
+.pick-wl-btn.in-wl{background:rgba(168,85,247,.8);border-color:var(--purple);color:#fff;}
 .pick-body{padding:.8rem;}
 .pick-title{font-size:.85rem;font-weight:600;margin-bottom:.25rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .pick-meta{font-size:.72rem;color:var(--muted);}
-.pick-note{font-size:.75rem;color:var(--gold);margin-top:.3rem;font-style:italic;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.pick-note{font-size:.75rem;color:var(--gold);margin-top:.3rem;font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
 /* FILTERS */
 .filters{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.4rem;}
 .fbtn{padding:.32rem .9rem;border-radius:20px;font-size:.77rem;font-weight:500;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all .18s;font-family:'Inter',sans-serif;}
 .fbtn:hover,.fbtn.active{background:var(--accent);color:#fff;border-color:var(--accent);}
 
-/* ── RATINGS PAGE — ranked list ── */
+/* RATINGS PAGE */
 .ranked-controls{display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem;flex-wrap:wrap;}
-.rank-filter-btn{padding:.32rem .9rem;border-radius:20px;font-size:.77rem;font-weight:500;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all .18s;font-family:'Inter',sans-serif;}
-.rank-filter-btn:hover,.rank-filter-btn.active{background:var(--gold);color:#000;border-color:var(--gold);}
+.rfbtn{padding:.32rem .9rem;border-radius:20px;font-size:.77rem;font-weight:500;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all .18s;font-family:'Inter',sans-serif;}
+.rfbtn:hover,.rfbtn.active{background:var(--gold);color:#000;border-color:var(--gold);}
 .ranked-list{display:flex;flex-direction:column;gap:.65rem;}
-.ranked-row{display:flex;align-items:center;gap:1rem;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.8rem 1rem;cursor:pointer;transition:border-color .18s,transform .18s;position:relative;}
+.ranked-row{display:flex;align-items:center;gap:1rem;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.8rem 1rem;cursor:pointer;transition:border-color .18s,transform .18s;}
 .ranked-row:hover{border-color:var(--border2);transform:translateX(4px);}
-.rank-num{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--accent);opacity:.55;width:44px;text-align:center;flex-shrink:0;line-height:1;}
+.rank-num{font-family:'Bebas Neue',sans-serif;font-size:2rem;opacity:.55;width:44px;text-align:center;flex-shrink:0;line-height:1;color:var(--accent);}
 .rank-num.top3{opacity:1;color:var(--gold);}
 .rank-poster{width:50px;height:75px;object-fit:cover;border-radius:6px;flex-shrink:0;}
 .rank-poster-ph{width:50px;height:75px;background:var(--bg3);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
 .rank-info{flex:1;min-width:0;}
 .rank-title{font-size:.92rem;font-weight:600;margin-bottom:.22rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.rank-meta{font-size:.73rem;color:var(--muted);}
-.rank-score-wrap{text-align:right;flex-shrink:0;}
-.rank-score{font-size:1.6rem;font-weight:700;color:var(--gold);line-height:1;}
-.rank-score-lbl{font-size:.65rem;color:var(--muted);margin-top:2px;}
-.rank-bar-wrap{margin-top:.35rem;height:4px;background:var(--bg3);border-radius:99px;overflow:hidden;}
-.rank-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--accent));border-radius:99px;transition:width .4s ease;}
-.medal-1{color:#FFD700;}
-.medal-2{color:#C0C0C0;}
-.medal-3{color:#CD7F32;}
+.rank-meta{font-size:.73rem;color:var(--muted);margin-bottom:.35rem;}
+.rank-bar-wrap{height:4px;background:var(--bg3);border-radius:99px;overflow:hidden;}
+.rank-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--accent));border-radius:99px;}
+.rank-score{font-size:1.6rem;font-weight:700;color:var(--gold);line-height:1;text-align:right;}
+.rank-score-lbl{font-size:.65rem;color:var(--muted);text-align:right;margin-top:2px;}
 .empty-rated{text-align:center;padding:4rem 2rem;color:var(--muted);}
 .empty-rated .eico{font-size:3rem;margin-bottom:1rem;opacity:.35;}
 .empty-rated h4{font-size:1rem;font-weight:600;color:var(--text);margin-bottom:.4rem;}
-.empty-rated p{font-size:.82rem;}
 
-/* WATCHLIST PAGE */
+/* WATCHLIST */
 .wl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:1.1rem;}
 
 /* OVERLAYS */
@@ -207,17 +205,20 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
 .pick-toggle input[type=checkbox]{accent-color:var(--gold);width:16px;height:16px;cursor:pointer;}
 .pick-toggle span{font-size:.85rem;font-weight:500;}
 .pick-note-input{width:100%;background:rgba(245,197,24,.06);border:1px solid rgba(245,197,24,.25);border-radius:8px;padding:.62rem .9rem;color:var(--text);font-size:.86rem;outline:none;font-family:'Inter',sans-serif;}
-.pick-note-input:focus{border-color:var(--gold);}
 .pick-note-input::placeholder{color:var(--muted);opacity:.7;}
+.pick-note-input:focus{border-color:var(--gold);}
 
 /* ADMIN */
 .admin-banner{background:linear-gradient(135deg,rgba(230,57,70,.09) 0%,transparent 60%);border:1px solid rgba(230,57,70,.18);border-radius:15px;padding:1.4rem 1.75rem;margin-bottom:1.75rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
 .admin-banner-title{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:1px;}
 .admin-banner-title span{color:var(--accent);}
 .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.9rem;margin-bottom:1.75rem;}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:.9rem 1.1rem;}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:.9rem 1.1rem;cursor:default;}
+.stat-card.clickable{cursor:pointer;transition:border-color .18s;}
+.stat-card.clickable:hover{border-color:var(--blue);}
 .stat-n{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--accent);line-height:1;}
 .stat-l{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:3px;}
+.stat-hint{font-size:.65rem;color:var(--blue);margin-top:4px;}
 .admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;}
 @media(max-width:780px){.admin-grid{grid-template-columns:1fr;}}
 .admin-card{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:1.35rem;}
@@ -230,6 +231,29 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
 .ai-name{font-size:.82rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .ai-meta{font-size:.7rem;color:var(--muted);}
 .ai-btns{display:flex;gap:.3rem;flex-shrink:0;}
+
+/* USERS MODAL */
+.users-modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:18px;max-width:700px;width:100%;margin:auto;position:relative;max-height:90vh;display:flex;flex-direction:column;}
+.users-modal-head{padding:1.5rem 1.75rem 1rem;border-bottom:1px solid var(--border);flex-shrink:0;}
+.users-modal-head h3{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:1px;}
+.users-modal-head p{font-size:.8rem;color:var(--muted);margin-top:.2rem;}
+.users-modal-body{overflow-y:auto;padding:1.25rem 1.75rem 1.75rem;flex:1;}
+.user-row{display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:.75rem;transition:border-color .18s;}
+.user-row:hover{border-color:var(--border2);}
+.user-row:last-child{margin-bottom:0;}
+.u-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--purple));display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;color:#fff;flex-shrink:0;}
+.u-info{flex:1;min-width:0;}
+.u-name{font-size:.9rem;font-weight:600;margin-bottom:.18rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.u-email{font-size:.78rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.u-meta{text-align:right;flex-shrink:0;}
+.u-joined{font-size:.72rem;color:var(--muted);margin-bottom:.15rem;}
+.u-last{font-size:.72rem;color:var(--green);}
+.u-badge{display:inline-block;font-size:.62rem;font-weight:700;padding:.13rem .38rem;border-radius:4px;text-transform:uppercase;letter-spacing:.4px;margin-top:.2rem;}
+.u-badge-admin{background:rgba(230,57,70,.15);color:var(--accent);border:1px solid rgba(230,57,70,.3);}
+.u-badge-user{background:rgba(59,130,246,.12);color:var(--blue);border:1px solid rgba(59,130,246,.25);}
+.u-wl-count{font-size:.7rem;color:var(--purple);margin-top:.1rem;}
+.users-empty{text-align:center;padding:2.5rem;color:var(--muted);}
+.users-empty .eico{font-size:2rem;margin-bottom:.5rem;opacity:.4;}
 
 /* UTIL */
 .loading{display:flex;align-items:center;justify-content:center;padding:3.5rem;color:var(--muted);font-size:.86rem;gap:.65rem;grid-column:1/-1;}
@@ -304,19 +328,18 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
     </div>
   </nav>
 
-  <!-- ── HOME ── -->
+  <!-- HOME -->
   <div class="page active" id="page-home">
     <div class="hero">
-      <div class="hero-eye">🍿</div>
-      <h1>Sumit's<br><span>Movie Vault</span></h1>
-      <pI watched them so you don't have to... unless they're actually good.</p>
+      <div class="hero-eye">🎬 Your Personal Cinema</div>
+      <h1>DISCOVER<br><span>GREAT FILMS</span></h1>
+      <p>Browse movies and TV series, build your watchlist, and explore admin-curated top picks.</p>
       <div class="hero-stats">
         <div><div class="hs-n" id="hs-movies">—</div><div class="hs-l">Movies</div></div>
         <div><div class="hs-n" id="hs-series">—</div><div class="hs-l">Series</div></div>
         <div><div class="hs-n" id="hs-wl">—</div><div class="hs-l">In Watchlist</div></div>
       </div>
     </div>
-    <!-- ADMIN TOP PICKS ONLY -->
     <div class="sec-hd">
       <div class="sec-title"><div class="sec-dot-gold"></div>⭐ Admin Top Picks</div>
     </div>
@@ -325,7 +348,7 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
     </div>
   </div>
 
-  <!-- ── MOVIES ── -->
+  <!-- MOVIES -->
   <div class="page" id="page-movies">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.4rem">
       <div><h2 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:1px">MOVIES</h2><p style="color:var(--muted);font-size:.82rem;margin-top:.2rem">TMDB popular + admin additions</p></div>
@@ -345,7 +368,7 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
     <div class="grid" id="movies-grid"><div class="loading"><div class="spin"></div></div></div>
   </div>
 
-  <!-- ── SERIES ── -->
+  <!-- SERIES -->
   <div class="page" id="page-series">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.4rem">
       <div><h2 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:1px">TV SERIES</h2><p style="color:var(--muted);font-size:.82rem;margin-top:.2rem">TMDB popular + admin additions</p></div>
@@ -365,33 +388,31 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
     <div class="grid" id="series-grid"><div class="loading"><div class="spin"></div></div></div>
   </div>
 
-  <!-- ── RATINGS PAGE (sorted by admin rating) ── -->
+  <!-- RATINGS -->
   <div class="page" id="page-ratings">
     <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:1px;margin-bottom:.25rem">RATINGS</h2>
-    <p style="color:var(--muted);font-size:.82rem;margin-bottom:1.5rem">All titles sorted by admin rating — highest to lowest</p>
+    <p style="color:var(--muted);font-size:.82rem;margin-bottom:1.5rem">Sorted by admin rating — highest to lowest</p>
     <div class="ranked-controls">
-      <button class="rank-filter-btn active" id="rf-all"    onclick="setRankFilter('all',this)">All</button>
-      <button class="rank-filter-btn"        id="rf-movie"  onclick="setRankFilter('movie',this)">Movies only</button>
-      <button class="rank-filter-btn"        id="rf-series" onclick="setRankFilter('series',this)">Series only</button>
+      <button class="rfbtn active" onclick="setRF('all',this)">All</button>
+      <button class="rfbtn" onclick="setRF('movie',this)">Movies only</button>
+      <button class="rfbtn" onclick="setRF('series',this)">Series only</button>
     </div>
     <div id="ranked-list"></div>
   </div>
 
-  <!-- ── WATCHLIST ── -->
+  <!-- WATCHLIST -->
   <div class="page" id="page-watchlist">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.75rem">
-      <div>
-        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:1px">MY WATCHLIST</h2>
-        <p style="color:var(--muted);font-size:.82rem;margin-top:.2rem">Movies &amp; series you want to watch</p>
-      </div>
+      <div><h2 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:1px">MY WATCHLIST</h2>
+      <p style="color:var(--muted);font-size:.82rem;margin-top:.2rem">Movies &amp; series you want to watch</p></div>
       <div id="wl-badge" style="display:none;background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.3);border-radius:8px;padding:.4rem .9rem;font-size:.82rem;color:var(--purple);font-weight:600;"></div>
     </div>
     <div class="wl-grid" id="watchlist-grid">
-      <div class="empty-state"><div class="eico">🎬</div><h4>Your watchlist is empty</h4><p>Tap the ♡ on any card to save it here</p></div>
+      <div class="empty-state"><div class="eico">🎬</div><h4>Your watchlist is empty</h4><p>Tap ♡ on any card to save it here</p></div>
     </div>
   </div>
 
-  <!-- ── ADMIN ── -->
+  <!-- ADMIN -->
   <div class="page" id="page-admin">
     <div class="admin-banner">
       <div><div class="admin-banner-title">ADMIN <span>PANEL</span></div><div style="color:var(--muted);font-size:.8rem;margin-top:.2rem">Manage your CineVault library</div></div>
@@ -404,7 +425,11 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
       <div class="stat-card"><div class="stat-n" id="as-movies">0</div><div class="stat-l">Movies</div></div>
       <div class="stat-card"><div class="stat-n" id="as-series">0</div><div class="stat-l">Series</div></div>
       <div class="stat-card"><div class="stat-n" id="as-picks">0</div><div class="stat-l">Top Picks</div></div>
-      <div class="stat-card"><div class="stat-n" id="as-users">0</div><div class="stat-l">Users</div></div>
+      <div class="stat-card clickable" onclick="openUsersModal()" id="users-stat-card">
+        <div class="stat-n" id="as-users">0</div>
+        <div class="stat-l">Registered Users</div>
+        <div class="stat-hint">👆 Click to view details</div>
+      </div>
     </div>
     <div class="admin-grid">
       <div class="admin-card"><div class="admin-card-title">🎬 Movies</div><div id="a-movies-list"></div></div>
@@ -412,13 +437,13 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
     </div>
   </div>
 
-  <!-- ── SEARCH ── -->
+  <!-- SEARCH -->
   <div class="page" id="page-search">
     <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:1px;margin-bottom:.25rem">SEARCH</h2>
     <p style="color:var(--muted);font-size:.82rem;margin-bottom:1.5rem" id="search-label">Results appear here</p>
     <div class="grid" id="search-grid"></div>
   </div>
-</div><!-- /screen-app -->
+</div>
 
 <!-- ══ DETAIL MODAL ══ -->
 <div class="overlay" id="ov-detail" onclick="bgClose(event,'ov-detail',closeDetail)">
@@ -437,9 +462,8 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
         </div>
         <div class="gtags" id="md-tags"></div>
         <p class="modal-ov" id="md-overview"></p>
-        <!-- Admin rating only -->
         <div class="rating-box" id="rating-box" style="display:none">
-          <div class="rating-lbl">⭐ Admin Rating <span class="rating-val" id="md-myrating"></span></div>
+          <div class="rating-lbl">⭐ Admin Rating<span class="rating-val" id="md-myrating"></span></div>
           <div class="stars-row">
             <span class="star-btn" onclick="rate(1)" onmouseover="hov(1)" onmouseout="unhov()">★</span>
             <span class="star-btn" onclick="rate(2)" onmouseover="hov(2)" onmouseout="unhov()">★</span>
@@ -462,7 +486,7 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
   </div>
 </div>
 
-<!-- ══ ADD / EDIT MODAL ══ -->
+<!-- ══ ADD/EDIT MODAL ══ -->
 <div class="overlay" id="ov-add" onclick="bgClose(event,'ov-add',closeAdd)">
   <div class="add-box">
     <div class="add-inner">
@@ -499,10 +523,24 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
   </div>
 </div>
 
+<!-- ══ USERS MODAL ══ -->
+<div class="overlay" id="ov-users" onclick="bgClose(event,'ov-users',closeUsersModal)">
+  <div class="users-modal-box">
+    <button class="modal-x" onclick="closeUsersModal()">✕</button>
+    <div class="users-modal-head">
+      <h3>👥 Registered Users</h3>
+      <p id="users-modal-sub">Loading…</p>
+    </div>
+    <div class="users-modal-body" id="users-modal-body">
+      <div class="loading"><div class="spin"></div> Fetching users…</div>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"><span id="t-ico"></span><span id="t-msg"></span></div>
 
 <script>
-/* ═══════════════ FIREBASE ═══════════════ */
+/* ═══════════════ FIREBASE CONFIG ═══════════════ */
 const firebaseConfig = {
   apiKey: "AIzaSyCQfbPcwBu1uKMyZ2USrth0jIxOqrbfn0g",
   authDomain: "cinevault-edd3c.firebaseapp.com",
@@ -515,249 +553,256 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db   = firebase.firestore();
 
-/* ═══════════════ ADMIN EMAILS — LINE 358 ═══════════════ */
+/* ═══════════════ ADMIN EMAILS — change to YOUR email ═══════════════ */
 const ADMIN_EMAILS = ['sumitshinde9421@gmail.com', 'sumit@cinevault.com'];
 
 /* ═══════════════ TMDB ═══════════════ */
-const TKEY = '8265bd1679663a7ea12ac168da84d2e8';
-const TIMG = 'https://image.tmdb.org/t/p/w500';
-const TLG  = 'https://image.tmdb.org/t/p/w780';
-const TC   = {};
-async function tf(ep) {
-  if (TC[ep]) return TC[ep];
-  const s = ep.includes('?') ? '&' : '?';
-  const r = await fetch(`https://api.themoviedb.org/3${ep}${s}api_key=${TKEY}&language=en-US`);
-  const d = await r.json(); TC[ep] = d; return d;
+const TKEY='8265bd1679663a7ea12ac168da84d2e8', TIMG='https://image.tmdb.org/t/p/w500', TLG='https://image.tmdb.org/t/p/w780', TC={};
+async function tf(ep){
+  if(TC[ep])return TC[ep];
+  const s=ep.includes('?')?'&':'?';
+  const r=await fetch(`https://api.themoviedb.org/3${ep}${s}api_key=${TKEY}&language=en-US`);
+  const d=await r.json();TC[ep]=d;return d;
 }
 
 /* ═══════════════ STATE ═══════════════ */
-let CU = null, isAdmin = false;          // current user
-let customItems = [];                     // from Firestore
-let watchlist   = [];                     // array of "type_id" strings
-let activeDetail = null, editMode = null;
-let movieGenre = 'all', seriesGenre = 'all', rankFilter = 'all';
-let tmdbM = {d:[],ok:false}, tmdbS = {d:[],ok:false};
-let adminRatings = {};                    // { "type_id": n } cached
+let CU=null, isAdmin=false, currentPage='home';
+let customItems=[], watchlist=[], adminRatings={};
+let activeDetail=null, editMode=null;
+let movieGenre='all', seriesGenre='all', rankFilter='all';
+let tmdbM={d:[],ok:false}, tmdbS={d:[],ok:false};
 
-/* ═══════════════ AUTH ═══════════════ */
-auth.onAuthStateChanged(async user => {
-  document.getElementById('init-loader').style.display = 'none';
-  if (user) {
-    CU = user; isAdmin = ADMIN_EMAILS.includes(user.email);
+/* ═══════════════ AUTH LISTENER ═══════════════ */
+auth.onAuthStateChanged(async user=>{
+  document.getElementById('init-loader').style.display='none';
+  if(user){
+    CU=user; isAdmin=ADMIN_EMAILS.includes(user.email);
+    /* save user info to Firestore so admin can see it */
     await db.collection('users').doc(user.uid).set({
-      email: user.email,
       displayName: user.displayName || user.email.split('@')[0],
-      lastLogin: firebase.firestore.FieldValue.serverTimestamp()
-    }, {merge:true});
+      email:       user.email,
+      role:        ADMIN_EMAILS.includes(user.email) ? 'admin' : 'user',
+      joinedAt:    firebase.firestore.FieldValue.serverTimestamp(),
+      lastLogin:   firebase.firestore.FieldValue.serverTimestamp()
+    },{merge:true});
+    /* parallel load */
     await Promise.all([loadCustomItems(), loadWatchlist(), loadAdminRatings()]);
     enterApp();
   } else {
-    CU = null; isAdmin = false;
+    CU=null; isAdmin=false;
     document.getElementById('screen-app').classList.remove('active');
     document.getElementById('screen-login').classList.add('active');
   }
 });
 
-async function loadCustomItems() {
-  try {
-    const s = await db.collection('items').orderBy('createdAt','desc').get();
-    customItems = s.docs.map(d => ({fid:d.id, ...d.data()}));
-  } catch { customItems = []; }
+async function loadCustomItems(){
+  try{
+    const s=await db.collection('items').orderBy('createdAt','desc').get();
+    customItems=s.docs.map(d=>({fid:d.id,...d.data()}));
+  }catch{customItems=[];}
+}
+async function loadAdminRatings(){
+  try{
+    const s=await db.collection('ratings').get();
+    adminRatings={};
+    s.docs.forEach(d=>{adminRatings[d.id]=d.data().rating;});
+  }catch{adminRatings={};}
 }
 
-/* Load ALL admin ratings once into memory for the Ratings page */
-async function loadAdminRatings() {
-  try {
-    const s = await db.collection('ratings').get();
-    adminRatings = {};
-    s.docs.forEach(d => { adminRatings[d.id] = d.data().rating; });
-  } catch { adminRatings = {}; }
+/* ═══ WATCHLIST — the ROOT FIX ═══
+   Key format: "movie_<id>" or "series_<id>"
+   id is always converted to string.
+   We save immediately to Firestore on every toggle.
+*/
+async function loadWatchlist(){
+  if(!CU){watchlist=[];return;}
+  try{
+    const doc=await db.collection('watchlists').doc(CU.uid).get();
+    watchlist=doc.exists?(doc.data().items||[]):[];
+  }catch(e){console.error('loadWatchlist',e);watchlist=[];}
 }
 
-/* ─── WATCHLIST — stored as Firestore doc per user ─── */
-async function loadWatchlist() {
-  if (!CU) { watchlist = []; return; }
-  try {
-    const doc = await db.collection('watchlists').doc(CU.uid).get();
-    watchlist = doc.exists ? (doc.data().items || []) : [];
-  } catch(e) {
-    console.error('loadWatchlist error', e);
-    watchlist = [];
+async function saveWatchlistToDB(){
+  if(!CU)return;
+  try{
+    await db.collection('watchlists').doc(CU.uid).set({items:watchlist},{merge:false});
+  }catch(e){
+    console.error('saveWatchlist',e);
+    toast('Could not save to watchlist','err');
+    throw e;
   }
 }
 
-async function persistWatchlist() {
-  if (!CU) return;
-  try {
-    await db.collection('watchlists').doc(CU.uid).set({ items: watchlist }, {merge:false});
-  } catch(e) {
-    console.error('persistWatchlist error', e);
-    toast('Could not save watchlist', 'err');
-  }
-}
+function wlKey(rawId,type){ return type+'_'+String(rawId); }
+function inWL(rawId,type){ return watchlist.includes(wlKey(rawId,type)); }
 
-/* ─── TOGGLE WATCHLIST (called from card heart AND modal) ─── */
-async function toggleWL(rawId, type, title) {
-  if (!CU) { toast('Sign in to use watchlist', 'err'); return; }
-  const key = type + '_' + String(rawId);
-  const already = watchlist.includes(key);
-  if (already) {
-    watchlist = watchlist.filter(k => k !== key);
-  } else {
-    watchlist.push(key);
-  }
-  await persistWatchlist();
-  refreshWLUI(rawId, type, already);
+async function toggleWL(rawId, type, title){
+  if(!CU){toast('Sign in to use watchlist','err');return;}
+  const key=wlKey(rawId,type);
+  const had=watchlist.includes(key);
+  /* optimistic UI update */
+  if(had) watchlist=watchlist.filter(k=>k!==key);
+  else    watchlist=[...watchlist,key];
+  /* update all heart buttons immediately */
+  repaintHearts(rawId,type);
   updateHeroStats();
-  if (!already) toast('Added "' + title + '" to watchlist 🎬', 't-wl');
-  else          toast('Removed from watchlist', 't-wl');
-}
-
-function refreshWLUI(rawId, type, wasIn) {
-  const key = type + '_' + String(rawId);
-  const nowIn = watchlist.includes(key);
-  // update every heart btn on page
-  document.querySelectorAll('.wl-btn[data-key="' + key + '"]').forEach(btn => {
-    btn.classList.toggle('in-wl', nowIn);
-    btn.textContent = nowIn ? '♥' : '♡';
-  });
-  // update modal button if open
-  const mb = document.getElementById('wl-modal-btn');
-  if (activeDetail && String(activeDetail.id) === String(rawId) && activeDetail.type === type) {
-    mb.className = 'wl-modal-btn' + (nowIn ? ' in-wl' : '');
-    mb.textContent = nowIn ? '♥ In Watchlist' : '♡ Add to Watchlist';
+  /* then persist */
+  try{
+    await saveWatchlistToDB();
+    if(!had) toast('Added "'+title+'" to watchlist 🎬','t-wl');
+    else     toast('Removed from watchlist','t-wl');
+  }catch{
+    /* rollback on failure */
+    if(had) watchlist=[...watchlist,key];
+    else    watchlist=watchlist.filter(k=>k!==key);
+    repaintHearts(rawId,type);
+    updateHeroStats();
   }
-  // refresh watchlist page if open
-  if (currentPage === 'watchlist') loadWatchlistPage();
+  /* update modal button if this item is open */
+  if(activeDetail && String(activeDetail.id)===String(rawId) && activeDetail.type===type){
+    syncModalWLBtn(rawId,type);
+  }
+  /* refresh watchlist page if open */
+  if(currentPage==='watchlist') loadWatchlistPage();
 }
 
-function isInWL(rawId, type) {
-  return watchlist.includes(type + '_' + String(rawId));
+function repaintHearts(rawId,type){
+  const key=wlKey(rawId,type);
+  const now=watchlist.includes(key);
+  /* normal card hearts */
+  document.querySelectorAll('.wl-btn[data-id="'+String(rawId)+'"][data-type="'+type+'"]').forEach(b=>{
+    b.classList.toggle('in-wl',now);
+    b.textContent=now?'♥':'♡';
+  });
+  /* pick card hearts */
+  document.querySelectorAll('.pick-wl-btn[data-id="'+String(rawId)+'"][data-type="'+type+'"]').forEach(b=>{
+    b.classList.toggle('in-wl',now);
+    b.textContent=now?'♥':'♡';
+  });
 }
 
-/* ═══════════════ LOGIN / SIGNUP / LOGOUT ═══════════════ */
-function switchTab(t) {
-  document.getElementById('tab-in').classList.toggle('active', t==='in');
-  document.getElementById('tab-up').classList.toggle('active', t==='up');
-  document.getElementById('form-in').style.display = t==='in' ? 'block' : 'none';
-  document.getElementById('form-up').style.display = t==='up' ? 'block' : 'none';
+function syncModalWLBtn(rawId,type){
+  const now=inWL(rawId,type);
+  const mb=document.getElementById('wl-modal-btn');
+  mb.className='wl-modal-btn'+(now?' in-wl':'');
+  mb.textContent=now?'♥ In Watchlist':'♡ Add to Watchlist';
+}
+
+/* ═══════════════ AUTH ═══════════════ */
+function switchTab(t){
+  document.getElementById('tab-in').classList.toggle('active',t==='in');
+  document.getElementById('tab-up').classList.toggle('active',t==='up');
+  document.getElementById('form-in').style.display=t==='in'?'block':'none';
+  document.getElementById('form-up').style.display=t==='up'?'block':'none';
   hideErr();
 }
-function showErr(m) { const e=document.getElementById('login-err'); e.textContent=m; e.style.display='block'; }
-function hideErr()  { document.getElementById('login-err').style.display='none'; }
+function showErr(m){const e=document.getElementById('login-err');e.textContent=m;e.style.display='block';}
+function hideErr(){document.getElementById('login-err').style.display='none';}
 
-async function doLogin() {
-  const email = document.getElementById('si-email').value.trim();
-  const pass  = document.getElementById('si-pass').value.trim();
-  if (!email||!pass) { showErr('Please enter email and password.'); return; }
-  document.getElementById('login-btn').textContent = 'Signing in…';
-  try { await auth.signInWithEmailAndPassword(email, pass); hideErr(); }
-  catch(e) { showErr(fe(e.code)); document.getElementById('login-btn').textContent = 'Sign In →'; }
+async function doLogin(){
+  const email=document.getElementById('si-email').value.trim();
+  const pass=document.getElementById('si-pass').value.trim();
+  if(!email||!pass){showErr('Please enter email and password.');return;}
+  document.getElementById('login-btn').textContent='Signing in…';
+  try{await auth.signInWithEmailAndPassword(email,pass);hideErr();}
+  catch(e){showErr(fe(e.code));document.getElementById('login-btn').textContent='Sign In →';}
 }
-async function doSignup() {
-  const name  = document.getElementById('su-name').value.trim();
-  const email = document.getElementById('su-email').value.trim();
-  const pass  = document.getElementById('su-pass').value.trim();
-  if (!email||!pass) { showErr('Email and password are required.'); return; }
-  if (pass.length<6) { showErr('Password must be at least 6 characters.'); return; }
-  document.getElementById('signup-btn').textContent = 'Creating…';
-  try {
-    const c = await auth.createUserWithEmailAndPassword(email, pass);
-    if (name) await c.user.updateProfile({displayName:name});
+async function doSignup(){
+  const name=document.getElementById('su-name').value.trim();
+  const email=document.getElementById('su-email').value.trim();
+  const pass=document.getElementById('su-pass').value.trim();
+  if(!email||!pass){showErr('Email and password are required.');return;}
+  if(pass.length<6){showErr('Password must be at least 6 characters.');return;}
+  document.getElementById('signup-btn').textContent='Creating…';
+  try{
+    const c=await auth.createUserWithEmailAndPassword(email,pass);
+    if(name)await c.user.updateProfile({displayName:name});
     hideErr();
-  } catch(e) { showErr(fe(e.code)); document.getElementById('signup-btn').textContent = 'Create Account →'; }
+  }catch(e){showErr(fe(e.code));document.getElementById('signup-btn').textContent='Create Account →';}
 }
-async function doLogout() { await auth.signOut(); currentPage='home'; toast('Logged out','ok'); }
-function fe(c) {
-  return ({
-    'auth/user-not-found':'No account with this email.',
-    'auth/wrong-password':'Wrong password.',
-    'auth/invalid-email':'Enter a valid email.',
-    'auth/email-already-in-use':'Email already registered.',
-    'auth/weak-password':'Password needs 6+ characters.',
-    'auth/too-many-requests':'Too many attempts. Wait a moment.',
-    'auth/invalid-credential':'Incorrect email or password.',
-  })[c] || 'Something went wrong.';
+async function doLogout(){await auth.signOut();currentPage='home';toast('Logged out','ok');}
+function fe(c){
+  return({'auth/user-not-found':'No account with this email.','auth/wrong-password':'Wrong password.',
+  'auth/invalid-email':'Enter a valid email.','auth/email-already-in-use':'Email already registered.',
+  'auth/weak-password':'Password needs 6+ characters.','auth/too-many-requests':'Too many attempts.',
+  'auth/invalid-credential':'Incorrect email or password.'})[c]||'Something went wrong.';
 }
 
 /* ═══════════════ ENTER APP ═══════════════ */
-let currentPage = 'home';
-function enterApp() {
+function enterApp(){
   document.getElementById('screen-login').classList.remove('active');
   document.getElementById('screen-app').classList.add('active');
-  const name = CU?.displayName || CU?.email?.split('@')[0] || '?';
-  document.getElementById('nav-avatar').textContent = name[0].toUpperCase();
-  document.getElementById('nav-uname').textContent  = name;
-  document.getElementById('nav-badge').style.display   = isAdmin ? 'inline' : 'none';
-  document.getElementById('nl-admin').style.display    = isAdmin ? 'flex'   : 'none';
-  document.getElementById('add-movie-btn').style.display  = isAdmin ? 'inline-flex' : 'none';
-  document.getElementById('add-series-btn').style.display = isAdmin ? 'inline-flex' : 'none';
+  const name=CU?.displayName||CU?.email?.split('@')[0]||'?';
+  document.getElementById('nav-avatar').textContent=name[0].toUpperCase();
+  document.getElementById('nav-uname').textContent=name;
+  document.getElementById('nav-badge').style.display=isAdmin?'inline':'none';
+  document.getElementById('nl-admin').style.display=isAdmin?'flex':'none';
+  document.getElementById('add-movie-btn').style.display=isAdmin?'inline-flex':'none';
+  document.getElementById('add-series-btn').style.display=isAdmin?'inline-flex':'none';
   navTo('home');
 }
 
 /* ═══════════════ NAV ═══════════════ */
-function navTo(p) {
+function navTo(p){
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));
   document.getElementById('page-'+p).classList.add('active');
-  const nl = document.getElementById('nl-'+p);
-  if (nl) nl.classList.add('active');
-  currentPage = p; window.scrollTo(0,0);
-  if (p==='home')      loadHome();
-  if (p==='movies')    loadMovies();
-  if (p==='series')    loadSeries();
-  if (p==='ratings')   loadRatings();
-  if (p==='watchlist') loadWatchlistPage();
-  if (p==='admin')     loadAdmin();
+  const nl=document.getElementById('nl-'+p);
+  if(nl)nl.classList.add('active');
+  currentPage=p;window.scrollTo(0,0);
+  if(p==='home')      loadHome();
+  if(p==='movies')    loadMovies();
+  if(p==='series')    loadSeries();
+  if(p==='ratings')   loadRatings();
+  if(p==='watchlist') loadWatchlistPage();
+  if(p==='admin')     loadAdmin();
 }
 
 /* ═══════════════ CARD ═══════════════ */
-function makeCard(item, type) {
-  const isCustom = !!item.fid;
-  const poster   = item.poster_path ? TIMG+item.poster_path : (item._poster||'');
-  const title    = item._title||item.title||item.name||'Untitled';
-  const year     = ((item.release_date||item.first_air_date||item._year||'')+'').slice(0,4);
-  const score    = item._myrating || (item.vote_average ? item.vote_average.toFixed(1) : '');
-  const rawId    = item.fid || item.id;
-  const key      = type + '_' + String(rawId);
-  const inWL     = watchlist.includes(key);
-
-  const adminRow = (isAdmin && isCustom) ? `
+function makeCard(item,type){
+  const isCustom=!!item.fid;
+  const poster=item.poster_path?TIMG+item.poster_path:(item._poster||'');
+  const title=item._title||item.title||item.name||'Untitled';
+  const year=((item.release_date||item.first_air_date||item._year||'')+'').slice(0,4);
+  const score=item._myrating||(item.vote_average?item.vote_average.toFixed(1):'');
+  const rawId=String(item.fid||item.id);
+  const now=inWL(rawId,type);
+  const adminRow=(isAdmin&&isCustom)?`
     <div class="card-admin-row">
       <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openEdit('${item.fid}','${type}')">Edit</button>
       <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteItem('${item.fid}')">Delete</button>
-    </div>` : '';
-
-  return `<div class="card" onclick="openDetail(${JSON.stringify(rawId)},'${type}',${isCustom})">
+    </div>`:'';
+  return `<div class="card" onclick="openDetail('${rawId}','${type}',${isCustom})">
     <span class="type-badge tb-${type==='movie'?'movie':'series'}">${type==='movie'?'Movie':'Series'}</span>
-    <button class="wl-btn ${inWL?'in-wl':''}" data-key="${key}"
-      onclick="event.stopPropagation();toggleWL(${JSON.stringify(rawId)},'${type}',${JSON.stringify(title)})"
-    >${inWL?'♥':'♡'}</button>
-    ${poster ? `<img class="card-img" src="${poster}" alt="${title}" loading="lazy"
-      onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
+    <button class="wl-btn ${now?'in-wl':''}" data-id="${rawId}" data-type="${type}"
+      onclick="event.stopPropagation();toggleWL('${rawId}','${type}',${JSON.stringify(title)})">${now?'♥':'♡'}</button>
+    ${poster?`<img class="card-img" src="${poster}" alt="${title}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`:''}
     <div class="card-img-ph" style="display:${poster?'none':'flex'}">${type==='movie'?'🎬':'📺'}</div>
     <div class="card-body">
       <div class="card-title">${title}</div>
       <div class="card-foot">
         <span class="card-year">${year}</span>
-        ${score ? `<span class="card-star">★ ${score}</span>` : ''}
-      </div>
-      ${adminRow}
+        ${score?`<span class="card-star">★ ${score}</span>`:''}
+      </div>${adminRow}
     </div>
   </div>`;
 }
 
-function makePickCard(item) {
-  const type   = item._type;
-  const poster = item._poster || '';
-  const title  = item._title || 'Untitled';
-  const year   = (item._year||'');
-  const score  = item._myrating;
-  const note   = item._picknote||'';
-  const rawId  = item.fid;
-  return `<div class="pick-card" onclick="openDetail(${JSON.stringify(rawId)},'${type}',true)">
+/* pick card — WITH watchlist heart */
+function makePickCard(item){
+  const type=item._type;
+  const rawId=String(item.fid);
+  const now=inWL(rawId,type);
+  const poster=item._poster||'';
+  const title=item._title||'Untitled';
+  const year=item._year||'';
+  const score=item._myrating||'';
+  const note=item._picknote||'';
+  return `<div class="pick-card" onclick="openDetail('${rawId}','${type}',true)">
     <span class="pick-badge">⭐ Top Pick</span>
-    ${poster ? `<img class="pick-img" src="${poster}" alt="${title}" loading="lazy">` : `<div class="pick-img-ph">${type==='movie'?'🎬':'📺'}</div>`}
+    <button class="pick-wl-btn ${now?'in-wl':''}" data-id="${rawId}" data-type="${type}"
+      onclick="event.stopPropagation();toggleWL('${rawId}','${type}',${JSON.stringify(title)})">${now?'♥':'♡'}</button>
+    ${poster?`<img class="pick-img" src="${poster}" alt="${title}" loading="lazy">`:`<div class="pick-img-ph">${type==='movie'?'🎬':'📺'}</div>`}
     <div class="pick-body">
       <div class="pick-title">${title}</div>
       <div class="pick-meta">${year}${score?' · ★ '+score:''} · ${type==='movie'?'Movie':'Series'}</div>
@@ -767,372 +812,316 @@ function makePickCard(item) {
 }
 
 /* ═══════════════ HOME ═══════════════ */
-function loadHome() {
+function loadHome(){
   updateHeroStats();
-  const el = document.getElementById('home-picks');
-  const picks = customItems.filter(i=>i._toppick);
-  el.innerHTML = picks.length
-    ? picks.map(makePickCard).join('')
-    : '<div class="empty-state"><div class="eico">⭐</div><h4>No top picks yet</h4><p>Admin can mark items as top picks when adding</p></div>';
+  const el=document.getElementById('home-picks');
+  const picks=customItems.filter(i=>i._toppick);
+  el.innerHTML=picks.length
+    ?picks.map(makePickCard).join('')
+    :'<div class="empty-state"><div class="eico">⭐</div><h4>No top picks yet</h4><p>Admin can mark items as top picks when adding</p></div>';
 }
-
-function updateHeroStats() {
-  document.getElementById('hs-movies').textContent = customItems.filter(i=>i._type==='movie').length || '—';
-  document.getElementById('hs-series').textContent = customItems.filter(i=>i._type==='series').length || '—';
-  document.getElementById('hs-wl').textContent     = watchlist.length || '—';
+function updateHeroStats(){
+  document.getElementById('hs-movies').textContent=customItems.filter(i=>i._type==='movie').length||'—';
+  document.getElementById('hs-series').textContent=customItems.filter(i=>i._type==='series').length||'—';
+  document.getElementById('hs-wl').textContent=watchlist.length||'—';
 }
 
 /* ═══════════════ MOVIES / SERIES ═══════════════ */
-async function loadMovies() {
-  const el = document.getElementById('movies-grid');
-  el.innerHTML = '<div class="loading"><div class="spin"></div></div>';
-  if (!tmdbM.ok) {
-    try {
-      const [a,b] = await Promise.all([tf('/movie/popular?page=1'),tf('/movie/popular?page=2')]);
-      tmdbM.d = [...(a.results||[]),...(b.results||[])]; tmdbM.ok = true;
-    } catch {}
+async function loadMovies(){
+  const el=document.getElementById('movies-grid');
+  el.innerHTML='<div class="loading"><div class="spin"></div></div>';
+  if(!tmdbM.ok){
+    try{
+      const[a,b]=await Promise.all([tf('/movie/popular?page=1'),tf('/movie/popular?page=2')]);
+      tmdbM.d=[...(a.results||[]),...(b.results||[])];tmdbM.ok=true;
+    }catch{}
   }
-  let all = [...customItems.filter(i=>i._type==='movie'), ...tmdbM.d];
-  if (movieGenre!=='all') all = all.filter(i=>(i._genre||'').toLowerCase().includes(movieGenre.toLowerCase()));
-  el.innerHTML = all.length ? all.map(i=>makeCard(i,'movie')).join('') : emptyH('🎬','No movies found');
+  let all=[...customItems.filter(i=>i._type==='movie'),...tmdbM.d];
+  if(movieGenre!=='all')all=all.filter(i=>(i._genre||'').toLowerCase().includes(movieGenre.toLowerCase()));
+  el.innerHTML=all.length?all.map(i=>makeCard(i,'movie')).join(''):emptyH('🎬','No movies found');
 }
-
-async function loadSeries() {
-  const el = document.getElementById('series-grid');
-  el.innerHTML = '<div class="loading"><div class="spin"></div></div>';
-  if (!tmdbS.ok) {
-    try {
-      const [a,b] = await Promise.all([tf('/tv/popular?page=1'),tf('/tv/popular?page=2')]);
-      tmdbS.d = [...(a.results||[]),...(b.results||[])]; tmdbS.ok = true;
-    } catch {}
+async function loadSeries(){
+  const el=document.getElementById('series-grid');
+  el.innerHTML='<div class="loading"><div class="spin"></div></div>';
+  if(!tmdbS.ok){
+    try{
+      const[a,b]=await Promise.all([tf('/tv/popular?page=1'),tf('/tv/popular?page=2')]);
+      tmdbS.d=[...(a.results||[]),...(b.results||[])];tmdbS.ok=true;
+    }catch{}
   }
-  let all = [...customItems.filter(i=>i._type==='series'), ...tmdbS.d];
-  if (seriesGenre!=='all') all = all.filter(i=>(i._genre||'').toLowerCase().includes(seriesGenre.toLowerCase()));
-  el.innerHTML = all.length ? all.map(i=>makeCard(i,'series')).join('') : emptyH('📺','No series found');
+  let all=[...customItems.filter(i=>i._type==='series'),...tmdbS.d];
+  if(seriesGenre!=='all')all=all.filter(i=>(i._genre||'').toLowerCase().includes(seriesGenre.toLowerCase()));
+  el.innerHTML=all.length?all.map(i=>makeCard(i,'series')).join(''):emptyH('📺','No series found');
 }
-
-function setGenre(type, genre, btn) {
+function setGenre(type,genre,btn){
   btn.closest('.filters').querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  if (type==='movie') { movieGenre=genre; loadMovies(); }
-  else               { seriesGenre=genre; loadSeries(); }
+  if(type==='movie'){movieGenre=genre;loadMovies();}
+  else{seriesGenre=genre;loadSeries();}
 }
 
-/* ═══════════════ RATINGS PAGE ═══════════════ */
-function setRankFilter(f, btn) {
-  document.querySelectorAll('.rank-filter-btn').forEach(b=>b.classList.remove('active'));
+/* ═══════════════ RATINGS ═══════════════ */
+function setRF(f,btn){
+  document.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  rankFilter = f;
-  renderRanked();
+  rankFilter=f;renderRanked();
 }
-
-function loadRatings() { renderRanked(); }
-
-function renderRanked() {
-  const el = document.getElementById('ranked-list');
-  // Only show custom items that have a rating
-  let items = customItems.filter(i => i._myrating && i._myrating > 0);
-  if (rankFilter === 'movie')  items = items.filter(i=>i._type==='movie');
-  if (rankFilter === 'series') items = items.filter(i=>i._type==='series');
-
-  // Sort highest to lowest
-  items.sort((a,b) => (b._myrating||0) - (a._myrating||0));
-
-  if (items.length === 0) {
-    el.innerHTML = `<div class="empty-rated">
-      <div class="eico">⭐</div>
-      <h4>No rated titles yet</h4>
-      <p>Admin can set ratings when adding or editing movies &amp; series</p>
-    </div>`;
+function loadRatings(){renderRanked();}
+function renderRanked(){
+  const el=document.getElementById('ranked-list');
+  let items=customItems.filter(i=>i._myrating&&i._myrating>0);
+  if(rankFilter==='movie')  items=items.filter(i=>i._type==='movie');
+  if(rankFilter==='series') items=items.filter(i=>i._type==='series');
+  items.sort((a,b)=>(b._myrating||0)-(a._myrating||0));
+  if(!items.length){
+    el.innerHTML=`<div class="empty-rated"><div class="eico">⭐</div><h4>No rated titles yet</h4><p>Admin can set ratings when adding or editing movies &amp; series</p></div>`;
     return;
   }
-
-  el.innerHTML = `<div class="ranked-list">
-    ${items.map((item, idx) => {
-      const rank   = idx + 1;
-      const score  = item._myrating;
-      const bar    = Math.round((score/10)*100);
-      const medal  = rank===1 ? '🥇' : rank===2 ? '🥈' : rank===3 ? '🥉' : '';
-      const poster = item._poster || '';
-      const title  = item._title || 'Untitled';
-      const year   = item._year || '—';
-      const genre  = item._genre || '—';
-      const type   = item._type;
-      return `<div class="ranked-row" onclick="openDetail(${JSON.stringify(item.fid)},'${type}',true)">
-        <div class="rank-num ${rank<=3?'top3':''}">${medal || rank}</div>
-        ${poster
-          ? `<img class="rank-poster" src="${poster}" alt="${title}">`
-          : `<div class="rank-poster-ph">${type==='movie'?'🎬':'📺'}</div>`}
-        <div class="rank-info">
-          <div class="rank-title">${title}</div>
-          <div class="rank-meta">${year} · ${genre} · ${type==='movie'?'Movie':'Series'}</div>
-          <div class="rank-bar-wrap">
-            <div class="rank-bar" style="width:${bar}%"></div>
-          </div>
-        </div>
-        <div class="rank-score-wrap">
-          <div class="rank-score">★ ${score}</div>
-          <div class="rank-score-lbl">/ 10</div>
-        </div>
-      </div>`;
-    }).join('')}
-  </div>`;
+  el.innerHTML='<div class="ranked-list">'+items.map((item,idx)=>{
+    const rank=idx+1;
+    const medal=rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':'';
+    const bar=Math.round(((item._myrating||0)/10)*100);
+    const poster=item._poster||'';
+    return `<div class="ranked-row" onclick="openDetail('${item.fid}','${item._type}',true)">
+      <div class="rank-num ${rank<=3?'top3':''}">${medal||rank}</div>
+      ${poster?`<img class="rank-poster" src="${poster}" alt="${item._title}">`:`<div class="rank-poster-ph">${item._type==='movie'?'🎬':'📺'}</div>`}
+      <div class="rank-info">
+        <div class="rank-title">${item._title||'Untitled'}</div>
+        <div class="rank-meta">${item._year||'—'} · ${item._genre||'—'} · ${item._type==='movie'?'Movie':'Series'}</div>
+        <div class="rank-bar-wrap"><div class="rank-bar" style="width:${bar}%"></div></div>
+      </div>
+      <div>
+        <div class="rank-score">★ ${item._myrating}</div>
+        <div class="rank-score-lbl">/ 10</div>
+      </div>
+    </div>`;
+  }).join('')+'</div>';
 }
 
 /* ═══════════════ WATCHLIST PAGE ═══════════════ */
-async function loadWatchlistPage() {
-  const el    = document.getElementById('watchlist-grid');
-  const badge = document.getElementById('wl-badge');
-  if (watchlist.length === 0) {
-    el.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="eico">🎬</div><h4>Your watchlist is empty</h4><p>Tap the ♡ on any card to save it here</p></div>';
-    badge.style.display = 'none';
+async function loadWatchlistPage(){
+  const el=document.getElementById('watchlist-grid');
+  const badge=document.getElementById('wl-badge');
+  if(!watchlist.length){
+    el.innerHTML='<div class="empty-state" style="grid-column:1/-1"><div class="eico">🎬</div><h4>Your watchlist is empty</h4><p>Tap ♡ on any card to save it here</p></div>';
+    badge.style.display='none';
     return;
   }
-  badge.textContent = watchlist.length + ' title' + (watchlist.length!==1?'s':'');
-  badge.style.display = 'block';
-  el.innerHTML = '<div class="loading" style="grid-column:1/-1"><div class="spin"></div> Loading…</div>';
-  const cards = [];
-  for (const key of [...watchlist]) {
-    const under = key.indexOf('_');
-    const type  = key.slice(0, under);
-    const rawId = key.slice(under+1);
-    const custom = customItems.find(i=>i.fid===rawId);
-    if (custom) { cards.push(makeCard(custom, type)); continue; }
-    try {
-      const ep = type==='movie' ? `/movie/${rawId}` : `/tv/${rawId}`;
-      const d  = await tf(ep);
-      cards.push(makeCard(d, type));
-    } catch {}
+  badge.textContent=watchlist.length+' title'+(watchlist.length!==1?'s':'');
+  badge.style.display='block';
+  el.innerHTML='<div class="loading" style="grid-column:1/-1"><div class="spin"></div> Loading…</div>';
+  const cards=[];
+  for(const key of[...watchlist]){
+    const under=key.indexOf('_');
+    const type=key.slice(0,under);
+    const rawId=key.slice(under+1);
+    const custom=customItems.find(i=>i.fid===rawId);
+    if(custom){cards.push(makeCard(custom,type));continue;}
+    try{
+      const ep=type==='movie'?`/movie/${rawId}`:`/tv/${rawId}`;
+      const d=await tf(ep);
+      cards.push(makeCard(d,type));
+    }catch{}
   }
-  el.innerHTML = cards.length ? cards.join('') : emptyH('🎬','Nothing loaded');
+  el.innerHTML=cards.length?cards.join(''):emptyH('🎬','Nothing loaded');
 }
 
 /* ═══════════════ DETAIL MODAL ═══════════════ */
-async function openDetail(rawId, type, isCustom) {
+async function openDetail(rawId,type,isCustom){
   document.getElementById('ov-detail').classList.add('open');
-  document.getElementById('md-title').textContent = 'Loading…';
-  document.getElementById('md-poster').style.display = 'none';
-  document.getElementById('md-poster-ph').style.display = 'flex';
-  document.getElementById('md-admin-acts').innerHTML = '';
-  document.getElementById('rating-box').style.display = 'none';
-  activeDetail = {id: rawId, type, isCustom};
-
+  document.getElementById('md-title').textContent='Loading…';
+  document.getElementById('md-poster').style.display='none';
+  document.getElementById('md-poster-ph').style.display='flex';
+  document.getElementById('md-admin-acts').innerHTML='';
+  document.getElementById('rating-box').style.display='none';
+  activeDetail={id:rawId,type,isCustom};
   let item;
-  if (isCustom) {
-    item = customItems.find(i=>i.fid===rawId);
-    if (item) fillModal(item, type, true);
-  } else {
-    try { item = await tf(`/${type==='movie'?'movie':'tv'}/${rawId}`); fillModal(item, type, false); }
-    catch { document.getElementById('md-title').textContent = 'Failed to load'; }
+  if(isCustom){
+    item=customItems.find(i=>i.fid===rawId);
+    if(item)fillModal(item,type,true);
+  }else{
+    try{item=await tf(`/${type==='movie'?'movie':'tv'}/${rawId}`);fillModal(item,type,false);}
+    catch{document.getElementById('md-title').textContent='Failed to load';}
   }
-
-  // Watchlist button
-  const inWL = isInWL(rawId, type);
-  const mb   = document.getElementById('wl-modal-btn');
-  mb.className   = 'wl-modal-btn' + (inWL?' in-wl':'');
-  mb.textContent = inWL ? '♥ In Watchlist' : '♡ Add to Watchlist';
-
-  // Admin rating
-  if (isAdmin) {
-    document.getElementById('rating-box').style.display = 'block';
-    const rKey = 'admin_' + type + '_' + String(rawId);
-    paintStars(adminRatings[rKey] || 0);
+  syncModalWLBtn(rawId,type);
+  if(isAdmin){
+    document.getElementById('rating-box').style.display='block';
+    const rk='admin_'+type+'_'+String(rawId);
+    paintStars(adminRatings[rk]||0);
   }
 }
-
-function fillModal(item, type, isCustom) {
-  const title  = item._title||item.title||item.name||'Unknown';
-  const year   = ((item.release_date||item.first_air_date||item._year||'')+'').slice(0,4);
-  const score  = item.vote_average ? item.vote_average.toFixed(1) : (item._myrating||'—');
-  const genres = item.genres?.map(g=>g.name)||(item._genre?item._genre.split(',').map(g=>g.trim()):[]);
-  const ov     = item.overview||item._overview||'No description available.';
-  const poster = item.poster_path ? TLG+item.poster_path : (item._poster||'');
-
-  document.getElementById('md-type').textContent     = type==='movie' ? '🎬 MOVIE' : '📺 TV SERIES';
-  document.getElementById('md-title').textContent    = title;
-  document.getElementById('md-year').textContent     = year||'—';
-  document.getElementById('md-rating').textContent   = '★ '+score;
-  document.getElementById('md-genre').textContent    = genres.join(', ')||'—';
-  document.getElementById('md-overview').textContent = ov;
-  document.getElementById('md-tags').innerHTML = genres.map(g=>`<span class="gtag">${g}</span>`).join('');
-
-  if (poster) {
-    const img = document.getElementById('md-poster');
-    img.onload  = ()=>{ img.style.display='block'; document.getElementById('md-poster-ph').style.display='none'; };
-    img.onerror = ()=>{ img.style.display='none';  document.getElementById('md-poster-ph').style.display='flex'; };
-    img.src = poster;
+function fillModal(item,type,isCustom){
+  const title=item._title||item.title||item.name||'Unknown';
+  const year=((item.release_date||item.first_air_date||item._year||'')+'').slice(0,4);
+  const score=item.vote_average?item.vote_average.toFixed(1):(item._myrating||'—');
+  const genres=item.genres?.map(g=>g.name)||(item._genre?item._genre.split(',').map(g=>g.trim()):[]);
+  const ov=item.overview||item._overview||'No description available.';
+  const poster=item.poster_path?TLG+item.poster_path:(item._poster||'');
+  document.getElementById('md-type').textContent=type==='movie'?'🎬 MOVIE':'📺 TV SERIES';
+  document.getElementById('md-title').textContent=title;
+  document.getElementById('md-year').textContent=year||'—';
+  document.getElementById('md-rating').textContent='★ '+score;
+  document.getElementById('md-genre').textContent=genres.join(', ')||'—';
+  document.getElementById('md-overview').textContent=ov;
+  document.getElementById('md-tags').innerHTML=genres.map(g=>`<span class="gtag">${g}</span>`).join('');
+  if(poster){
+    const img=document.getElementById('md-poster');
+    img.onload=()=>{img.style.display='block';document.getElementById('md-poster-ph').style.display='none';};
+    img.onerror=()=>{img.style.display='none';document.getElementById('md-poster-ph').style.display='flex';};
+    img.src=poster;
   }
-
-  if (isAdmin && isCustom) {
-    document.getElementById('md-admin-acts').innerHTML = `
+  if(isAdmin&&isCustom){
+    document.getElementById('md-admin-acts').innerHTML=`
       <button class="btn btn-ghost btn-sm" onclick="openEditCurrent()">✏️ Edit</button>
       <button class="btn btn-danger btn-sm" onclick="deleteCurrentItem()">🗑 Delete</button>`;
   }
   paintStars(0);
 }
-
-function paintStars(n) {
+function paintStars(n){
   document.querySelectorAll('.star-btn').forEach((s,i)=>s.classList.toggle('on',i<n));
-  document.getElementById('md-myrating').textContent = n ? n+' / 10' : '';
+  document.getElementById('md-myrating').textContent=n?n+' / 10':'';
 }
-function hov(n)  { document.querySelectorAll('.star-btn').forEach((s,i)=>s.style.color=i<n?'var(--gold)':''); }
-function unhov() {
-  if (!activeDetail || !isAdmin) return;
-  const rKey = 'admin_'+activeDetail.type+'_'+String(activeDetail.id);
-  paintStars(adminRatings[rKey]||0);
+function hov(n){document.querySelectorAll('.star-btn').forEach((s,i)=>s.style.color=i<n?'var(--gold)':'');}
+function unhov(){
+  if(!activeDetail||!isAdmin)return;
+  const rk='admin_'+activeDetail.type+'_'+String(activeDetail.id);
+  paintStars(adminRatings[rk]||0);
 }
-
-async function rate(n) {
-  if (!isAdmin || !activeDetail) return;
-  const rKey = 'admin_'+activeDetail.type+'_'+String(activeDetail.id);
-  try {
-    await db.collection('ratings').doc(rKey).set({
-      rating:n, type:activeDetail.type, itemId:String(activeDetail.id),
-      ratedAt: firebase.firestore.FieldValue.serverTimestamp()
+async function rate(n){
+  if(!isAdmin||!activeDetail)return;
+  const rk='admin_'+activeDetail.type+'_'+String(activeDetail.id);
+  try{
+    await db.collection('ratings').doc(rk).set({
+      rating:n,type:activeDetail.type,itemId:String(activeDetail.id),
+      ratedAt:firebase.firestore.FieldValue.serverTimestamp()
     });
-    adminRatings[rKey] = n;
+    adminRatings[rk]=n;
     paintStars(n);
-    // Also update _myrating on the item document so Ratings page shows it
-    if (activeDetail.isCustom) {
-      await db.collection('items').doc(activeDetail.id).update({_myrating: n});
-      const idx = customItems.findIndex(i=>i.fid===activeDetail.id);
-      if (idx>-1) customItems[idx]._myrating = n;
+    if(activeDetail.isCustom){
+      await db.collection('items').doc(activeDetail.id).update({_myrating:n});
+      const idx=customItems.findIndex(i=>i.fid===activeDetail.id);
+      if(idx>-1)customItems[idx]._myrating=n;
     }
     toast('Admin rating: '+n+'/10 ★','ok');
-  } catch(e) { toast('Could not save rating','err'); }
+  }catch(e){toast('Could not save rating','err');}
 }
-
-async function toggleWLFromModal() {
-  if (!activeDetail) return;
-  const title = document.getElementById('md-title').textContent;
-  await toggleWL(activeDetail.id, activeDetail.type, title);
+async function toggleWLFromModal(){
+  if(!activeDetail)return;
+  const title=document.getElementById('md-title').textContent;
+  await toggleWL(activeDetail.id,activeDetail.type,title);
 }
-
-function closeDetail() { document.getElementById('ov-detail').classList.remove('open'); activeDetail=null; }
-function openEditCurrent()   { const d=activeDetail; closeDetail(); if(d) openEdit(d.id,d.type); }
-function deleteCurrentItem() { const d=activeDetail; closeDetail(); if(d) deleteItem(d.id); }
+function closeDetail(){document.getElementById('ov-detail').classList.remove('open');activeDetail=null;}
+function openEditCurrent(){const d=activeDetail;closeDetail();if(d)openEdit(d.id,d.type);}
+function deleteCurrentItem(){const d=activeDetail;closeDetail();if(d)deleteItem(d.id);}
 
 /* ═══════════════ ADD / EDIT ═══════════════ */
-document.getElementById('af-toppick').addEventListener('change', function() {
-  document.getElementById('pick-note-wrap').style.display = this.checked ? 'block' : 'none';
+document.getElementById('af-toppick').addEventListener('change',function(){
+  document.getElementById('pick-note-wrap').style.display=this.checked?'block':'none';
 });
-
-function openAdd(type) {
-  editMode = null;
-  document.getElementById('add-modal-title').textContent = type==='movie' ? 'ADD MOVIE' : 'ADD SERIES';
-  document.getElementById('af-save').textContent = 'Save';
+function openAdd(type){
+  editMode=null;
+  document.getElementById('add-modal-title').textContent=type==='movie'?'ADD MOVIE':'ADD SERIES';
+  document.getElementById('af-save').textContent='Save';
   clearForm();
-  document.getElementById('ov-add').dataset.type = type;
+  document.getElementById('ov-add').dataset.type=type;
   document.getElementById('ov-add').classList.add('open');
 }
-
-function openEdit(fid, type) {
-  const item = customItems.find(i=>i.fid===fid);
-  if (!item) return;
-  editMode = {fid, type};
-  document.getElementById('add-modal-title').textContent = type==='movie' ? 'EDIT MOVIE' : 'EDIT SERIES';
-  document.getElementById('af-save').textContent = 'Update';
-  document.getElementById('af-title').value    = item._title   ||'';
-  document.getElementById('af-year').value     = item._year    ||'';
-  document.getElementById('af-genre').value    = item._genre   ||'';
-  document.getElementById('af-director').value = item._director||'';
-  document.getElementById('af-rating').value   = item._myrating||'';
-  document.getElementById('af-overview').value = item._overview||'';
-  document.getElementById('af-poster').value   = item._poster  ||'';
-  document.getElementById('af-tmdb').value     = item._tmdbId  ||'';
-  document.getElementById('af-toppick').checked = !!item._toppick;
-  document.getElementById('af-picknote').value  = item._picknote||'';
-  document.getElementById('pick-note-wrap').style.display = item._toppick ? 'block' : 'none';
-  document.getElementById('ov-add').dataset.type = type;
+function openEdit(fid,type){
+  const item=customItems.find(i=>i.fid===fid);
+  if(!item)return;
+  editMode={fid,type};
+  document.getElementById('add-modal-title').textContent=type==='movie'?'EDIT MOVIE':'EDIT SERIES';
+  document.getElementById('af-save').textContent='Update';
+  document.getElementById('af-title').value=item._title||'';
+  document.getElementById('af-year').value=item._year||'';
+  document.getElementById('af-genre').value=item._genre||'';
+  document.getElementById('af-director').value=item._director||'';
+  document.getElementById('af-rating').value=item._myrating||'';
+  document.getElementById('af-overview').value=item._overview||'';
+  document.getElementById('af-poster').value=item._poster||'';
+  document.getElementById('af-tmdb').value=item._tmdbId||'';
+  document.getElementById('af-toppick').checked=!!item._toppick;
+  document.getElementById('af-picknote').value=item._picknote||'';
+  document.getElementById('pick-note-wrap').style.display=item._toppick?'block':'none';
+  document.getElementById('ov-add').dataset.type=type;
   document.getElementById('ov-add').classList.add('open');
 }
-
-function clearForm() {
+function clearForm(){
   ['af-title','af-year','af-genre','af-director','af-rating','af-overview','af-poster','af-tmdb','af-picknote']
-    .forEach(id => { document.getElementById(id).value=''; });
-  document.getElementById('af-toppick').checked = false;
-  document.getElementById('pick-note-wrap').style.display = 'none';
+    .forEach(id=>{document.getElementById(id).value='';});
+  document.getElementById('af-toppick').checked=false;
+  document.getElementById('pick-note-wrap').style.display='none';
 }
-
-async function saveItem() {
-  const title = document.getElementById('af-title').value.trim();
-  if (!title) { toast('Title is required','err'); return; }
-  const type   = document.getElementById('ov-add').dataset.type;
-  const tmdbId = document.getElementById('af-tmdb').value.trim();
-  let autoPoster = '';
-  if (tmdbId) {
-    try {
-      const d = await tf(`/${type==='movie'?'movie':'tv'}/${tmdbId}`);
-      if (d.poster_path) autoPoster = TIMG+d.poster_path;
-    } catch {}
+async function saveItem(){
+  const title=document.getElementById('af-title').value.trim();
+  if(!title){toast('Title is required','err');return;}
+  const type=document.getElementById('ov-add').dataset.type;
+  const tmdbId=document.getElementById('af-tmdb').value.trim();
+  let autoPoster='';
+  if(tmdbId){
+    try{
+      const d=await tf(`/${type==='movie'?'movie':'tv'}/${tmdbId}`);
+      if(d.poster_path)autoPoster=TIMG+d.poster_path;
+    }catch{}
   }
-  const isToppick = document.getElementById('af-toppick').checked;
-  const data = {
-    _type:     type,
-    _title:    title,
-    _year:     document.getElementById('af-year').value.trim(),
-    _genre:    document.getElementById('af-genre').value.trim(),
-    _director: document.getElementById('af-director').value.trim(),
-    _myrating: parseFloat(document.getElementById('af-rating').value)||null,
-    _overview: document.getElementById('af-overview').value.trim(),
-    _poster:   document.getElementById('af-poster').value.trim() || autoPoster,
-    _tmdbId:   tmdbId,
-    _toppick:  isToppick,
-    _picknote: isToppick ? document.getElementById('af-picknote').value.trim() : '',
-    addedBy:   CU.uid,
+  const isToppick=document.getElementById('af-toppick').checked;
+  const data={
+    _type:type,_title:title,
+    _year:document.getElementById('af-year').value.trim(),
+    _genre:document.getElementById('af-genre').value.trim(),
+    _director:document.getElementById('af-director').value.trim(),
+    _myrating:parseFloat(document.getElementById('af-rating').value)||null,
+    _overview:document.getElementById('af-overview').value.trim(),
+    _poster:document.getElementById('af-poster').value.trim()||autoPoster,
+    _tmdbId:tmdbId,_toppick:isToppick,
+    _picknote:isToppick?document.getElementById('af-picknote').value.trim():'',
+    addedBy:CU.uid,
   };
-  document.getElementById('af-save').textContent = 'Saving…';
-  try {
-    if (editMode) {
-      data.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
+  document.getElementById('af-save').textContent='Saving…';
+  try{
+    if(editMode){
+      data.updatedAt=firebase.firestore.FieldValue.serverTimestamp();
       await db.collection('items').doc(editMode.fid).update(data);
       toast('Updated!','ok');
-    } else {
-      data.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+    }else{
+      data.createdAt=firebase.firestore.FieldValue.serverTimestamp();
       await db.collection('items').add(data);
       toast(title+' added!','ok');
     }
-    await loadCustomItems();
-    closeAdd(); refreshPage();
-  } catch(e) {
+    await loadCustomItems();closeAdd();refreshPage();
+  }catch(e){
     toast('Save failed: '+e.message,'err');
-    document.getElementById('af-save').textContent = editMode ? 'Update' : 'Save';
+    document.getElementById('af-save').textContent=editMode?'Update':'Save';
   }
 }
-
-async function deleteItem(fid) {
-  if (!confirm('Delete this item?')) return;
-  try {
-    await db.collection('items').doc(fid).delete();
-    await loadCustomItems();
-    toast('Deleted','ok'); refreshPage();
-  } catch { toast('Delete failed','err'); }
+async function deleteItem(fid){
+  if(!confirm('Delete this item?'))return;
+  try{await db.collection('items').doc(fid).delete();await loadCustomItems();toast('Deleted','ok');refreshPage();}
+  catch{toast('Delete failed','err');}
+}
+function closeAdd(){document.getElementById('ov-add').classList.remove('open');editMode=null;}
+function refreshPage(){
+  if(currentPage==='home')      loadHome();
+  if(currentPage==='movies')    loadMovies();
+  if(currentPage==='series')    loadSeries();
+  if(currentPage==='ratings')   loadRatings();
+  if(currentPage==='admin')     loadAdmin();
+  if(currentPage==='watchlist') loadWatchlistPage();
 }
 
-function closeAdd() { document.getElementById('ov-add').classList.remove('open'); editMode=null; }
-
-function refreshPage() {
-  if (currentPage==='home')      loadHome();
-  if (currentPage==='movies')    loadMovies();
-  if (currentPage==='series')    loadSeries();
-  if (currentPage==='ratings')   loadRatings();
-  if (currentPage==='admin')     loadAdmin();
-  if (currentPage==='watchlist') loadWatchlistPage();
-}
-
-/* ═══════════════ ADMIN PANEL ═══════════════ */
-async function loadAdmin() {
-  if (!isAdmin) { navTo('home'); return; }
-  const mvs   = customItems.filter(i=>i._type==='movie');
-  const srv   = customItems.filter(i=>i._type==='series');
-  const picks = customItems.filter(i=>i._toppick);
-  let uCount  = 0;
-  try { const s=await db.collection('users').get(); uCount=s.size; } catch {}
-  document.getElementById('as-movies').textContent = mvs.length;
-  document.getElementById('as-series').textContent = srv.length;
-  document.getElementById('as-picks').textContent  = picks.length;
-  document.getElementById('as-users').textContent  = uCount;
-  const aRow = item => `<div class="admin-item">
+/* ═══════════════ ADMIN ═══════════════ */
+async function loadAdmin(){
+  if(!isAdmin){navTo('home');return;}
+  const mvs=customItems.filter(i=>i._type==='movie');
+  const srv=customItems.filter(i=>i._type==='series');
+  const picks=customItems.filter(i=>i._toppick);
+  let uCount=0;
+  try{const s=await db.collection('users').get();uCount=s.size;}catch{}
+  document.getElementById('as-movies').textContent=mvs.length;
+  document.getElementById('as-series').textContent=srv.length;
+  document.getElementById('as-picks').textContent=picks.length;
+  document.getElementById('as-users').textContent=uCount;
+  const aRow=item=>`<div class="admin-item">
     ${item._poster?`<img src="${item._poster}" alt="${item._title}">`:`<div class="ai-ph">${item._type==='movie'?'🎬':'📺'}</div>`}
     <div class="ai-info">
       <div class="ai-name">${item._title}${item._toppick?' ⭐':''}</div>
@@ -1143,42 +1132,93 @@ async function loadAdmin() {
       <button class="btn btn-danger btn-sm" onclick="deleteItem('${item.fid}')">Del</button>
     </div>
   </div>`;
-  document.getElementById('a-movies-list').innerHTML = mvs.length ? mvs.map(aRow).join('') : '<p style="color:var(--muted);font-size:.8rem;padding:.5rem 0">No movies yet.</p>';
-  document.getElementById('a-series-list').innerHTML = srv.length ? srv.map(aRow).join('') : '<p style="color:var(--muted);font-size:.8rem;padding:.5rem 0">No series yet.</p>';
+  document.getElementById('a-movies-list').innerHTML=mvs.length?mvs.map(aRow).join(''):'<p style="color:var(--muted);font-size:.8rem;padding:.5rem 0">No movies yet.</p>';
+  document.getElementById('a-series-list').innerHTML=srv.length?srv.map(aRow).join(''):'<p style="color:var(--muted);font-size:.8rem;padding:.5rem 0">No series yet.</p>';
+}
+
+/* ═══════════════ USERS MODAL ═══════════════ */
+async function openUsersModal(){
+  document.getElementById('ov-users').classList.add('open');
+  document.getElementById('users-modal-sub').textContent='Loading…';
+  document.getElementById('users-modal-body').innerHTML='<div class="loading"><div class="spin"></div> Fetching users…</div>';
+  try{
+    /* fetch all users */
+    const uSnap=await db.collection('users').orderBy('lastLogin','desc').get();
+    const users=uSnap.docs.map(d=>({uid:d.id,...d.data()}));
+    /* fetch all watchlists to know each user's count */
+    const wlSnap=await db.collection('watchlists').get();
+    const wlMap={};
+    wlSnap.docs.forEach(d=>{wlMap[d.id]=(d.data().items||[]).length;});
+    document.getElementById('users-modal-sub').textContent=users.length+' registered user'+(users.length!==1?'s':'');
+    if(!users.length){
+      document.getElementById('users-modal-body').innerHTML='<div class="users-empty"><div class="eico">👤</div><p>No users yet.</p></div>';
+      return;
+    }
+    document.getElementById('users-modal-body').innerHTML=users.map(u=>{
+      const name=u.displayName||u.email?.split('@')[0]||'Unknown';
+      const email=u.email||'—';
+      const role=ADMIN_EMAILS.includes(email)?'admin':'user';
+      const joined=u.joinedAt?.toDate?fmtDate(u.joinedAt.toDate()):'—';
+      const last=u.lastLogin?.toDate?fmtDate(u.lastLogin.toDate()):'—';
+      const wlCount=wlMap[u.uid]||0;
+      const initials=name.slice(0,2).toUpperCase();
+      return `<div class="user-row">
+        <div class="u-avatar">${initials}</div>
+        <div class="u-info">
+          <div class="u-name">${name} <span class="u-badge ${role==='admin'?'u-badge-admin':'u-badge-user'}">${role}</span></div>
+          <div class="u-email">${email}</div>
+          <div class="u-wl-count">📋 ${wlCount} item${wlCount!==1?'s':''} in watchlist</div>
+        </div>
+        <div class="u-meta">
+          <div class="u-joined">Joined: ${joined}</div>
+          <div class="u-last">Last seen: ${last}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }catch(e){
+    document.getElementById('users-modal-body').innerHTML='<div class="users-empty"><div class="eico">⚠️</div><p>Could not load users: '+e.message+'</p></div>';
+  }
+}
+function closeUsersModal(){document.getElementById('ov-users').classList.remove('open');}
+
+function fmtDate(d){
+  if(!d)return'—';
+  const now=new Date(), diff=Math.floor((now-d)/1000);
+  if(diff<60)return'Just now';
+  if(diff<3600)return Math.floor(diff/60)+' min ago';
+  if(diff<86400)return Math.floor(diff/3600)+' hr ago';
+  if(diff<604800)return Math.floor(diff/86400)+' days ago';
+  return d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
 }
 
 /* ═══════════════ SEARCH ═══════════════ */
 let sT;
-function handleSearch(v) { clearTimeout(sT); if(!v.trim()) return; sT=setTimeout(()=>doSearch(v.trim()),450); }
-async function doSearch(q) {
+function handleSearch(v){clearTimeout(sT);if(!v.trim())return;sT=setTimeout(()=>doSearch(v.trim()),450);}
+async function doSearch(q){
   navTo('search');
   document.getElementById('search-label').textContent=`Searching "${q}"…`;
-  const el = document.getElementById('search-grid');
+  const el=document.getElementById('search-grid');
   el.innerHTML='<div class="loading"><div class="spin"></div></div>';
-  try {
-    const d = await tf(`/search/multi?query=${encodeURIComponent(q)}`);
-    const tr = (d.results||[]).filter(r=>r.media_type==='movie'||r.media_type==='tv');
-    const cr = customItems.filter(i=>i._title.toLowerCase().includes(q.toLowerCase()));
-    const all = [...cr,...tr];
+  try{
+    const d=await tf(`/search/multi?query=${encodeURIComponent(q)}`);
+    const tr=(d.results||[]).filter(r=>r.media_type==='movie'||r.media_type==='tv');
+    const cr=customItems.filter(i=>i._title.toLowerCase().includes(q.toLowerCase()));
+    const all=[...cr,...tr];
     document.getElementById('search-label').textContent=`${all.length} result${all.length!==1?'s':''} for "${q}"`;
-    el.innerHTML = all.length
-      ? all.map(i=>{ const t=i._type||(i.media_type==='movie'?'movie':'series'); return makeCard(i,t); }).join('')
-      : emptyH('🔍','No results');
-  } catch { el.innerHTML=emptyH('⚠️','Search failed'); }
+    el.innerHTML=all.length?all.map(i=>{const t=i._type||(i.media_type==='movie'?'movie':'series');return makeCard(i,t);}).join(''):emptyH('🔍','No results');
+  }catch{el.innerHTML=emptyH('⚠️','Search failed');}
 }
 
 /* ═══════════════ HELPERS ═══════════════ */
-function emptyH(ico,h,p='') {
-  return `<div class="empty-state"><div class="eico">${ico}</div><h4>${h}</h4>${p?`<p>${p}</p>`:''}</div>`;
-}
-function bgClose(e,id,fn) { if(e.target.id===id) fn(); }
-function toast(msg,type='ok') {
+function emptyH(ico,h,p=''){return`<div class="empty-state"><div class="eico">${ico}</div><h4>${h}</h4>${p?`<p>${p}</p>`:''}</div>`;}
+function bgClose(e,id,fn){if(e.target.id===id)fn();}
+function toast(msg,type='ok'){
   const t=document.getElementById('toast');
-  document.getElementById('t-ico').textContent = type==='t-wl'?'🎬':(type==='ok'?'✓':'✕');
-  document.getElementById('t-msg').textContent = msg;
+  document.getElementById('t-ico').textContent=type==='t-wl'?'🎬':(type==='ok'?'✓':'✕');
+  document.getElementById('t-msg').textContent=msg;
   t.className=`toast ${type} visible`;
   clearTimeout(t._tid);
-  t._tid=setTimeout(()=>{ t.className=`toast ${type}`; },3000);
+  t._tid=setTimeout(()=>{t.className=`toast ${type}`;},3000);
 }
 </script>
 </body>
