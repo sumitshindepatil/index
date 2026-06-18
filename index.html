@@ -13,14 +13,12 @@
   --bg:#09090f;--bg2:#111119;--bg3:#1c1c28;--card:#15151e;
   --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
   --text:#eeeef5;--muted:#7878a0;--accent:#e63946;--gold:#f5c518;
-  --green:#22c55e;--purple:#a855f7;--blue:#3b82f6;
+  --green:#22c55e;--purple:#a855f7;--blue:#3b82f6;--orange:#f97316;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;}
 .screen{display:none;min-height:100vh;}
 .screen.active{display:flex;flex-direction:column;}
-
-/* LOADER */
 .init-loader{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999;flex-direction:column;gap:1rem;}
 .init-loader .logo{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--accent);letter-spacing:4px;}
 .spin{width:20px;height:20px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .65s linear infinite;}
@@ -51,9 +49,11 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
 .nav-link{padding:0 .9rem;height:58px;display:flex;align-items:center;font-size:.84rem;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap;}
 .nav-link:hover{color:var(--text);}
 .nav-link.active{color:var(--text);border-bottom-color:var(--accent);}
+.nav-link.games-link{color:var(--purple)!important;}
+.nav-link.games-link.active{border-bottom-color:var(--purple);}
 .nav-right{margin-left:auto;display:flex;align-items:center;gap:.6rem;}
 .search-wrap{display:flex;align-items:center;gap:.45rem;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.38rem .75rem;}
-.search-wrap input{background:none;border:none;outline:none;color:var(--text);font-size:.83rem;width:140px;font-family:'Inter',sans-serif;}
+.search-wrap input{background:none;border:none;outline:none;color:var(--text);font-size:.83rem;width:130px;font-family:'Inter',sans-serif;}
 .search-wrap input::placeholder{color:var(--muted);}
 .user-chip{display:flex;align-items:center;gap:.5rem;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.32rem .75rem;}
 .avatar{width:24px;height:24px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff;flex-shrink:0;}
@@ -75,17 +75,13 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
 .hero-stats{display:flex;gap:2.5rem;}
 .hs-n{font-family:'Bebas Neue',sans-serif;font-size:2.1rem;color:var(--accent);letter-spacing:1px;line-height:1;}
 .hs-l{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
-
-/* SEC */
 .sec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;}
 .sec-title{font-size:1rem;font-weight:600;display:flex;align-items:center;gap:.5rem;}
 .sec-dot-gold{width:5px;height:5px;background:var(--gold);border-radius:50%;}
 .sec-dot{width:5px;height:5px;background:var(--accent);border-radius:50%;}
 
-/* CARD GRID */
+/* CARDS */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:1.1rem;}
-
-/* CARD */
 .card{background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden;cursor:pointer;transition:transform .22s,border-color .22s,box-shadow .22s;position:relative;}
 .card:hover{transform:translateY(-4px);border-color:var(--border2);box-shadow:0 14px 35px rgba(0,0,0,.45);}
 .card-img{width:100%;aspect-ratio:2/3;object-fit:cover;background:var(--bg3);display:block;}
@@ -102,29 +98,22 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
 .wl-btn:hover{background:rgba(168,85,247,.55);border-color:var(--purple);color:#fff;transform:scale(1.12);}
 .wl-btn.in-wl{background:rgba(168,85,247,.8);border-color:var(--purple);color:#fff;}
 .card-admin-row{display:flex;gap:.35rem;margin-top:.5rem;}
-
-/* TOP PICK CARDS */
 .picks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1.25rem;}
 .pick-card{background:var(--card);border:1px solid rgba(245,197,24,.2);border-radius:14px;overflow:hidden;cursor:pointer;transition:transform .22s,box-shadow .22s;position:relative;}
 .pick-card:hover{transform:translateY(-4px);box-shadow:0 14px 35px rgba(0,0,0,.5);}
-.pick-img{width:100%;height:145px;object-fit:cover;background:var(--bg3);display:block;}
+.pick-img{width:100%;height:145px;object-fit:cover;background:var(--bg3);display:block;} /* legacy */
 .pick-img-ph{width:100%;height:145px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:2.5rem;}
 .pick-badge{position:absolute;top:8px;left:8px;background:rgba(245,197,24,.9);color:#000;font-size:.62rem;font-weight:700;padding:.18rem .45rem;border-radius:4px;text-transform:uppercase;pointer-events:none;}
-/* watchlist button on pick card */
 .pick-wl-btn{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.65);border:1.5px solid rgba(255,255,255,.15);color:rgba(255,255,255,.75);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:3;line-height:1;padding:0;}
-.pick-wl-btn:hover{background:rgba(168,85,247,.55);border-color:var(--purple);color:#fff;transform:scale(1.12);}
+.pick-wl-btn:hover{background:rgba(168,85,247,.55);border-color:var(--purple);color:#fff;}
 .pick-wl-btn.in-wl{background:rgba(168,85,247,.8);border-color:var(--purple);color:#fff;}
 .pick-body{padding:.8rem;}
 .pick-title{font-size:.85rem;font-weight:600;margin-bottom:.25rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .pick-meta{font-size:.72rem;color:var(--muted);}
 .pick-note{font-size:.75rem;color:var(--gold);margin-top:.3rem;font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-
-/* FILTERS */
 .filters{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.4rem;}
 .fbtn{padding:.32rem .9rem;border-radius:20px;font-size:.77rem;font-weight:500;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all .18s;font-family:'Inter',sans-serif;}
 .fbtn:hover,.fbtn.active{background:var(--accent);color:#fff;border-color:var(--accent);}
-
-/* RATINGS PAGE */
 .ranked-controls{display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem;flex-wrap:wrap;}
 .rfbtn{padding:.32rem .9rem;border-radius:20px;font-size:.77rem;font-weight:500;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all .18s;font-family:'Inter',sans-serif;}
 .rfbtn:hover,.rfbtn.active{background:var(--gold);color:#000;border-color:var(--gold);}
@@ -144,10 +133,97 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
 .rank-score-lbl{font-size:.65rem;color:var(--muted);text-align:right;margin-top:2px;}
 .empty-rated{text-align:center;padding:4rem 2rem;color:var(--muted);}
 .empty-rated .eico{font-size:3rem;margin-bottom:1rem;opacity:.35;}
-.empty-rated h4{font-size:1rem;font-weight:600;color:var(--text);margin-bottom:.4rem;}
-
-/* WATCHLIST */
 .wl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:1.1rem;}
+
+/* ════════════ GAMES PAGE ════════════ */
+.games-hero{border-radius:18px;background:linear-gradient(135deg,#0d0620 0%,#150d2a 50%,#0a0f20 100%);border:1px solid rgba(168,85,247,.2);padding:2.5rem;margin-bottom:2.5rem;position:relative;overflow:hidden;text-align:center;}
+.games-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(168,85,247,.15) 0%,transparent 65%);pointer-events:none;}
+.games-hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:3px;color:#fff;margin-bottom:.5rem;}
+.games-hero h1 span{color:var(--purple);}
+.games-hero p{color:var(--muted);font-size:.9rem;max-width:500px;margin:0 auto;}
+.game-tabs{display:flex;background:var(--bg3);border-radius:12px;padding:5px;gap:5px;margin-bottom:2.5rem;}
+.game-tab{flex:1;padding:.7rem;border:none;border-radius:9px;background:transparent;color:var(--muted);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;display:flex;align-items:center;justify-content:center;gap:.4rem;}
+.game-tab:hover{color:var(--text);}
+.game-tab.active{background:var(--card);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.4);}
+.game-section{display:none;}
+.game-section.active{display:block;}
+
+/* ── SPIN THE WHEEL ── */
+.spin-layout{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start;}
+@media(max-width:860px){.spin-layout{grid-template-columns:1fr;}}
+.wheel-wrap{position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;}
+.wheel-outer{position:relative;width:320px;height:320px;flex-shrink:0;}
+.wheel-pointer{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:2rem;z-index:10;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));}
+canvas#wheelCanvas{border-radius:50%;box-shadow:0 0 40px rgba(168,85,247,.3),0 0 0 4px rgba(168,85,247,.2);display:block;}
+.spin-btn{background:linear-gradient(135deg,var(--purple),var(--accent));color:#fff;border:none;padding:.9rem 2.5rem;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;transition:opacity .2s,transform .15s;box-shadow:0 4px 20px rgba(168,85,247,.4);}
+.spin-btn:hover{opacity:.9;transform:scale(1.03);}
+.spin-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.spin-result{background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:1.75rem;min-height:300px;display:flex;flex-direction:column;justify-content:center;}
+.spin-result-inner{text-align:center;}
+.spin-result-poster{width:120px;height:180px;object-fit:cover;border-radius:10px;margin:0 auto 1rem;display:block;box-shadow:0 8px 24px rgba(0,0,0,.5);}
+.spin-result-ph{width:120px;height:180px;background:var(--bg3);border-radius:10px;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:3rem;}
+.spin-result-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:1px;margin-bottom:.3rem;}
+.spin-result-meta{font-size:.8rem;color:var(--muted);margin-bottom:1rem;}
+.spin-result-btns{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;}
+.spin-filter-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;}
+.sfbtn{padding:.28rem .75rem;border-radius:20px;font-size:.75rem;font-weight:500;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all .18s;font-family:'Inter',sans-serif;}
+.sfbtn:hover,.sfbtn.active{background:var(--purple);color:#fff;border-color:var(--purple);}
+.waiting-msg{color:var(--muted);font-size:.9rem;text-align:center;}
+.waiting-msg .big{font-size:3rem;margin-bottom:.75rem;}
+
+/* ── THIS OR THAT ── */
+.battle-arena{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1rem;margin-bottom:1.5rem;}
+@media(max-width:700px){.battle-arena{grid-template-columns:1fr;}.vs-badge{margin:.5rem auto;}}
+.battle-card{background:var(--card);border:2px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:all .22s;position:relative;}
+.battle-card:hover{border-color:var(--purple);transform:scale(1.02);box-shadow:0 12px 30px rgba(168,85,247,.25);}
+.battle-card.winner{border-color:var(--gold);box-shadow:0 0 30px rgba(245,197,24,.35);animation:winPulse .4s ease;}
+.battle-card.loser{opacity:.35;filter:grayscale(0.6);}
+@keyframes winPulse{0%{transform:scale(1)}50%{transform:scale(1.04)}100%{transform:scale(1)}}
+.battle-poster{width:100%;aspect-ratio:2/3;object-fit:cover;display:block;background:var(--bg3);}
+.battle-poster-ph{width:100%;aspect-ratio:2/3;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:4rem;}
+.battle-info{padding:1rem;}
+.battle-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:1px;margin-bottom:.25rem;}
+.battle-meta{font-size:.75rem;color:var(--muted);}
+.battle-score{font-size:.85rem;color:var(--gold);font-weight:600;margin-top:.3rem;}
+.vs-badge{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--purple));display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:1px;color:#fff;flex-shrink:0;box-shadow:0 4px 16px rgba(168,85,247,.4);}
+.battle-prompt{text-align:center;margin-bottom:1.25rem;}
+.battle-prompt h3{font-size:1rem;font-weight:600;color:var(--muted);}
+.battle-score-row{display:flex;justify-content:center;gap:2rem;margin-bottom:1.5rem;}
+.battle-score-item{text-align:center;}
+.bsi-n{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold);}
+.bsi-l{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
+.battle-actions{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;}
+.battle-winner-screen{background:linear-gradient(135deg,rgba(245,197,24,.08),rgba(168,85,247,.08));border:1px solid rgba(245,197,24,.25);border-radius:16px;padding:2.5rem;text-align:center;display:none;}
+.bws-trophy{font-size:4rem;margin-bottom:.75rem;}
+.bws-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:1px;color:var(--gold);margin-bottom:.5rem;}
+.bws-poster{width:130px;height:195px;object-fit:cover;border-radius:10px;margin:1rem auto;display:block;box-shadow:0 8px 30px rgba(0,0,0,.6);}
+.bws-ph{width:130px;height:195px;background:var(--bg3);border-radius:10px;margin:1rem auto;display:flex;align-items:center;justify-content:center;font-size:3rem;}
+.bws-name{font-size:1.2rem;font-weight:700;margin-bottom:.3rem;}
+.bws-meta{font-size:.82rem;color:var(--muted);margin-bottom:1.5rem;}
+
+/* ── MOVIE ROULETTE ── */
+.roulette-wrap{max-width:600px;margin:0 auto;text-align:center;}
+.roulette-filters{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;text-align:left;}
+.rf-group label{display:block;font-size:.75rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.4rem;}
+.rf-group select{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.62rem .9rem;color:var(--text);font-size:.86rem;outline:none;font-family:'Inter',sans-serif;cursor:pointer;}
+.rf-group select:focus{border-color:var(--purple);}
+.rf-group select option{background:#1c1c28;}
+.roulette-btn{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;border:none;padding:1rem 3rem;border-radius:14px;font-size:1.1rem;font-weight:700;cursor:pointer;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;transition:opacity .2s,transform .15s;box-shadow:0 4px 24px rgba(168,85,247,.4);margin-bottom:2rem;}
+.roulette-btn:hover{opacity:.9;transform:scale(1.04);}
+.roulette-result{background:var(--card);border:1px solid var(--border2);border-radius:18px;padding:2rem;display:none;animation:slideUp .4s ease;}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.rr-poster{width:150px;height:225px;object-fit:cover;border-radius:12px;margin:0 auto 1.25rem;display:block;box-shadow:0 12px 35px rgba(0,0,0,.6);}
+.rr-ph{width:150px;height:225px;background:var(--bg3);border-radius:12px;margin:0 auto 1.25rem;display:flex;align-items:center;justify-content:center;font-size:4rem;}
+.rr-badge{display:inline-block;background:var(--purple);color:#fff;font-size:.7rem;font-weight:700;padding:.2rem .6rem;border-radius:4px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5rem;}
+.rr-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:1px;margin-bottom:.3rem;}
+.rr-meta{font-size:.82rem;color:var(--muted);margin-bottom:.75rem;}
+.rr-overview{font-size:.84rem;color:var(--muted);line-height:1.65;margin-bottom:1.25rem;max-width:400px;margin-left:auto;margin-right:auto;}
+.rr-btns{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;}
+.confetti-wrap{position:fixed;inset:0;pointer-events:none;z-index:8888;overflow:hidden;}
+.conf{position:absolute;width:10px;height:10px;border-radius:2px;animation:fall linear forwards;}
+@keyframes fall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+.no-items-msg{background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.2);border-radius:12px;padding:2rem;text-align:center;color:var(--muted);font-size:.88rem;}
+.no-items-msg .eico{font-size:2rem;margin-bottom:.5rem;}
 
 /* OVERLAYS */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(5px);z-index:500;padding:2rem 1rem;overflow-y:auto;}
@@ -179,18 +255,6 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
 .wl-modal-btn:hover{border-color:rgba(168,85,247,.4);color:var(--purple);}
 .wl-modal-btn.in-wl{background:rgba(168,85,247,.12);border-color:rgba(168,85,247,.4);color:var(--purple);}
 @media(max-width:680px){.modal-body{flex-direction:column;}.modal-poster,.modal-poster-ph{width:100%;aspect-ratio:16/9;}}
-
-/* BTNS */
-.btn{padding:.42rem 1rem;border-radius:8px;font-size:.82rem;font-weight:500;cursor:pointer;border:none;transition:all .18s;font-family:'Inter',sans-serif;}
-.btn-red{background:var(--accent);color:#fff;}
-.btn-red:hover{opacity:.88;}
-.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border2);}
-.btn-ghost:hover{color:var(--text);}
-.btn-danger{background:rgba(230,57,70,.1);color:var(--accent);border:1px solid rgba(230,57,70,.25);}
-.btn-danger:hover{background:rgba(230,57,70,.2);}
-.btn-sm{padding:.26rem .65rem;font-size:.74rem;}
-
-/* ADD MODAL */
 .add-box{background:var(--bg2);border:1px solid var(--border2);border-radius:18px;max-width:560px;width:100%;margin:auto;position:relative;}
 .add-inner{padding:2rem;}
 .add-title{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:1px;margin-bottom:1.5rem;}
@@ -207,8 +271,6 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
 .pick-note-input{width:100%;background:rgba(245,197,24,.06);border:1px solid rgba(245,197,24,.25);border-radius:8px;padding:.62rem .9rem;color:var(--text);font-size:.86rem;outline:none;font-family:'Inter',sans-serif;}
 .pick-note-input::placeholder{color:var(--muted);opacity:.7;}
 .pick-note-input:focus{border-color:var(--gold);}
-
-/* ADMIN */
 .admin-banner{background:linear-gradient(135deg,rgba(230,57,70,.09) 0%,transparent 60%);border:1px solid rgba(230,57,70,.18);border-radius:15px;padding:1.4rem 1.75rem;margin-bottom:1.75rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
 .admin-banner-title{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:1px;}
 .admin-banner-title span{color:var(--accent);}
@@ -231,8 +293,6 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
 .ai-name{font-size:.82rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .ai-meta{font-size:.7rem;color:var(--muted);}
 .ai-btns{display:flex;gap:.3rem;flex-shrink:0;}
-
-/* USERS MODAL */
 .users-modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:18px;max-width:700px;width:100%;margin:auto;position:relative;max-height:90vh;display:flex;flex-direction:column;}
 .users-modal-head{padding:1.5rem 1.75rem 1rem;border-bottom:1px solid var(--border);flex-shrink:0;}
 .users-modal-head h3{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:1px;}
@@ -243,19 +303,25 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
 .user-row:last-child{margin-bottom:0;}
 .u-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--purple));display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;color:#fff;flex-shrink:0;}
 .u-info{flex:1;min-width:0;}
-.u-name{font-size:.9rem;font-weight:600;margin-bottom:.18rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.u-email{font-size:.78rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.u-name{font-size:.9rem;font-weight:600;margin-bottom:.18rem;}
+.u-email{font-size:.78rem;color:var(--muted);}
 .u-meta{text-align:right;flex-shrink:0;}
 .u-joined{font-size:.72rem;color:var(--muted);margin-bottom:.15rem;}
 .u-last{font-size:.72rem;color:var(--green);}
-.u-badge{display:inline-block;font-size:.62rem;font-weight:700;padding:.13rem .38rem;border-radius:4px;text-transform:uppercase;letter-spacing:.4px;margin-top:.2rem;}
+.u-badge{display:inline-block;font-size:.62rem;font-weight:700;padding:.13rem .38rem;border-radius:4px;text-transform:uppercase;letter-spacing:.4px;margin-left:.35rem;}
 .u-badge-admin{background:rgba(230,57,70,.15);color:var(--accent);border:1px solid rgba(230,57,70,.3);}
 .u-badge-user{background:rgba(59,130,246,.12);color:var(--blue);border:1px solid rgba(59,130,246,.25);}
 .u-wl-count{font-size:.7rem;color:var(--purple);margin-top:.1rem;}
-.users-empty{text-align:center;padding:2.5rem;color:var(--muted);}
-.users-empty .eico{font-size:2rem;margin-bottom:.5rem;opacity:.4;}
-
-/* UTIL */
+.btn{padding:.42rem 1rem;border-radius:8px;font-size:.82rem;font-weight:500;cursor:pointer;border:none;transition:all .18s;font-family:'Inter',sans-serif;}
+.btn-red{background:var(--accent);color:#fff;}
+.btn-red:hover{opacity:.88;}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border2);}
+.btn-ghost:hover{color:var(--text);}
+.btn-danger{background:rgba(230,57,70,.1);color:var(--accent);border:1px solid rgba(230,57,70,.25);}
+.btn-danger:hover{background:rgba(230,57,70,.2);}
+.btn-purple{background:var(--purple);color:#fff;}
+.btn-purple:hover{opacity:.88;}
+.btn-sm{padding:.26rem .65rem;font-size:.74rem;}
 .loading{display:flex;align-items:center;justify-content:center;padding:3.5rem;color:var(--muted);font-size:.86rem;gap:.65rem;grid-column:1/-1;}
 .empty-state{text-align:center;padding:3rem;color:var(--muted);grid-column:1/-1;}
 .empty-state .eico{font-size:2.5rem;margin-bottom:.75rem;opacity:.4;}
@@ -278,7 +344,7 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
   <div class="spin"></div>
 </div>
 
-<!-- ══ LOGIN ══ -->
+<!-- LOGIN -->
 <div class="screen" id="screen-login">
   <div class="login-card">
     <span class="login-logo">CineVault</span>
@@ -302,7 +368,7 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
   </div>
 </div>
 
-<!-- ══ APP ══ -->
+<!-- APP -->
 <div class="screen" id="screen-app">
   <nav>
     <div class="nav-logo" onclick="navTo('home')">CINEVAULT</div>
@@ -311,7 +377,9 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
       <div class="nav-link"        id="nl-movies"    onclick="navTo('movies')">Movies</div>
       <div class="nav-link"        id="nl-series"    onclick="navTo('series')">Series</div>
       <div class="nav-link"        id="nl-ratings"   onclick="navTo('ratings')">Ratings</div>
+      <div class="nav-link"        id="nl-picks"     onclick="navTo('picks')">⭐ Top Picks</div>
       <div class="nav-link"        id="nl-watchlist" onclick="navTo('watchlist')">My Watchlist</div>
+      <div class="nav-link games-link" id="nl-games" onclick="navTo('games')">🎮 Games</div>
       <div class="nav-link"        id="nl-admin"     onclick="navTo('admin')" style="display:none">Admin Panel</div>
     </div>
     <div class="nav-right">
@@ -331,9 +399,9 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
   <!-- HOME -->
   <div class="page active" id="page-home">
     <div class="hero">
-      <div class="hero-eye">🎬</div>
-      <h1>SUMIT's<br><span>MOVIES VAULT</span></h1>
-      <p>I watched them so you don't have to... unless they're actually good.</p>
+      <div class="hero-eye">🎬 Your Personal Cinema</div>
+      <h1>DISCOVER<br><span>GREAT FILMS</span></h1>
+      <p>Browse movies and TV series, build your watchlist, and play fun movie games!</p>
       <div class="hero-stats">
         <div><div class="hs-n" id="hs-movies">—</div><div class="hs-l">Movies</div></div>
         <div><div class="hs-n" id="hs-series">—</div><div class="hs-l">Series</div></div>
@@ -341,10 +409,25 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
       </div>
     </div>
     <div class="sec-hd">
-      <div class="sec-title"><div class="sec-dot-gold"></div>⭐ Admin Top Picks</div>
+      <div class="sec-title"><div class="sec-dot"></div>🕐 Recently Added</div>
+      <span style="font-size:.78rem;color:var(--muted);">Latest 20 additions</span>
     </div>
-    <div id="home-picks" class="picks-grid">
-      <div class="empty-state"><div class="eico">⭐</div><h4>No top picks yet</h4><p>Admin can mark items as top picks when adding</p></div>
+    <div class="grid" id="home-recent">
+      <div class="empty-state"><div class="eico">🎬</div><h4>No items yet</h4><p>Admin can add movies &amp; series</p></div>
+    </div>
+  </div>
+
+  <!-- TOP PICKS PAGE -->
+  <div class="page" id="page-picks">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.4rem">
+      <div>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:1px">⭐ ADMIN TOP PICKS</h2>
+        <p style="color:var(--muted);font-size:.82rem;margin-top:.2rem">Hand-picked recommendations by the admin</p>
+      </div>
+      <div id="picks-count-badge" style="display:none;background:rgba(245,197,24,.12);border:1px solid rgba(245,197,24,.3);border-radius:8px;padding:.4rem .9rem;font-size:.82rem;color:var(--gold);font-weight:600;"></div>
+    </div>
+    <div class="grid" id="picks-grid">
+      <div class="empty-state"><div class="eico">⭐</div><h4>No top picks yet</h4><p>Admin can mark items as top picks when adding or editing</p></div>
     </div>
   </div>
 
@@ -407,8 +490,105 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
       <p style="color:var(--muted);font-size:.82rem;margin-top:.2rem">Movies &amp; series you want to watch</p></div>
       <div id="wl-badge" style="display:none;background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.3);border-radius:8px;padding:.4rem .9rem;font-size:.82rem;color:var(--purple);font-weight:600;"></div>
     </div>
-    <div class="wl-grid" id="watchlist-grid">
-      <div class="empty-state"><div class="eico">🎬</div><h4>Your watchlist is empty</h4><p>Tap ♡ on any card to save it here</p></div>
+    <div class="wl-grid" id="watchlist-grid"></div>
+  </div>
+
+  <!-- ══════ GAMES PAGE ══════ -->
+  <div class="page" id="page-games">
+    <div class="games-hero">
+      <h1>MOVIE <span>GAMES</span></h1>
+      <p>Can't decide what to watch? Let the games decide for you! 🎮</p>
+    </div>
+
+    <div class="game-tabs">
+      <button class="game-tab active" onclick="switchGame('spin',this)">🎲 Spin the Wheel</button>
+      <button class="game-tab" onclick="switchGame('battle',this)">⚔️ This or That Battle</button>
+      <button class="game-tab" onclick="switchGame('roulette',this)">🎯 Movie Roulette</button>
+    </div>
+
+    <!-- ── SPIN THE WHEEL ── -->
+    <div class="game-section active" id="game-spin">
+      <div style="margin-bottom:1rem">
+        <div style="font-size:.82rem;color:var(--muted);margin-bottom:.6rem;font-weight:500;">Filter by type:</div>
+        <div class="spin-filter-row">
+          <button class="sfbtn active" onclick="setSpinFilter('all',this)">All</button>
+          <button class="sfbtn" onclick="setSpinFilter('movie',this)">Movies only</button>
+          <button class="sfbtn" onclick="setSpinFilter('series',this)">Series only</button>
+        </div>
+      </div>
+      <div class="spin-layout">
+        <div class="wheel-wrap">
+          <div class="wheel-outer">
+            <div class="wheel-pointer">▼</div>
+            <canvas id="wheelCanvas" width="320" height="320"></canvas>
+          </div>
+          <button class="spin-btn" id="spin-btn" onclick="spinWheel()">🎲 SPIN!</button>
+        </div>
+        <div class="spin-result" id="spin-result">
+          <div class="waiting-msg">
+            <div class="big">🎡</div>
+            <div>Spin the wheel to get<br>a random pick!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── THIS OR THAT ── -->
+    <div class="game-section" id="game-battle">
+      <div class="battle-score-row">
+        <div class="battle-score-item"><div class="bsi-n" id="battle-wins">0</div><div class="bsi-l">Rounds Won</div></div>
+        <div class="battle-score-item"><div class="bsi-n" id="battle-round">1</div><div class="bsi-l">Round</div></div>
+        <div class="battle-score-item"><div class="bsi-n" id="battle-left">—</div><div class="bsi-l">Remaining</div></div>
+      </div>
+      <div class="battle-prompt"><h3 id="battle-prompt-text">Which would you rather watch tonight?</h3></div>
+      <div class="battle-arena" id="battle-arena">
+        <div id="bc-left"></div>
+        <div class="vs-badge">VS</div>
+        <div id="bc-right"></div>
+      </div>
+      <div class="battle-actions">
+        <button class="btn btn-ghost" onclick="shuffleBattle()">🔀 New Pair</button>
+        <button class="btn btn-ghost" onclick="resetBattle()">↩ Restart</button>
+      </div>
+      <div class="battle-winner-screen" id="battle-winner">
+        <div class="bws-trophy">🏆</div>
+        <div class="bws-title">TONIGHT'S PICK!</div>
+        <div id="bws-poster-wrap"></div>
+        <div class="bws-name" id="bws-name"></div>
+        <div class="bws-meta" id="bws-meta"></div>
+        <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;">
+          <button class="btn btn-purple" id="bws-wl-btn" onclick="addBattleWinnerToWL()">♡ Add to Watchlist</button>
+          <button class="btn btn-ghost" onclick="resetBattle()">Play Again</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MOVIE ROULETTE ── -->
+    <div class="game-section" id="game-roulette">
+      <div class="roulette-wrap">
+        <div class="roulette-filters">
+          <div class="rf-group">
+            <label>Type</label>
+            <select id="rl-type">
+              <option value="all">All (Movies + Series)</option>
+              <option value="movie">Movies only</option>
+              <option value="series">Series only</option>
+            </select>
+          </div>
+          <div class="rf-group">
+            <label>Min Rating</label>
+            <select id="rl-rating">
+              <option value="0">Any rating</option>
+              <option value="6">6+ stars</option>
+              <option value="7">7+ stars</option>
+              <option value="8">8+ stars</option>
+              <option value="9">9+ stars</option>
+            </select>
+          </div>
+        </div>
+        <button class="roulette-btn" onclick="spinRoulette()">🎯 PICK FOR ME!</button>
+        <div class="roulette-result" id="roulette-result"></div>
+      </div>
     </div>
   </div>
 
@@ -425,10 +605,9 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
       <div class="stat-card"><div class="stat-n" id="as-movies">0</div><div class="stat-l">Movies</div></div>
       <div class="stat-card"><div class="stat-n" id="as-series">0</div><div class="stat-l">Series</div></div>
       <div class="stat-card"><div class="stat-n" id="as-picks">0</div><div class="stat-l">Top Picks</div></div>
-      <div class="stat-card clickable" onclick="openUsersModal()" id="users-stat-card">
-        <div class="stat-n" id="as-users">0</div>
-        <div class="stat-l">Registered Users</div>
-        <div class="stat-hint">👆 Click to view details</div>
+      <div class="stat-card clickable" onclick="openUsersModal()">
+        <div class="stat-n" id="as-users">0</div><div class="stat-l">Users</div>
+        <div class="stat-hint">👆 Click to view</div>
       </div>
     </div>
     <div class="admin-grid">
@@ -445,7 +624,7 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
   </div>
 </div>
 
-<!-- ══ DETAIL MODAL ══ -->
+<!-- DETAIL MODAL -->
 <div class="overlay" id="ov-detail" onclick="bgClose(event,'ov-detail',closeDetail)">
   <div class="modal-box">
     <button class="modal-x" onclick="closeDetail()">✕</button>
@@ -486,7 +665,7 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
   </div>
 </div>
 
-<!-- ══ ADD/EDIT MODAL ══ -->
+<!-- ADD/EDIT MODAL -->
 <div class="overlay" id="ov-add" onclick="bgClose(event,'ov-add',closeAdd)">
   <div class="add-box">
     <div class="add-inner">
@@ -508,7 +687,7 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
         <label>Top Pick</label>
         <label class="pick-toggle">
           <input type="checkbox" id="af-toppick">
-          <span>⭐ Mark as Admin Top Pick (shows on homepage)</span>
+          <span>⭐ Mark as Admin Top Pick</span>
         </label>
       </div>
       <div class="fg" id="pick-note-wrap" style="display:none">
@@ -523,212 +702,112 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
   </div>
 </div>
 
-<!-- ══ USERS MODAL ══ -->
+<!-- USERS MODAL -->
 <div class="overlay" id="ov-users" onclick="bgClose(event,'ov-users',closeUsersModal)">
   <div class="users-modal-box">
     <button class="modal-x" onclick="closeUsersModal()">✕</button>
-    <div class="users-modal-head">
-      <h3>👥 Registered Users</h3>
-      <p id="users-modal-sub">Loading…</p>
-    </div>
-    <div class="users-modal-body" id="users-modal-body">
-      <div class="loading"><div class="spin"></div> Fetching users…</div>
-    </div>
+    <div class="users-modal-head"><h3>👥 Registered Users</h3><p id="users-modal-sub">Loading…</p></div>
+    <div class="users-modal-body" id="users-modal-body"><div class="loading"><div class="spin"></div></div></div>
   </div>
 </div>
 
+<div class="confetti-wrap" id="confetti-wrap"></div>
 <div class="toast" id="toast"><span id="t-ico"></span><span id="t-msg"></span></div>
 
 <script>
-/* ═══════════════ FIREBASE CONFIG ═══════════════ */
-const firebaseConfig = {
-  apiKey: "AIzaSyCQfbPcwBu1uKMyZ2USrth0jIxOqrbfn0g",
-  authDomain: "cinevault-edd3c.firebaseapp.com",
-  projectId: "cinevault-edd3c",
-  storageBucket: "cinevault-edd3c.firebasestorage.app",
-  messagingSenderId: "100965897268",
-  appId: "1:100965897268:web:b8d128d955e0116d3d2661"
+/* ═══════════════ FIREBASE ═══════════════ */
+const firebaseConfig={
+  apiKey:"AIzaSyCQfbPcwBu1uKMyZ2USrth0jIxOqrbfn0g",
+  authDomain:"cinevault-edd3c.firebaseapp.com",
+  projectId:"cinevault-edd3c",
+  storageBucket:"cinevault-edd3c.firebasestorage.app",
+  messagingSenderId:"100965897268",
+  appId:"1:100965897268:web:b8d128d955e0116d3d2661"
 };
 firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db   = firebase.firestore();
+const auth=firebase.auth(), db=firebase.firestore();
 
-/* ═══════════════ ADMIN EMAILS — change to YOUR email ═══════════════ */
-const ADMIN_EMAILS = ['sumitshinde9421@gmail.com', 'sumit@cinevault.com'];
+/* ═══ ADMIN EMAILS — change to YOUR email ═══ */
+const ADMIN_EMAILS=['admin@cinevault.com','sumit@cinevault.com','sumitshinde9421@gmail.com'];
 
-/* ═══════════════ TMDB ═══════════════ */
-const TKEY='8265bd1679663a7ea12ac168da84d2e8', TIMG='https://image.tmdb.org/t/p/w500', TLG='https://image.tmdb.org/t/p/w780', TC={};
-async function tf(ep){
-  if(TC[ep])return TC[ep];
-  const s=ep.includes('?')?'&':'?';
-  const r=await fetch(`https://api.themoviedb.org/3${ep}${s}api_key=${TKEY}&language=en-US`);
-  const d=await r.json();TC[ep]=d;return d;
-}
+/* ═══ TMDB ═══ */
+const TKEY='8265bd1679663a7ea12ac168da84d2e8',TIMG='https://image.tmdb.org/t/p/w500',TLG='https://image.tmdb.org/t/p/w780',TC={};
+async function tf(ep){if(TC[ep])return TC[ep];const s=ep.includes('?')?'&':'?';const r=await fetch(`https://api.themoviedb.org/3${ep}${s}api_key=${TKEY}&language=en-US`);const d=await r.json();TC[ep]=d;return d;}
 
-/* ═══════════════ STATE ═══════════════ */
-let CU=null, isAdmin=false, currentPage='home';
-let customItems=[], watchlist=[], adminRatings={};
-let activeDetail=null, editMode=null;
-let movieGenre='all', seriesGenre='all', rankFilter='all';
-let tmdbM={d:[],ok:false}, tmdbS={d:[],ok:false};
+/* ═══ STATE ═══ */
+let CU=null,isAdmin=false,currentPage='home';
+let customItems=[],watchlist=[],adminRatings={};
+let activeDetail=null,editMode=null;
+let movieGenre='all',seriesGenre='all',rankFilter='all';
+let tmdbM={d:[],ok:false},tmdbS={d:[],ok:false};
+let tmdbAll=[];
 
-/* ═══════════════ AUTH LISTENER ═══════════════ */
+/* ═══ AUTH ═══ */
 auth.onAuthStateChanged(async user=>{
   document.getElementById('init-loader').style.display='none';
   if(user){
-    CU=user; isAdmin=ADMIN_EMAILS.includes(user.email);
-    /* save user info to Firestore so admin can see it */
+    CU=user;isAdmin=ADMIN_EMAILS.includes(user.email);
     await db.collection('users').doc(user.uid).set({
-      displayName: user.displayName || user.email.split('@')[0],
-      email:       user.email,
-      role:        ADMIN_EMAILS.includes(user.email) ? 'admin' : 'user',
-      joinedAt:    firebase.firestore.FieldValue.serverTimestamp(),
-      lastLogin:   firebase.firestore.FieldValue.serverTimestamp()
+      displayName:user.displayName||user.email.split('@')[0],email:user.email,
+      role:ADMIN_EMAILS.includes(user.email)?'admin':'user',
+      joinedAt:firebase.firestore.FieldValue.serverTimestamp(),
+      lastLogin:firebase.firestore.FieldValue.serverTimestamp()
     },{merge:true});
-    /* parallel load */
-    await Promise.all([loadCustomItems(), loadWatchlist(), loadAdminRatings()]);
+    await Promise.all([loadCustomItems(),loadWatchlist(),loadAdminRatings()]);
+    await loadTMDBAll();
     enterApp();
-  } else {
-    CU=null; isAdmin=false;
+  }else{
+    CU=null;isAdmin=false;
     document.getElementById('screen-app').classList.remove('active');
     document.getElementById('screen-login').classList.add('active');
   }
 });
 
-async function loadCustomItems(){
+async function loadCustomItems(){try{const s=await db.collection('items').orderBy('createdAt','desc').get();customItems=s.docs.map(d=>({fid:d.id,...d.data()}));}catch{customItems=[];}}
+async function loadAdminRatings(){try{const s=await db.collection('ratings').get();adminRatings={};s.docs.forEach(d=>{adminRatings[d.id]=d.data().rating;});}catch{adminRatings={};}}
+async function loadTMDBAll(){
   try{
-    const s=await db.collection('items').orderBy('createdAt','desc').get();
-    customItems=s.docs.map(d=>({fid:d.id,...d.data()}));
-  }catch{customItems=[];}
-}
-async function loadAdminRatings(){
-  try{
-    const s=await db.collection('ratings').get();
-    adminRatings={};
-    s.docs.forEach(d=>{adminRatings[d.id]=d.data().rating;});
-  }catch{adminRatings={};}
-}
-
-/* ═══ WATCHLIST — the ROOT FIX ═══
-   Key format: "movie_<id>" or "series_<id>"
-   id is always converted to string.
-   We save immediately to Firestore on every toggle.
-*/
-async function loadWatchlist(){
-  if(!CU){watchlist=[];return;}
-  try{
-    const doc=await db.collection('watchlists').doc(CU.uid).get();
-    watchlist=doc.exists?(doc.data().items||[]):[];
-  }catch(e){console.error('loadWatchlist',e);watchlist=[];}
+    const[a,b,c,d]=await Promise.all([tf('/movie/popular?page=1'),tf('/movie/popular?page=2'),tf('/tv/popular?page=1'),tf('/tv/popular?page=2')]);
+    const mv=[...(a.results||[]),...(b.results||[])].map(i=>({...i,_type:'movie'}));
+    const sv=[...(c.results||[]),...(d.results||[])].map(i=>({...i,_type:'series'}));
+    tmdbAll=[...mv,...sv];
+    tmdbM.d=[...(a.results||[]),...(b.results||[])];tmdbM.ok=true;
+    tmdbS.d=[...(c.results||[]),...(d.results||[])];tmdbS.ok=true;
+  }catch{tmdbAll=[];}
 }
 
-async function saveWatchlistToDB(){
-  if(!CU)return;
-  try{
-    await db.collection('watchlists').doc(CU.uid).set({items:watchlist},{merge:false});
-  }catch(e){
-    console.error('saveWatchlist',e);
-    toast('Could not save to watchlist','err');
-    throw e;
-  }
-}
-
-function wlKey(rawId,type){ return type+'_'+String(rawId); }
-function inWL(rawId,type){ return watchlist.includes(wlKey(rawId,type)); }
-
-async function toggleWL(rawId, type, title){
+/* ═══ WATCHLIST ═══ */
+async function loadWatchlist(){if(!CU){watchlist=[];return;}try{const doc=await db.collection('watchlists').doc(CU.uid).get();watchlist=doc.exists?(doc.data().items||[]):[];}catch{watchlist=[];}}
+async function saveWatchlistToDB(){if(!CU)return;try{await db.collection('watchlists').doc(CU.uid).set({items:watchlist},{merge:false});}catch(e){toast('Could not save','err');throw e;}}
+function wlKey(rawId,type){return type+'_'+String(rawId);}
+function inWL(rawId,type){return watchlist.includes(wlKey(rawId,type));}
+async function toggleWL(rawId,type,title){
   if(!CU){toast('Sign in to use watchlist','err');return;}
-  const key=wlKey(rawId,type);
-  const had=watchlist.includes(key);
-  /* optimistic UI update */
-  if(had) watchlist=watchlist.filter(k=>k!==key);
-  else    watchlist=[...watchlist,key];
-  /* update all heart buttons immediately */
-  repaintHearts(rawId,type);
-  updateHeroStats();
-  /* then persist */
-  try{
-    await saveWatchlistToDB();
-    if(!had) toast('Added "'+title+'" to watchlist 🎬','t-wl');
-    else     toast('Removed from watchlist','t-wl');
-  }catch{
-    /* rollback on failure */
-    if(had) watchlist=[...watchlist,key];
-    else    watchlist=watchlist.filter(k=>k!==key);
-    repaintHearts(rawId,type);
-    updateHeroStats();
-  }
-  /* update modal button if this item is open */
-  if(activeDetail && String(activeDetail.id)===String(rawId) && activeDetail.type===type){
-    syncModalWLBtn(rawId,type);
-  }
-  /* refresh watchlist page if open */
-  if(currentPage==='watchlist') loadWatchlistPage();
+  const key=wlKey(rawId,type),had=watchlist.includes(key);
+  if(had)watchlist=watchlist.filter(k=>k!==key);else watchlist=[...watchlist,key];
+  repaintHearts(rawId,type);updateHeroStats();
+  try{await saveWatchlistToDB();if(!had)toast('Added "'+title+'" to watchlist 🎬','t-wl');else toast('Removed from watchlist','t-wl');}
+  catch{if(had)watchlist=[...watchlist,key];else watchlist=watchlist.filter(k=>k!==key);repaintHearts(rawId,type);updateHeroStats();}
+  if(activeDetail&&String(activeDetail.id)===String(rawId)&&activeDetail.type===type)syncModalWLBtn(rawId,type);
+  if(currentPage==='watchlist')loadWatchlistPage();
 }
-
 function repaintHearts(rawId,type){
-  const key=wlKey(rawId,type);
-  const now=watchlist.includes(key);
-  /* normal card hearts */
-  document.querySelectorAll('.wl-btn[data-id="'+String(rawId)+'"][data-type="'+type+'"]').forEach(b=>{
-    b.classList.toggle('in-wl',now);
-    b.textContent=now?'♥':'♡';
-  });
-  /* pick card hearts */
-  document.querySelectorAll('.pick-wl-btn[data-id="'+String(rawId)+'"][data-type="'+type+'"]').forEach(b=>{
-    b.classList.toggle('in-wl',now);
-    b.textContent=now?'♥':'♡';
-  });
+  const key=wlKey(rawId,type),now=watchlist.includes(key);
+  document.querySelectorAll('.wl-btn[data-id="'+String(rawId)+'"][data-type="'+type+'"]').forEach(b=>{b.classList.toggle('in-wl',now);b.textContent=now?'♥':'♡';});
+  document.querySelectorAll('.pick-wl-btn[data-id="'+String(rawId)+'"][data-type="'+type+'"]').forEach(b=>{b.classList.toggle('in-wl',now);b.textContent=now?'♥':'♡';});
 }
+function syncModalWLBtn(rawId,type){const now=inWL(rawId,type);const mb=document.getElementById('wl-modal-btn');mb.className='wl-modal-btn'+(now?' in-wl':'');mb.textContent=now?'♥ In Watchlist':'♡ Add to Watchlist';}
 
-function syncModalWLBtn(rawId,type){
-  const now=inWL(rawId,type);
-  const mb=document.getElementById('wl-modal-btn');
-  mb.className='wl-modal-btn'+(now?' in-wl':'');
-  mb.textContent=now?'♥ In Watchlist':'♡ Add to Watchlist';
-}
-
-/* ═══════════════ AUTH ═══════════════ */
-function switchTab(t){
-  document.getElementById('tab-in').classList.toggle('active',t==='in');
-  document.getElementById('tab-up').classList.toggle('active',t==='up');
-  document.getElementById('form-in').style.display=t==='in'?'block':'none';
-  document.getElementById('form-up').style.display=t==='up'?'block':'none';
-  hideErr();
-}
+/* ═══ LOGIN / SIGNUP ═══ */
+function switchTab(t){document.getElementById('tab-in').classList.toggle('active',t==='in');document.getElementById('tab-up').classList.toggle('active',t==='up');document.getElementById('form-in').style.display=t==='in'?'block':'none';document.getElementById('form-up').style.display=t==='up'?'block':'none';hideErr();}
 function showErr(m){const e=document.getElementById('login-err');e.textContent=m;e.style.display='block';}
 function hideErr(){document.getElementById('login-err').style.display='none';}
-
-async function doLogin(){
-  const email=document.getElementById('si-email').value.trim();
-  const pass=document.getElementById('si-pass').value.trim();
-  if(!email||!pass){showErr('Please enter email and password.');return;}
-  document.getElementById('login-btn').textContent='Signing in…';
-  try{await auth.signInWithEmailAndPassword(email,pass);hideErr();}
-  catch(e){showErr(fe(e.code));document.getElementById('login-btn').textContent='Sign In →';}
-}
-async function doSignup(){
-  const name=document.getElementById('su-name').value.trim();
-  const email=document.getElementById('su-email').value.trim();
-  const pass=document.getElementById('su-pass').value.trim();
-  if(!email||!pass){showErr('Email and password are required.');return;}
-  if(pass.length<6){showErr('Password must be at least 6 characters.');return;}
-  document.getElementById('signup-btn').textContent='Creating…';
-  try{
-    const c=await auth.createUserWithEmailAndPassword(email,pass);
-    if(name)await c.user.updateProfile({displayName:name});
-    hideErr();
-  }catch(e){showErr(fe(e.code));document.getElementById('signup-btn').textContent='Create Account →';}
-}
+async function doLogin(){const email=document.getElementById('si-email').value.trim(),pass=document.getElementById('si-pass').value.trim();if(!email||!pass){showErr('Please enter email and password.');return;}document.getElementById('login-btn').textContent='Signing in…';try{await auth.signInWithEmailAndPassword(email,pass);hideErr();}catch(e){showErr(fe(e.code));document.getElementById('login-btn').textContent='Sign In →';}}
+async function doSignup(){const name=document.getElementById('su-name').value.trim(),email=document.getElementById('su-email').value.trim(),pass=document.getElementById('su-pass').value.trim();if(!email||!pass){showErr('Email and password are required.');return;}if(pass.length<6){showErr('Password must be at least 6 characters.');return;}document.getElementById('signup-btn').textContent='Creating…';try{const c=await auth.createUserWithEmailAndPassword(email,pass);if(name)await c.user.updateProfile({displayName:name});hideErr();}catch(e){showErr(fe(e.code));document.getElementById('signup-btn').textContent='Create Account →';}}
 async function doLogout(){await auth.signOut();currentPage='home';toast('Logged out','ok');}
-function fe(c){
-  return({'auth/user-not-found':'No account with this email.','auth/wrong-password':'Wrong password.',
-  'auth/invalid-email':'Enter a valid email.','auth/email-already-in-use':'Email already registered.',
-  'auth/weak-password':'Password needs 6+ characters.','auth/too-many-requests':'Too many attempts.',
-  'auth/invalid-credential':'Incorrect email or password.'})[c]||'Something went wrong.';
-}
+function fe(c){return({'auth/user-not-found':'No account with this email.','auth/wrong-password':'Wrong password.','auth/invalid-email':'Enter a valid email.','auth/email-already-in-use':'Email already registered.','auth/weak-password':'Password needs 6+ characters.','auth/too-many-requests':'Too many attempts.','auth/invalid-credential':'Incorrect email or password.'})[c]||'Something went wrong.';}
 
-/* ═══════════════ ENTER APP ═══════════════ */
+/* ═══ ENTER APP ═══ */
 function enterApp(){
   document.getElementById('screen-login').classList.remove('active');
   document.getElementById('screen-app').classList.add('active');
@@ -740,193 +819,114 @@ function enterApp(){
   document.getElementById('add-movie-btn').style.display=isAdmin?'inline-flex':'none';
   document.getElementById('add-series-btn').style.display=isAdmin?'inline-flex':'none';
   navTo('home');
+  initWheelCanvas();
+  initBattle();
 }
 
-/* ═══════════════ NAV ═══════════════ */
+/* ═══ NAV ═══ */
 function navTo(p){
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));
   document.getElementById('page-'+p).classList.add('active');
-  const nl=document.getElementById('nl-'+p);
-  if(nl)nl.classList.add('active');
+  const nl=document.getElementById('nl-'+p);if(nl)nl.classList.add('active');
   currentPage=p;window.scrollTo(0,0);
-  if(p==='home')      loadHome();
-  if(p==='movies')    loadMovies();
-  if(p==='series')    loadSeries();
-  if(p==='ratings')   loadRatings();
-  if(p==='watchlist') loadWatchlistPage();
-  if(p==='admin')     loadAdmin();
+  if(p==='home')loadHome();if(p==='movies')loadMovies();if(p==='series')loadSeries();
+  if(p==='ratings')loadRatings();if(p==='picks')loadPicksPage();if(p==='watchlist')loadWatchlistPage();
+  if(p==='admin')loadAdmin();if(p==='games'){initWheelCanvas();initBattle();}
 }
 
-/* ═══════════════ CARD ═══════════════ */
+/* ═══ CARD ═══ */
 function makeCard(item,type){
   const isCustom=!!item.fid;
   const poster=item.poster_path?TIMG+item.poster_path:(item._poster||'');
   const title=item._title||item.title||item.name||'Untitled';
   const year=((item.release_date||item.first_air_date||item._year||'')+'').slice(0,4);
   const score=item._myrating||(item.vote_average?item.vote_average.toFixed(1):'');
-  const rawId=String(item.fid||item.id);
-  const now=inWL(rawId,type);
-  const adminRow=(isAdmin&&isCustom)?`
-    <div class="card-admin-row">
-      <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openEdit('${item.fid}','${type}')">Edit</button>
-      <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteItem('${item.fid}')">Delete</button>
-    </div>`:'';
+  const rawId=String(item.fid||item.id);const now=inWL(rawId,type);
+  const adminRow=(isAdmin&&isCustom)?`<div class="card-admin-row"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openEdit('${item.fid}','${type}')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteItem('${item.fid}')">Delete</button></div>`:'';
   return `<div class="card" onclick="openDetail('${rawId}','${type}',${isCustom})">
     <span class="type-badge tb-${type==='movie'?'movie':'series'}">${type==='movie'?'Movie':'Series'}</span>
-    <button class="wl-btn ${now?'in-wl':''}" data-id="${rawId}" data-type="${type}"
-      onclick="event.stopPropagation();toggleWL('${rawId}','${type}',${JSON.stringify(title)})">${now?'♥':'♡'}</button>
+    <button class="wl-btn ${now?'in-wl':''}" data-id="${rawId}" data-type="${type}" onclick="event.stopPropagation();toggleWL('${rawId}','${type}',${JSON.stringify(title)})">${now?'♥':'♡'}</button>
     ${poster?`<img class="card-img" src="${poster}" alt="${title}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`:''}
     <div class="card-img-ph" style="display:${poster?'none':'flex'}">${type==='movie'?'🎬':'📺'}</div>
-    <div class="card-body">
-      <div class="card-title">${title}</div>
-      <div class="card-foot">
-        <span class="card-year">${year}</span>
-        ${score?`<span class="card-star">★ ${score}</span>`:''}
-      </div>${adminRow}
-    </div>
+    <div class="card-body"><div class="card-title">${title}</div><div class="card-foot"><span class="card-year">${year}</span>${score?`<span class="card-star">★ ${score}</span>`:''}</div>${adminRow}</div>
   </div>`;
 }
-
-/* pick card — WITH watchlist heart */
 function makePickCard(item){
-  const type=item._type;
-  const rawId=String(item.fid);
-  const now=inWL(rawId,type);
-  const poster=item._poster||'';
-  const title=item._title||'Untitled';
-  const year=item._year||'';
-  const score=item._myrating||'';
-  const note=item._picknote||'';
+  const type=item._type,rawId=String(item.fid),now=inWL(rawId,type);
+  const poster=item._poster||'',title=item._title||'Untitled',year=item._year||'',score=item._myrating||'',note=item._picknote||'';
   return `<div class="pick-card" onclick="openDetail('${rawId}','${type}',true)">
     <span class="pick-badge">⭐ Top Pick</span>
-    <button class="pick-wl-btn ${now?'in-wl':''}" data-id="${rawId}" data-type="${type}"
-      onclick="event.stopPropagation();toggleWL('${rawId}','${type}',${JSON.stringify(title)})">${now?'♥':'♡'}</button>
+    <button class="pick-wl-btn ${now?'in-wl':''}" data-id="${rawId}" data-type="${type}" onclick="event.stopPropagation();toggleWL('${rawId}','${type}',${JSON.stringify(title)})">${now?'♥':'♡'}</button>
     ${poster?`<img class="pick-img" src="${poster}" alt="${title}" loading="lazy">`:`<div class="pick-img-ph">${type==='movie'?'🎬':'📺'}</div>`}
-    <div class="pick-body">
-      <div class="pick-title">${title}</div>
-      <div class="pick-meta">${year}${score?' · ★ '+score:''} · ${type==='movie'?'Movie':'Series'}</div>
-      ${note?`<div class="pick-note">"${note}"</div>`:''}
-    </div>
+    <div class="pick-body"><div class="pick-title">${title}</div><div class="pick-meta">${year}${score?' · ★ '+score:''} · ${type==='movie'?'Movie':'Series'}</div>${note?`<div class="pick-note">"${note}"</div>`:''}</div>
   </div>`;
 }
 
-/* ═══════════════ HOME ═══════════════ */
+/* ═══ HOME ═══ */
 function loadHome(){
   updateHeroStats();
-  const el=document.getElementById('home-picks');
+  // Recently Added — last 20 custom items, newest first
+  const el=document.getElementById('home-recent');
+  const recent=[...customItems].slice(0,20);
+  el.innerHTML=recent.length
+    ?recent.map(i=>makeCard(i,i._type)).join('')
+    :'<div class="empty-state" style="grid-column:1/-1"><div class="eico">🎬</div><h4>No items yet</h4><p>Admin can add movies &amp; series</p></div>';
+}
+function loadPicksPage(){
+  const el=document.getElementById('picks-grid');
+  const badge=document.getElementById('picks-count-badge');
   const picks=customItems.filter(i=>i._toppick);
-  el.innerHTML=picks.length
-    ?picks.map(makePickCard).join('')
-    :'<div class="empty-state"><div class="eico">⭐</div><h4>No top picks yet</h4><p>Admin can mark items as top picks when adding</p></div>';
-}
-function updateHeroStats(){
-  document.getElementById('hs-movies').textContent=customItems.filter(i=>i._type==='movie').length||'—';
-  document.getElementById('hs-series').textContent=customItems.filter(i=>i._type==='series').length||'—';
-  document.getElementById('hs-wl').textContent=watchlist.length||'—';
+  if(picks.length){
+    badge.textContent=picks.length+' pick'+(picks.length!==1?'s':'');
+    badge.style.display='block';
+    el.innerHTML=picks.map(i=>makeCard(i,i._type)).join('');
+  }else{
+    badge.style.display='none';
+    el.innerHTML='<div class="empty-state"><div class="eico">⭐</div><h4>No top picks yet</h4><p>Admin can mark items as top picks when adding or editing</p></div>';
+  }
 }
 
-/* ═══════════════ MOVIES / SERIES ═══════════════ */
-async function loadMovies(){
-  const el=document.getElementById('movies-grid');
-  el.innerHTML='<div class="loading"><div class="spin"></div></div>';
-  if(!tmdbM.ok){
-    try{
-      const[a,b]=await Promise.all([tf('/movie/popular?page=1'),tf('/movie/popular?page=2')]);
-      tmdbM.d=[...(a.results||[]),...(b.results||[])];tmdbM.ok=true;
-    }catch{}
-  }
-  let all=[...customItems.filter(i=>i._type==='movie'),...tmdbM.d];
-  if(movieGenre!=='all')all=all.filter(i=>(i._genre||'').toLowerCase().includes(movieGenre.toLowerCase()));
-  el.innerHTML=all.length?all.map(i=>makeCard(i,'movie')).join(''):emptyH('🎬','No movies found');
-}
-async function loadSeries(){
-  const el=document.getElementById('series-grid');
-  el.innerHTML='<div class="loading"><div class="spin"></div></div>';
-  if(!tmdbS.ok){
-    try{
-      const[a,b]=await Promise.all([tf('/tv/popular?page=1'),tf('/tv/popular?page=2')]);
-      tmdbS.d=[...(a.results||[]),...(b.results||[])];tmdbS.ok=true;
-    }catch{}
-  }
-  let all=[...customItems.filter(i=>i._type==='series'),...tmdbS.d];
-  if(seriesGenre!=='all')all=all.filter(i=>(i._genre||'').toLowerCase().includes(seriesGenre.toLowerCase()));
-  el.innerHTML=all.length?all.map(i=>makeCard(i,'series')).join(''):emptyH('📺','No series found');
-}
-function setGenre(type,genre,btn){
-  btn.closest('.filters').querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  if(type==='movie'){movieGenre=genre;loadMovies();}
-  else{seriesGenre=genre;loadSeries();}
-}
+function updateHeroStats(){document.getElementById('hs-movies').textContent=customItems.filter(i=>i._type==='movie').length||'—';document.getElementById('hs-series').textContent=customItems.filter(i=>i._type==='series').length||'—';document.getElementById('hs-wl').textContent=watchlist.length||'—';}
 
-/* ═══════════════ RATINGS ═══════════════ */
-function setRF(f,btn){
-  document.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  rankFilter=f;renderRanked();
-}
+/* ═══ MOVIES / SERIES ═══ */
+async function loadMovies(){const el=document.getElementById('movies-grid');el.innerHTML='<div class="loading"><div class="spin"></div></div>';let all=[...customItems.filter(i=>i._type==='movie'),...tmdbM.d];if(movieGenre!=='all')all=all.filter(i=>(i._genre||'').toLowerCase().includes(movieGenre.toLowerCase()));el.innerHTML=all.length?all.map(i=>makeCard(i,'movie')).join(''):emptyH('🎬','No movies found');}
+async function loadSeries(){const el=document.getElementById('series-grid');el.innerHTML='<div class="loading"><div class="spin"></div></div>';let all=[...customItems.filter(i=>i._type==='series'),...tmdbS.d];if(seriesGenre!=='all')all=all.filter(i=>(i._genre||'').toLowerCase().includes(seriesGenre.toLowerCase()));el.innerHTML=all.length?all.map(i=>makeCard(i,'series')).join(''):emptyH('📺','No series found');}
+function setGenre(type,genre,btn){btn.closest('.filters').querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');if(type==='movie'){movieGenre=genre;loadMovies();}else{seriesGenre=genre;loadSeries();}}
+
+/* ═══ RATINGS ═══ */
+function setRF(f,btn){document.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');rankFilter=f;renderRanked();}
 function loadRatings(){renderRanked();}
 function renderRanked(){
   const el=document.getElementById('ranked-list');
   let items=customItems.filter(i=>i._myrating&&i._myrating>0);
-  if(rankFilter==='movie')  items=items.filter(i=>i._type==='movie');
-  if(rankFilter==='series') items=items.filter(i=>i._type==='series');
+  if(rankFilter==='movie')items=items.filter(i=>i._type==='movie');
+  if(rankFilter==='series')items=items.filter(i=>i._type==='series');
   items.sort((a,b)=>(b._myrating||0)-(a._myrating||0));
-  if(!items.length){
-    el.innerHTML=`<div class="empty-rated"><div class="eico">⭐</div><h4>No rated titles yet</h4><p>Admin can set ratings when adding or editing movies &amp; series</p></div>`;
-    return;
-  }
+  if(!items.length){el.innerHTML=`<div class="empty-rated"><div class="eico">⭐</div><h4>No rated titles yet</h4><p>Admin can set ratings when adding movies &amp; series</p></div>`;return;}
   el.innerHTML='<div class="ranked-list">'+items.map((item,idx)=>{
-    const rank=idx+1;
-    const medal=rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':'';
-    const bar=Math.round(((item._myrating||0)/10)*100);
-    const poster=item._poster||'';
+    const rank=idx+1,medal=rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':'',bar=Math.round(((item._myrating||0)/10)*100);
     return `<div class="ranked-row" onclick="openDetail('${item.fid}','${item._type}',true)">
       <div class="rank-num ${rank<=3?'top3':''}">${medal||rank}</div>
-      ${poster?`<img class="rank-poster" src="${poster}" alt="${item._title}">`:`<div class="rank-poster-ph">${item._type==='movie'?'🎬':'📺'}</div>`}
-      <div class="rank-info">
-        <div class="rank-title">${item._title||'Untitled'}</div>
-        <div class="rank-meta">${item._year||'—'} · ${item._genre||'—'} · ${item._type==='movie'?'Movie':'Series'}</div>
-        <div class="rank-bar-wrap"><div class="rank-bar" style="width:${bar}%"></div></div>
-      </div>
-      <div>
-        <div class="rank-score">★ ${item._myrating}</div>
-        <div class="rank-score-lbl">/ 10</div>
-      </div>
+      ${item._poster?`<img class="rank-poster" src="${item._poster}" alt="${item._title}">`:`<div class="rank-poster-ph">${item._type==='movie'?'🎬':'📺'}</div>`}
+      <div class="rank-info"><div class="rank-title">${item._title||'Untitled'}</div><div class="rank-meta">${item._year||'—'} · ${item._genre||'—'} · ${item._type==='movie'?'Movie':'Series'}</div><div class="rank-bar-wrap"><div class="rank-bar" style="width:${bar}%"></div></div></div>
+      <div><div class="rank-score">★ ${item._myrating}</div><div class="rank-score-lbl">/ 10</div></div>
     </div>`;
   }).join('')+'</div>';
 }
 
-/* ═══════════════ WATCHLIST PAGE ═══════════════ */
+/* ═══ WATCHLIST PAGE ═══ */
 async function loadWatchlistPage(){
-  const el=document.getElementById('watchlist-grid');
-  const badge=document.getElementById('wl-badge');
-  if(!watchlist.length){
-    el.innerHTML='<div class="empty-state" style="grid-column:1/-1"><div class="eico">🎬</div><h4>Your watchlist is empty</h4><p>Tap ♡ on any card to save it here</p></div>';
-    badge.style.display='none';
-    return;
-  }
-  badge.textContent=watchlist.length+' title'+(watchlist.length!==1?'s':'');
-  badge.style.display='block';
+  const el=document.getElementById('watchlist-grid'),badge=document.getElementById('wl-badge');
+  if(!watchlist.length){el.innerHTML='<div class="empty-state" style="grid-column:1/-1"><div class="eico">🎬</div><h4>Your watchlist is empty</h4><p>Tap ♡ on any card to save it here</p></div>';badge.style.display='none';return;}
+  badge.textContent=watchlist.length+' title'+(watchlist.length!==1?'s':'');badge.style.display='block';
   el.innerHTML='<div class="loading" style="grid-column:1/-1"><div class="spin"></div> Loading…</div>';
   const cards=[];
-  for(const key of[...watchlist]){
-    const under=key.indexOf('_');
-    const type=key.slice(0,under);
-    const rawId=key.slice(under+1);
-    const custom=customItems.find(i=>i.fid===rawId);
-    if(custom){cards.push(makeCard(custom,type));continue;}
-    try{
-      const ep=type==='movie'?`/movie/${rawId}`:`/tv/${rawId}`;
-      const d=await tf(ep);
-      cards.push(makeCard(d,type));
-    }catch{}
-  }
+  for(const key of[...watchlist]){const under=key.indexOf('_'),type=key.slice(0,under),rawId=key.slice(under+1);const custom=customItems.find(i=>i.fid===rawId);if(custom){cards.push(makeCard(custom,type));continue;}try{const d=await tf(type==='movie'?`/movie/${rawId}`:`/tv/${rawId}`);cards.push(makeCard(d,type));}catch{}}
   el.innerHTML=cards.length?cards.join(''):emptyH('🎬','Nothing loaded');
 }
 
-/* ═══════════════ DETAIL MODAL ═══════════════ */
+/* ═══ DETAIL MODAL ═══ */
 async function openDetail(rawId,type,isCustom){
   document.getElementById('ov-detail').classList.add('open');
   document.getElementById('md-title').textContent='Loading…';
@@ -936,102 +936,130 @@ async function openDetail(rawId,type,isCustom){
   document.getElementById('rating-box').style.display='none';
   activeDetail={id:rawId,type,isCustom};
   let item;
-  if(isCustom){
-    item=customItems.find(i=>i.fid===rawId);
-    if(item)fillModal(item,type,true);
-  }else{
-    try{item=await tf(`/${type==='movie'?'movie':'tv'}/${rawId}`);fillModal(item,type,false);}
-    catch{document.getElementById('md-title').textContent='Failed to load';}
-  }
+  if(isCustom){item=customItems.find(i=>i.fid===rawId);if(item)fillModal(item,type,true);}
+  else{try{item=await tf(`/${type==='movie'?'movie':'tv'}/${rawId}`);fillModal(item,type,false);}catch{document.getElementById('md-title').textContent='Failed to load';}}
   syncModalWLBtn(rawId,type);
-  if(isAdmin){
-    document.getElementById('rating-box').style.display='block';
-    const rk='admin_'+type+'_'+String(rawId);
-    paintStars(adminRatings[rk]||0);
-  }
+  if(isAdmin){document.getElementById('rating-box').style.display='block';const rk='admin_'+type+'_'+String(rawId);paintStars(adminRatings[rk]||0);}
 }
 function fillModal(item,type,isCustom){
-  const title=item._title||item.title||item.name||'Unknown';
-  const year=((item.release_date||item.first_air_date||item._year||'')+'').slice(0,4);
-  const score=item.vote_average?item.vote_average.toFixed(1):(item._myrating||'—');
-  const genres=item.genres?.map(g=>g.name)||(item._genre?item._genre.split(',').map(g=>g.trim()):[]);
-  const ov=item.overview||item._overview||'No description available.';
-  const poster=item.poster_path?TLG+item.poster_path:(item._poster||'');
+  const title=item._title||item.title||item.name||'Unknown',year=((item.release_date||item.first_air_date||item._year||'')+'').slice(0,4),score=item.vote_average?item.vote_average.toFixed(1):(item._myrating||'—'),genres=item.genres?.map(g=>g.name)||(item._genre?item._genre.split(',').map(g=>g.trim()):[]),ov=item.overview||item._overview||'No description.',poster=item.poster_path?TLG+item.poster_path:(item._poster||'');
   document.getElementById('md-type').textContent=type==='movie'?'🎬 MOVIE':'📺 TV SERIES';
-  document.getElementById('md-title').textContent=title;
-  document.getElementById('md-year').textContent=year||'—';
-  document.getElementById('md-rating').textContent='★ '+score;
-  document.getElementById('md-genre').textContent=genres.join(', ')||'—';
-  document.getElementById('md-overview').textContent=ov;
-  document.getElementById('md-tags').innerHTML=genres.map(g=>`<span class="gtag">${g}</span>`).join('');
-  if(poster){
-    const img=document.getElementById('md-poster');
-    img.onload=()=>{img.style.display='block';document.getElementById('md-poster-ph').style.display='none';};
-    img.onerror=()=>{img.style.display='none';document.getElementById('md-poster-ph').style.display='flex';};
-    img.src=poster;
-  }
-  if(isAdmin&&isCustom){
-    document.getElementById('md-admin-acts').innerHTML=`
-      <button class="btn btn-ghost btn-sm" onclick="openEditCurrent()">✏️ Edit</button>
-      <button class="btn btn-danger btn-sm" onclick="deleteCurrentItem()">🗑 Delete</button>`;
-  }
+  document.getElementById('md-title').textContent=title;document.getElementById('md-year').textContent=year||'—';document.getElementById('md-rating').textContent='★ '+score;document.getElementById('md-genre').textContent=genres.join(', ')||'—';document.getElementById('md-overview').textContent=ov;document.getElementById('md-tags').innerHTML=genres.map(g=>`<span class="gtag">${g}</span>`).join('');
+  if(poster){const img=document.getElementById('md-poster');img.onload=()=>{img.style.display='block';document.getElementById('md-poster-ph').style.display='none';};img.onerror=()=>{img.style.display='none';document.getElementById('md-poster-ph').style.display='flex';};img.src=poster;}
+  if(isAdmin&&isCustom)document.getElementById('md-admin-acts').innerHTML=`<button class="btn btn-ghost btn-sm" onclick="openEditCurrent()">✏️ Edit</button><button class="btn btn-danger btn-sm" onclick="deleteCurrentItem()">🗑 Delete</button>`;
   paintStars(0);
 }
-function paintStars(n){
-  document.querySelectorAll('.star-btn').forEach((s,i)=>s.classList.toggle('on',i<n));
-  document.getElementById('md-myrating').textContent=n?n+' / 10':'';
-}
+function paintStars(n){document.querySelectorAll('.star-btn').forEach((s,i)=>s.classList.toggle('on',i<n));document.getElementById('md-myrating').textContent=n?n+' / 10':'';}
 function hov(n){document.querySelectorAll('.star-btn').forEach((s,i)=>s.style.color=i<n?'var(--gold)':'');}
-function unhov(){
-  if(!activeDetail||!isAdmin)return;
-  const rk='admin_'+activeDetail.type+'_'+String(activeDetail.id);
-  paintStars(adminRatings[rk]||0);
-}
-async function rate(n){
-  if(!isAdmin||!activeDetail)return;
-  const rk='admin_'+activeDetail.type+'_'+String(activeDetail.id);
-  try{
-    await db.collection('ratings').doc(rk).set({
-      rating:n,type:activeDetail.type,itemId:String(activeDetail.id),
-      ratedAt:firebase.firestore.FieldValue.serverTimestamp()
-    });
-    adminRatings[rk]=n;
-    paintStars(n);
-    if(activeDetail.isCustom){
-      await db.collection('items').doc(activeDetail.id).update({_myrating:n});
-      const idx=customItems.findIndex(i=>i.fid===activeDetail.id);
-      if(idx>-1)customItems[idx]._myrating=n;
-    }
-    toast('Admin rating: '+n+'/10 ★','ok');
-  }catch(e){toast('Could not save rating','err');}
-}
-async function toggleWLFromModal(){
-  if(!activeDetail)return;
-  const title=document.getElementById('md-title').textContent;
-  await toggleWL(activeDetail.id,activeDetail.type,title);
-}
+function unhov(){if(!activeDetail||!isAdmin)return;const rk='admin_'+activeDetail.type+'_'+String(activeDetail.id);paintStars(adminRatings[rk]||0);}
+async function rate(n){if(!isAdmin||!activeDetail)return;const rk='admin_'+activeDetail.type+'_'+String(activeDetail.id);try{await db.collection('ratings').doc(rk).set({rating:n,type:activeDetail.type,itemId:String(activeDetail.id),ratedAt:firebase.firestore.FieldValue.serverTimestamp()});adminRatings[rk]=n;paintStars(n);if(activeDetail.isCustom){await db.collection('items').doc(activeDetail.id).update({_myrating:n});const idx=customItems.findIndex(i=>i.fid===activeDetail.id);if(idx>-1)customItems[idx]._myrating=n;}toast('Admin rating: '+n+'/10 ★','ok');}catch{toast('Could not save rating','err');}}
+async function toggleWLFromModal(){if(!activeDetail)return;const title=document.getElementById('md-title').textContent;await toggleWL(activeDetail.id,activeDetail.type,title);}
 function closeDetail(){document.getElementById('ov-detail').classList.remove('open');activeDetail=null;}
 function openEditCurrent(){const d=activeDetail;closeDetail();if(d)openEdit(d.id,d.type);}
 function deleteCurrentItem(){const d=activeDetail;closeDetail();if(d)deleteItem(d.id);}
 
-/* ═══════════════ ADD / EDIT ═══════════════ */
-document.getElementById('af-toppick').addEventListener('change',function(){
-  document.getElementById('pick-note-wrap').style.display=this.checked?'block':'none';
-});
+/* ═══ ADD / EDIT ═══ */
+document.getElementById('af-toppick').addEventListener('change',function(){document.getElementById('pick-note-wrap').style.display=this.checked?'block':'none';});
+
+/* ═══ AUTO POSTER SEARCH ═══ */
+let searchDropTimer=null, currentTMDBItem=null;
+
+function onSearchInput(val){
+  clearTimeout(searchDropTimer);
+  const drop=document.getElementById('search-results-drop');
+  const spinner=document.getElementById('search-spinner');
+  if(!val||val.length<2){drop.style.display='none';return;}
+  spinner.style.display='block';
+  searchDropTimer=setTimeout(()=>doTMDBSearch(val),500);
+}
+
+async function doTMDBSearch(q){
+  const type=document.getElementById('ov-add').dataset.type||'movie';
+  const spinner=document.getElementById('search-spinner');
+  const drop=document.getElementById('search-results-drop');
+  try{
+    const ep=type==='movie'?`/search/movie?query=${encodeURIComponent(q)}`:`/search/tv?query=${encodeURIComponent(q)}`;
+    const d=await tf(ep);
+    spinner.style.display='none';
+    const results=(d.results||[]).slice(0,8);
+    if(!results.length){drop.style.display='none';return;}
+    drop.style.display='block';
+    drop.innerHTML=results.map((r,i)=>{
+      const title=r.title||r.name||'';
+      const year=((r.release_date||r.first_air_date||'')+'').slice(0,4);
+      const poster=r.poster_path?TIMG+r.poster_path:'';
+      const score=r.vote_average?r.vote_average.toFixed(1):'';
+      return `<div onclick="selectTMDBResult(${i})" style="display:flex;align-items:center;gap:.75rem;padding:.65rem .9rem;cursor:pointer;border-bottom:1px solid var(--border);transition:background .15s;" onmouseover="this.style.background='var(--bg3)'" onmouseout="this.style.background=''">
+        ${poster?`<img src="${poster}" style="width:32px;height:48px;object-fit:cover;border-radius:4px;flex-shrink:0;">`:'<div style="width:32px;height:48px;background:var(--bg3);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;">🎬</div>'}
+        <div style="min-width:0;"><div style="font-size:.85rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${title}</div><div style="font-size:.72rem;color:var(--muted);">${year}${score?' · ★ '+score:''}</div></div>
+      </div>`;
+    }).join('');
+    drop._results=results;
+  }catch(e){spinner.style.display='none';drop.style.display='none';}
+}
+
+async function selectTMDBResult(idx){
+  const drop=document.getElementById('search-results-drop');
+  const results=drop._results||[];
+  const r=results[idx];if(!r)return;
+  drop.style.display='none';
+  document.getElementById('af-search').value=r.title||r.name||'';
+  currentTMDBItem=r;
+  const type=document.getElementById('ov-add').dataset.type||'movie';
+  document.getElementById('af-title').value=r.title||r.name||'';
+  document.getElementById('af-year').value=((r.release_date||r.first_air_date||'')+'').slice(0,4);
+  document.getElementById('af-overview').value=r.overview||'';
+  try{
+    const full=await tf(type==='movie'?`/movie/${r.id}`:`/tv/${r.id}`);
+    document.getElementById('af-genre').value=(full.genres||[]).map(g=>g.name).join(', ');
+    try{
+      const credits=await tf(`/${type==='movie'?'movie':'tv'}/${r.id}/credits`);
+      if(type==='movie'){const dir=(credits.crew||[]).find(c=>c.job==='Director');if(dir)document.getElementById('af-director').value=dir.name;}
+      else{const cr=(full.created_by||[])[0];if(cr)document.getElementById('af-director').value=cr.name;}
+    }catch{}
+  }catch{}
+  if(r.poster_path){
+    const url=TIMG+r.poster_path;
+    document.getElementById('af-poster').value=url;
+    setPosterPreview(url,true);
+  }else{setPosterPreview('',false);}
+  toast('Auto-filled from TMDB ✓','ok');
+}
+
+function setPosterPreview(url,autoFetched){
+  const img=document.getElementById('poster-preview');
+  const ph=document.getElementById('poster-ph');
+  const badge=document.getElementById('poster-auto-badge');
+  if(url){img.src=url;img.style.display='block';ph.style.display='none';badge.style.display=autoFetched?'block':'none';}
+  else{img.src='';img.style.display='none';ph.style.display='block';badge.style.display='none';}
+}
+
+function onManualPosterInput(val){
+  if(val&&val.startsWith('http'))setPosterPreview(val,false);
+  else if(!val)setPosterPreview('',false);
+}
+
+function clearPosterPreview(){
+  document.getElementById('af-poster').value='';
+  setPosterPreview('',false);
+}
+
 function openAdd(type){
-  editMode=null;
+  editMode=null;currentTMDBItem=null;
   document.getElementById('add-modal-title').textContent=type==='movie'?'ADD MOVIE':'ADD SERIES';
   document.getElementById('af-save').textContent='Save';
   clearForm();
   document.getElementById('ov-add').dataset.type=type;
   document.getElementById('ov-add').classList.add('open');
 }
+
 function openEdit(fid,type){
-  const item=customItems.find(i=>i.fid===fid);
-  if(!item)return;
-  editMode={fid,type};
+  const item=customItems.find(i=>i.fid===fid);if(!item)return;
+  editMode={fid,type};currentTMDBItem=null;
   document.getElementById('add-modal-title').textContent=type==='movie'?'EDIT MOVIE':'EDIT SERIES';
   document.getElementById('af-save').textContent='Update';
+  document.getElementById('af-search').value='';
+  document.getElementById('search-results-drop').style.display='none';
   document.getElementById('af-title').value=item._title||'';
   document.getElementById('af-year').value=item._year||'';
   document.getElementById('af-genre').value=item._genre||'';
@@ -1039,187 +1067,334 @@ function openEdit(fid,type){
   document.getElementById('af-rating').value=item._myrating||'';
   document.getElementById('af-overview').value=item._overview||'';
   document.getElementById('af-poster').value=item._poster||'';
-  document.getElementById('af-tmdb').value=item._tmdbId||'';
   document.getElementById('af-toppick').checked=!!item._toppick;
   document.getElementById('af-picknote').value=item._picknote||'';
   document.getElementById('pick-note-wrap').style.display=item._toppick?'block':'none';
   document.getElementById('ov-add').dataset.type=type;
   document.getElementById('ov-add').classList.add('open');
+  if(item._poster)setPosterPreview(item._poster,!!item._tmdbId);
+  else setPosterPreview('',false);
 }
+
 function clearForm(){
-  ['af-title','af-year','af-genre','af-director','af-rating','af-overview','af-poster','af-tmdb','af-picknote']
-    .forEach(id=>{document.getElementById(id).value='';});
+  ['af-search','af-title','af-year','af-genre','af-director','af-rating','af-overview','af-poster','af-picknote']
+    .forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('af-toppick').checked=false;
   document.getElementById('pick-note-wrap').style.display='none';
+  const drop=document.getElementById('search-results-drop');if(drop)drop.style.display='none';
+  setPosterPreview('',false);
 }
+
 async function saveItem(){
   const title=document.getElementById('af-title').value.trim();
-  if(!title){toast('Title is required','err');return;}
+  if(!title){toast('Title is required — use search above or type manually','err');return;}
   const type=document.getElementById('ov-add').dataset.type;
-  const tmdbId=document.getElementById('af-tmdb').value.trim();
-  let autoPoster='';
-  if(tmdbId){
-    try{
-      const d=await tf(`/${type==='movie'?'movie':'tv'}/${tmdbId}`);
-      if(d.poster_path)autoPoster=TIMG+d.poster_path;
-    }catch{}
-  }
+  const poster=document.getElementById('af-poster').value.trim();
   const isToppick=document.getElementById('af-toppick').checked;
-  const data={
-    _type:type,_title:title,
-    _year:document.getElementById('af-year').value.trim(),
-    _genre:document.getElementById('af-genre').value.trim(),
-    _director:document.getElementById('af-director').value.trim(),
-    _myrating:parseFloat(document.getElementById('af-rating').value)||null,
-    _overview:document.getElementById('af-overview').value.trim(),
-    _poster:document.getElementById('af-poster').value.trim()||autoPoster,
-    _tmdbId:tmdbId,_toppick:isToppick,
-    _picknote:isToppick?document.getElementById('af-picknote').value.trim():'',
-    addedBy:CU.uid,
-  };
+  const data={_type:type,_title:title,_year:document.getElementById('af-year').value.trim(),_genre:document.getElementById('af-genre').value.trim(),_director:document.getElementById('af-director').value.trim(),_myrating:parseFloat(document.getElementById('af-rating').value)||null,_overview:document.getElementById('af-overview').value.trim(),_poster:poster,_tmdbId:currentTMDBItem?String(currentTMDBItem.id):'',_toppick:isToppick,_picknote:isToppick?document.getElementById('af-picknote').value.trim():'',addedBy:CU.uid};
   document.getElementById('af-save').textContent='Saving…';
   try{
-    if(editMode){
-      data.updatedAt=firebase.firestore.FieldValue.serverTimestamp();
-      await db.collection('items').doc(editMode.fid).update(data);
-      toast('Updated!','ok');
-    }else{
-      data.createdAt=firebase.firestore.FieldValue.serverTimestamp();
-      await db.collection('items').add(data);
-      toast(title+' added!','ok');
-    }
+    if(editMode){data.updatedAt=firebase.firestore.FieldValue.serverTimestamp();await db.collection('items').doc(editMode.fid).update(data);toast('Updated!','ok');}
+    else{data.createdAt=firebase.firestore.FieldValue.serverTimestamp();await db.collection('items').add(data);toast(title+' added!','ok');}
     await loadCustomItems();closeAdd();refreshPage();
-  }catch(e){
-    toast('Save failed: '+e.message,'err');
-    document.getElementById('af-save').textContent=editMode?'Update':'Save';
-  }
+  }catch(e){toast('Save failed: '+e.message,'err');document.getElementById('af-save').textContent=editMode?'Update':'Save';}
 }
+
 async function deleteItem(fid){
   if(!confirm('Delete this item?'))return;
   try{await db.collection('items').doc(fid).delete();await loadCustomItems();toast('Deleted','ok');refreshPage();}
   catch{toast('Delete failed','err');}
 }
-function closeAdd(){document.getElementById('ov-add').classList.remove('open');editMode=null;}
-function refreshPage(){
-  if(currentPage==='home')      loadHome();
-  if(currentPage==='movies')    loadMovies();
-  if(currentPage==='series')    loadSeries();
-  if(currentPage==='ratings')   loadRatings();
-  if(currentPage==='admin')     loadAdmin();
-  if(currentPage==='watchlist') loadWatchlistPage();
-}
 
-/* ═══════════════ ADMIN ═══════════════ */
+function closeAdd(){document.getElementById('ov-add').classList.remove('open');editMode=null;currentTMDBItem=null;}
+function refreshPage(){if(currentPage==='home')loadHome();if(currentPage==='movies')loadMovies();if(currentPage==='series')loadSeries();if(currentPage==='ratings')loadRatings();if(currentPage==='picks')loadPicksPage();if(currentPage==='admin')loadAdmin();if(currentPage==='watchlist')loadWatchlistPage();}
+
+/* ═══ ADMIN ═══ */
 async function loadAdmin(){
   if(!isAdmin){navTo('home');return;}
-  const mvs=customItems.filter(i=>i._type==='movie');
-  const srv=customItems.filter(i=>i._type==='series');
-  const picks=customItems.filter(i=>i._toppick);
-  let uCount=0;
-  try{const s=await db.collection('users').get();uCount=s.size;}catch{}
-  document.getElementById('as-movies').textContent=mvs.length;
-  document.getElementById('as-series').textContent=srv.length;
-  document.getElementById('as-picks').textContent=picks.length;
-  document.getElementById('as-users').textContent=uCount;
-  const aRow=item=>`<div class="admin-item">
-    ${item._poster?`<img src="${item._poster}" alt="${item._title}">`:`<div class="ai-ph">${item._type==='movie'?'🎬':'📺'}</div>`}
-    <div class="ai-info">
-      <div class="ai-name">${item._title}${item._toppick?' ⭐':''}</div>
-      <div class="ai-meta">${item._year||'—'} · ${item._genre||'—'}${item._myrating?' · ★ '+item._myrating:''}</div>
-    </div>
-    <div class="ai-btns">
-      <button class="btn btn-ghost btn-sm" onclick="openEdit('${item.fid}','${item._type}')">Edit</button>
-      <button class="btn btn-danger btn-sm" onclick="deleteItem('${item.fid}')">Del</button>
-    </div>
-  </div>`;
+  const mvs=customItems.filter(i=>i._type==='movie'),srv=customItems.filter(i=>i._type==='series'),picks=customItems.filter(i=>i._toppick);
+  let uCount=0;try{const s=await db.collection('users').get();uCount=s.size;}catch{}
+  document.getElementById('as-movies').textContent=mvs.length;document.getElementById('as-series').textContent=srv.length;document.getElementById('as-picks').textContent=picks.length;document.getElementById('as-users').textContent=uCount;
+  const aRow=item=>`<div class="admin-item">${item._poster?`<img src="${item._poster}" alt="${item._title}">`:`<div class="ai-ph">${item._type==='movie'?'🎬':'📺'}</div>`}<div class="ai-info"><div class="ai-name">${item._title}${item._toppick?' ⭐':''}</div><div class="ai-meta">${item._year||'—'} · ${item._genre||'—'}${item._myrating?' · ★ '+item._myrating:''}</div></div><div class="ai-btns"><button class="btn btn-ghost btn-sm" onclick="openEdit('${item.fid}','${item._type}')">Edit</button><button class="btn btn-danger btn-sm" onclick="deleteItem('${item.fid}')">Del</button></div></div>`;
   document.getElementById('a-movies-list').innerHTML=mvs.length?mvs.map(aRow).join(''):'<p style="color:var(--muted);font-size:.8rem;padding:.5rem 0">No movies yet.</p>';
   document.getElementById('a-series-list').innerHTML=srv.length?srv.map(aRow).join(''):'<p style="color:var(--muted);font-size:.8rem;padding:.5rem 0">No series yet.</p>';
 }
 
-/* ═══════════════ USERS MODAL ═══════════════ */
+/* ═══ USERS MODAL ═══ */
 async function openUsersModal(){
-  document.getElementById('ov-users').classList.add('open');
-  document.getElementById('users-modal-sub').textContent='Loading…';
-  document.getElementById('users-modal-body').innerHTML='<div class="loading"><div class="spin"></div> Fetching users…</div>';
+  document.getElementById('ov-users').classList.add('open');document.getElementById('users-modal-sub').textContent='Loading…';document.getElementById('users-modal-body').innerHTML='<div class="loading"><div class="spin"></div></div>';
   try{
-    /* fetch all users */
-    const uSnap=await db.collection('users').orderBy('lastLogin','desc').get();
-    const users=uSnap.docs.map(d=>({uid:d.id,...d.data()}));
-    /* fetch all watchlists to know each user's count */
-    const wlSnap=await db.collection('watchlists').get();
-    const wlMap={};
-    wlSnap.docs.forEach(d=>{wlMap[d.id]=(d.data().items||[]).length;});
+    const uSnap=await db.collection('users').orderBy('lastLogin','desc').get();const users=uSnap.docs.map(d=>({uid:d.id,...d.data()}));
+    const wlSnap=await db.collection('watchlists').get();const wlMap={};wlSnap.docs.forEach(d=>{wlMap[d.id]=(d.data().items||[]).length;});
     document.getElementById('users-modal-sub').textContent=users.length+' registered user'+(users.length!==1?'s':'');
-    if(!users.length){
-      document.getElementById('users-modal-body').innerHTML='<div class="users-empty"><div class="eico">👤</div><p>No users yet.</p></div>';
-      return;
-    }
+    if(!users.length){document.getElementById('users-modal-body').innerHTML='<div style="text-align:center;padding:2rem;color:var(--muted)"><div style="font-size:2rem;margin-bottom:.5rem">👤</div><p>No users yet.</p></div>';return;}
     document.getElementById('users-modal-body').innerHTML=users.map(u=>{
-      const name=u.displayName||u.email?.split('@')[0]||'Unknown';
-      const email=u.email||'—';
-      const role=ADMIN_EMAILS.includes(email)?'admin':'user';
-      const joined=u.joinedAt?.toDate?fmtDate(u.joinedAt.toDate()):'—';
-      const last=u.lastLogin?.toDate?fmtDate(u.lastLogin.toDate()):'—';
-      const wlCount=wlMap[u.uid]||0;
-      const initials=name.slice(0,2).toUpperCase();
-      return `<div class="user-row">
-        <div class="u-avatar">${initials}</div>
-        <div class="u-info">
-          <div class="u-name">${name} <span class="u-badge ${role==='admin'?'u-badge-admin':'u-badge-user'}">${role}</span></div>
-          <div class="u-email">${email}</div>
-          <div class="u-wl-count">📋 ${wlCount} item${wlCount!==1?'s':''} in watchlist</div>
-        </div>
-        <div class="u-meta">
-          <div class="u-joined">Joined: ${joined}</div>
-          <div class="u-last">Last seen: ${last}</div>
-        </div>
-      </div>`;
+      const name=u.displayName||u.email?.split('@')[0]||'Unknown',email=u.email||'—',role=ADMIN_EMAILS.includes(email)?'admin':'user',joined=u.joinedAt?.toDate?fmtDate(u.joinedAt.toDate()):'—',last=u.lastLogin?.toDate?fmtDate(u.lastLogin.toDate()):'—',wlCount=wlMap[u.uid]||0;
+      return `<div class="user-row"><div class="u-avatar">${name.slice(0,2).toUpperCase()}</div><div class="u-info"><div class="u-name">${name}<span class="u-badge ${role==='admin'?'u-badge-admin':'u-badge-user'}">${role}</span></div><div class="u-email">${email}</div><div class="u-wl-count">📋 ${wlCount} item${wlCount!==1?'s':''} in watchlist</div></div><div class="u-meta"><div class="u-joined">Joined: ${joined}</div><div class="u-last">Last seen: ${last}</div></div></div>`;
     }).join('');
-  }catch(e){
-    document.getElementById('users-modal-body').innerHTML='<div class="users-empty"><div class="eico">⚠️</div><p>Could not load users: '+e.message+'</p></div>';
-  }
+  }catch(e){document.getElementById('users-modal-body').innerHTML='<div style="text-align:center;padding:2rem;color:var(--muted)">Could not load users: '+e.message+'</div>';}
 }
 function closeUsersModal(){document.getElementById('ov-users').classList.remove('open');}
+function fmtDate(d){if(!d)return'—';const now=new Date(),diff=Math.floor((now-d)/1000);if(diff<60)return'Just now';if(diff<3600)return Math.floor(diff/60)+' min ago';if(diff<86400)return Math.floor(diff/3600)+' hr ago';if(diff<604800)return Math.floor(diff/86400)+' days ago';return d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});}
 
-function fmtDate(d){
-  if(!d)return'—';
-  const now=new Date(), diff=Math.floor((now-d)/1000);
-  if(diff<60)return'Just now';
-  if(diff<3600)return Math.floor(diff/60)+' min ago';
-  if(diff<86400)return Math.floor(diff/3600)+' hr ago';
-  if(diff<604800)return Math.floor(diff/86400)+' days ago';
-  return d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+/* ═══════════════════════════════════════
+   🎮 GAMES
+═══════════════════════════════════════ */
+function switchGame(g,btn){
+  document.querySelectorAll('.game-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.game-section').forEach(s=>s.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('game-'+g).classList.add('active');
+  if(g==='spin')initWheelCanvas();
+  if(g==='battle')initBattle();
 }
 
-/* ═══════════════ SEARCH ═══════════════ */
+/* ── GET POOL ── */
+function getPool(filter){
+  const custom=customItems.map(i=>({...i,_fromCustom:true}));
+  const tmdb=tmdbAll.map(i=>({...i,_fromCustom:false}));
+  let all=[...custom,...tmdb];
+  if(filter==='movie')all=all.filter(i=>i._type==='movie'||(i.media_type==='movie'));
+  if(filter==='series')all=all.filter(i=>i._type==='series'||(i.media_type==='tv'));
+  return all;
+}
+function getRawId(item){return String(item.fid||item.id);}
+function getType(item){return item._type||(item.media_type==='movie'?'movie':'series');}
+function getTitle(item){return item._title||item.title||item.name||'Untitled';}
+function getPoster(item){return item.poster_path?TIMG+item.poster_path:(item._poster||'');}
+function getYear(item){return((item.release_date||item.first_air_date||item._year||'')+'').slice(0,4);}
+function getScore(item){return item._myrating||(item.vote_average?item.vote_average.toFixed(1):'');}
+
+/* ══════════════════════════
+   🎲 SPIN THE WHEEL
+══════════════════════════ */
+let spinFilter='all', isSpinning=false;
+const WHEEL_COLORS=['#e63946','#a855f7','#3b82f6','#f97316','#22c55e','#f5c518','#06b6d4','#ec4899','#84cc16','#8b5cf6'];
+
+function setSpinFilter(f,btn){
+  document.querySelectorAll('.sfbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  spinFilter=f;initWheelCanvas();
+}
+
+function initWheelCanvas(){
+  const canvas=document.getElementById('wheelCanvas');if(!canvas)return;
+  const ctx=canvas.getContext('2d');const pool=getPool(spinFilter);
+  const items=pool.slice(0,10);
+  if(!items.length){ctx.clearRect(0,0,320,320);ctx.fillStyle='#1c1c28';ctx.beginPath();ctx.arc(160,160,160,0,Math.PI*2);ctx.fill();ctx.fillStyle='#7878a0';ctx.font='14px Inter';ctx.textAlign='center';ctx.fillText('Add movies to spin!',160,168);return;}
+  drawWheel(ctx,items,0);
+}
+
+function drawWheel(ctx,items,rotation){
+  const cx=160,cy=160,r=155,n=items.length,arc=(Math.PI*2)/n;
+  ctx.clearRect(0,0,320,320);
+  items.forEach((item,i)=>{
+    const start=rotation+i*arc,end=start+arc;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,start,end);ctx.closePath();
+    ctx.fillStyle=WHEEL_COLORS[i%WHEEL_COLORS.length];ctx.fill();
+    ctx.strokeStyle='rgba(0,0,0,.3)';ctx.lineWidth=2;ctx.stroke();
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(start+arc/2);
+    ctx.textAlign='right';ctx.fillStyle='#fff';ctx.font='bold 11px Inter';
+    const title=getTitle(item);const short=title.length>14?title.slice(0,13)+'…':title;
+    ctx.shadowColor='rgba(0,0,0,.5)';ctx.shadowBlur=3;
+    ctx.fillText(short,r-10,4);ctx.restore();
+  });
+  /* center circle */
+  ctx.beginPath();ctx.arc(cx,cy,22,0,Math.PI*2);ctx.fillStyle='#09090f';ctx.fill();ctx.strokeStyle='rgba(255,255,255,.15)';ctx.lineWidth=2;ctx.stroke();
+  ctx.fillStyle='#fff';ctx.font='bold 11px Inter';ctx.textAlign='center';ctx.fillText('🎬',cx,cy+4);
+}
+
+function spinWheel(){
+  const pool=getPool(spinFilter);if(!pool.length){toast('No items to spin! Add some movies first.','err');return;}
+  if(isSpinning)return;
+  isSpinning=true;
+  document.getElementById('spin-btn').disabled=true;
+  document.getElementById('spin-result').innerHTML='<div class="waiting-msg"><div class="big" style="animation:spin .4s linear infinite;display:inline-block">🎡</div><br>Spinning…</div>';
+  const items=pool.slice(0,10);
+  const canvas=document.getElementById('wheelCanvas');const ctx=canvas.getContext('2d');
+  const winIdx=Math.floor(Math.random()*items.length);
+  const arc=(Math.PI*2)/items.length;
+  const targetAngle=-(winIdx*arc+arc/2)+(Math.PI*3/2);
+  const extraSpins=Math.PI*2*6;
+  const total=extraSpins+((targetAngle%(Math.PI*2))+(Math.PI*2))%(Math.PI*2);
+  let start=null,duration=4000,currentRot=0;
+  function animate(ts){
+    if(!start)start=ts;
+    const elapsed=ts-start,progress=Math.min(elapsed/duration,1);
+    const ease=1-Math.pow(1-progress,4);
+    currentRot=ease*total;
+    drawWheel(ctx,items,currentRot);
+    if(progress<1){requestAnimationFrame(animate);}
+    else{
+      isSpinning=false;document.getElementById('spin-btn').disabled=false;
+      const winner=items[winIdx];showSpinResult(winner);
+    }
+  }
+  requestAnimationFrame(animate);
+}
+
+function showSpinResult(item){
+  const type=getType(item),rawId=getRawId(item),title=getTitle(item),poster=getPoster(item),year=getYear(item),score=getScore(item),now=inWL(rawId,type);
+  document.getElementById('spin-result').innerHTML=`
+    <div class="spin-result-inner">
+      <div style="color:var(--gold);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:.75rem">🎉 Tonight's Pick!</div>
+      ${poster?`<img class="spin-result-poster" src="${poster}" alt="${title}">`:`<div class="spin-result-ph">${type==='movie'?'🎬':'📺'}</div>`}
+      <div class="spin-result-title">${title}</div>
+      <div class="spin-result-meta">${year}${score?' · ★ '+score:''} · ${type==='movie'?'Movie':'Series'}</div>
+      <div class="spin-result-btns">
+        <button class="btn ${now?'btn-purple':'btn-ghost'}" id="spin-wl-btn" onclick="spinWLToggle('${rawId}','${type}',${JSON.stringify(title)})">${now?'♥ In Watchlist':'♡ Watchlist'}</button>
+        <button class="btn btn-ghost" onclick="spinWheel()">🔄 Spin Again</button>
+      </div>
+    </div>`;
+}
+
+async function spinWLToggle(rawId,type,title){
+  await toggleWL(rawId,type,title);
+  const now=inWL(rawId,type);
+  const btn=document.getElementById('spin-wl-btn');
+  if(btn){btn.className='btn '+(now?'btn-purple':'btn-ghost');btn.textContent=now?'♥ In Watchlist':'♡ Watchlist';}
+}
+
+/* ══════════════════════════
+   ⚔️ THIS OR THAT BATTLE
+══════════════════════════ */
+let battlePool=[],battleQueue=[],battleWins=0,battleRound=1,battleWinner=null;
+
+function initBattle(){
+  battlePool=[...getPool('all')];shuffle(battlePool);
+  battleQueue=[...battlePool];battleWins=0;battleRound=1;battleWinner=null;
+  document.getElementById('battle-winner').style.display='none';
+  document.getElementById('battle-arena').style.display='grid';
+  updateBattleStats();drawBattlePair();
+}
+
+function updateBattleStats(){
+  document.getElementById('battle-wins').textContent=battleWins;
+  document.getElementById('battle-round').textContent=battleRound;
+  document.getElementById('battle-left').textContent=battleQueue.length;
+}
+
+function drawBattlePair(){
+  if(battleQueue.length<2){showBattleWinner();return;}
+  const a=battleQueue[0],b=battleQueue[1];
+  document.getElementById('bc-left').innerHTML=battleCardHTML(a,'left');
+  document.getElementById('bc-right').innerHTML=battleCardHTML(b,'right');
+}
+
+function battleCardHTML(item,side){
+  const type=getType(item),poster=getPoster(item),title=getTitle(item),year=getYear(item),score=getScore(item);
+  return `<div class="battle-card" onclick="pickBattle('${side}')">
+    ${poster?`<img class="battle-poster" src="${poster}" alt="${title}">`:`<div class="battle-poster-ph">${type==='movie'?'🎬':'📺'}</div>`}
+    <div class="battle-info">
+      <div class="battle-title">${title}</div>
+      <div class="battle-meta">${year} · ${type==='movie'?'Movie':'Series'}</div>
+      ${score?`<div class="battle-score">★ ${score}</div>`:''}
+    </div>
+  </div>`;
+}
+
+function pickBattle(side){
+  if(battleQueue.length<2)return;
+  const winner=side==='left'?battleQueue[0]:battleQueue[1];
+  const loserIdx=side==='left'?1:0;
+  /* animate */
+  const leftCard=document.getElementById('bc-left').querySelector('.battle-card');
+  const rightCard=document.getElementById('bc-right').querySelector('.battle-card');
+  if(side==='left'){leftCard.classList.add('winner');rightCard.classList.add('loser');}
+  else{rightCard.classList.add('winner');leftCard.classList.add('loser');}
+  battleWins++;battleRound++;
+  setTimeout(()=>{
+    /* remove both, keep winner at front */
+    battleQueue.splice(0,2);
+    battleQueue.unshift(winner);
+    updateBattleStats();
+    if(battleQueue.length<2){showBattleWinner(winner);}else{drawBattlePair();}
+  },600);
+}
+
+function showBattleWinner(winner){
+  const item=winner||battleQueue[0];if(!item)return;
+  battleWinner=item;
+  document.getElementById('battle-arena').style.display='none';
+  const el=document.getElementById('battle-winner');el.style.display='block';
+  const type=getType(item),rawId=getRawId(item),poster=getPoster(item),title=getTitle(item),year=getYear(item),score=getScore(item);
+  document.getElementById('bws-poster-wrap').innerHTML=poster?`<img class="bws-poster" src="${poster}" alt="${title}">`:`<div class="bws-ph">${type==='movie'?'🎬':'📺'}</div>`;
+  document.getElementById('bws-name').textContent=title;document.getElementById('bws-meta').textContent=year+(score?' · ★ '+score:'')+(type?' · '+(type==='movie'?'Movie':'Series'):'');
+  const wlBtn=document.getElementById('bws-wl-btn');wlBtn.textContent=inWL(rawId,type)?'♥ In Watchlist':'♡ Add to Watchlist';
+  fireConfetti();
+}
+
+async function addBattleWinnerToWL(){
+  if(!battleWinner)return;
+  const type=getType(battleWinner),rawId=getRawId(battleWinner),title=getTitle(battleWinner);
+  await toggleWL(rawId,type,title);
+  const btn=document.getElementById('bws-wl-btn');btn.textContent=inWL(rawId,type)?'♥ In Watchlist':'♡ Add to Watchlist';
+}
+
+function shuffleBattle(){battleQueue=shuffle([...getPool('all')]);battleRound++;updateBattleStats();document.getElementById('battle-winner').style.display='none';document.getElementById('battle-arena').style.display='grid';drawBattlePair();}
+function resetBattle(){initBattle();}
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+
+/* ══════════════════════════
+   🎯 MOVIE ROULETTE
+══════════════════════════ */
+function spinRoulette(){
+  const typeFilter=document.getElementById('rl-type').value;
+  const minRating=parseFloat(document.getElementById('rl-rating').value)||0;
+  let pool=getPool(typeFilter);
+  if(minRating>0)pool=pool.filter(i=>{const s=parseFloat(i._myrating||i.vote_average||0);return s>=minRating;});
+  const el=document.getElementById('roulette-result');
+  if(!pool.length){
+    el.style.display='block';el.innerHTML=`<div class="no-items-msg"><div class="eico">🎯</div><p>No items match your filters.<br>Try lowering the minimum rating.</p></div>`;return;
+  }
+  /* dramatic delay */
+  el.style.display='none';
+  setTimeout(()=>{
+    const item=pool[Math.floor(Math.random()*pool.length)];
+    const type=getType(item),rawId=getRawId(item),poster=getPoster(item),title=getTitle(item),year=getYear(item),score=getScore(item),ov=item.overview||item._overview||'';
+    const now=inWL(rawId,type);
+    el.style.display='block';
+    el.innerHTML=`
+      <div class="rr-badge">${type==='movie'?'🎬 Movie':'📺 Series'}</div>
+      ${poster?`<img class="rr-poster" src="${poster}" alt="${title}">`:`<div class="rr-ph">${type==='movie'?'🎬':'📺'}</div>`}
+      <div class="rr-title">${title}</div>
+      <div class="rr-meta">${year}${score?' · ★ '+score:''}</div>
+      ${ov?`<div class="rr-overview">${ov.slice(0,180)}${ov.length>180?'…':''}</div>`:''}
+      <div class="rr-btns">
+        <button class="btn ${now?'btn-purple':'btn-ghost'}" id="rl-wl-btn" onclick="rouletteWLToggle('${rawId}','${type}',${JSON.stringify(title)})">${now?'♥ In Watchlist':'♡ Add to Watchlist'}</button>
+        <button class="btn btn-ghost" onclick="spinRoulette()">🎯 Pick Again</button>
+      </div>`;
+  },300);
+}
+
+async function rouletteWLToggle(rawId,type,title){
+  await toggleWL(rawId,type,title);
+  const now=inWL(rawId,type);
+  const btn=document.getElementById('rl-wl-btn');
+  if(btn){btn.className='btn '+(now?'btn-purple':'btn-ghost');btn.textContent=now?'♥ In Watchlist':'♡ Add to Watchlist';}
+}
+
+/* ── CONFETTI ── */
+function fireConfetti(){
+  const wrap=document.getElementById('confetti-wrap');wrap.innerHTML='';
+  const colors=['#f5c518','#e63946','#a855f7','#22c55e','#3b82f6','#f97316'];
+  for(let i=0;i<60;i++){
+    const c=document.createElement('div');c.className='conf';
+    const x=Math.random()*100,delay=Math.random()*1.5,dur=2+Math.random()*2;
+    c.style.cssText=`left:${x}%;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${dur}s;animation-delay:${delay}s;border-radius:${Math.random()>0.5?'50%':'2px'};transform:rotate(${Math.random()*360}deg);`;
+    wrap.appendChild(c);
+  }
+  setTimeout(()=>{wrap.innerHTML='';},5000);
+}
+
+/* ═══ SEARCH ═══ */
 let sT;
 function handleSearch(v){clearTimeout(sT);if(!v.trim())return;sT=setTimeout(()=>doSearch(v.trim()),450);}
-async function doSearch(q){
-  navTo('search');
-  document.getElementById('search-label').textContent=`Searching "${q}"…`;
-  const el=document.getElementById('search-grid');
-  el.innerHTML='<div class="loading"><div class="spin"></div></div>';
-  try{
-    const d=await tf(`/search/multi?query=${encodeURIComponent(q)}`);
-    const tr=(d.results||[]).filter(r=>r.media_type==='movie'||r.media_type==='tv');
-    const cr=customItems.filter(i=>i._title.toLowerCase().includes(q.toLowerCase()));
-    const all=[...cr,...tr];
-    document.getElementById('search-label').textContent=`${all.length} result${all.length!==1?'s':''} for "${q}"`;
-    el.innerHTML=all.length?all.map(i=>{const t=i._type||(i.media_type==='movie'?'movie':'series');return makeCard(i,t);}).join(''):emptyH('🔍','No results');
-  }catch{el.innerHTML=emptyH('⚠️','Search failed');}
-}
+async function doSearch(q){navTo('search');document.getElementById('search-label').textContent=`Searching "${q}"…`;const el=document.getElementById('search-grid');el.innerHTML='<div class="loading"><div class="spin"></div></div>';try{const d=await tf(`/search/multi?query=${encodeURIComponent(q)}`);const tr=(d.results||[]).filter(r=>r.media_type==='movie'||r.media_type==='tv');const cr=customItems.filter(i=>i._title.toLowerCase().includes(q.toLowerCase()));const all=[...cr,...tr];document.getElementById('search-label').textContent=`${all.length} result${all.length!==1?'s':''} for "${q}"`;el.innerHTML=all.length?all.map(i=>{const t=i._type||(i.media_type==='movie'?'movie':'series');return makeCard(i,t);}).join(''):emptyH('🔍','No results');}catch{el.innerHTML=emptyH('⚠️','Search failed');}}
 
-/* ═══════════════ HELPERS ═══════════════ */
+/* ═══ HELPERS ═══ */
 function emptyH(ico,h,p=''){return`<div class="empty-state"><div class="eico">${ico}</div><h4>${h}</h4>${p?`<p>${p}</p>`:''}</div>`;}
 function bgClose(e,id,fn){if(e.target.id===id)fn();}
-function toast(msg,type='ok'){
-  const t=document.getElementById('toast');
-  document.getElementById('t-ico').textContent=type==='t-wl'?'🎬':(type==='ok'?'✓':'✕');
-  document.getElementById('t-msg').textContent=msg;
-  t.className=`toast ${type} visible`;
-  clearTimeout(t._tid);
-  t._tid=setTimeout(()=>{t.className=`toast ${type}`;},3000);
-}
+function toast(msg,type='ok'){const t=document.getElementById('toast');document.getElementById('t-ico').textContent=type==='t-wl'?'🎬':(type==='ok'?'✓':'✕');document.getElementById('t-msg').textContent=msg;t.className=`toast ${type} visible`;clearTimeout(t._tid);t._tid=setTimeout(()=>{t.className=`toast ${type}`;},3000);}
 </script>
 </body>
 </html>
