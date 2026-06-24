@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CineVault</title>
+<title>Sumit's Movies Vault</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
@@ -19,6 +19,40 @@
 body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;}
 .screen{display:none;min-height:100vh;}
 .screen.active{display:flex;flex-direction:column;}
+
+/* ── SIDEBAR LAYOUT ── */
+.app-layout{display:flex;flex:1;min-height:0;overflow:hidden;}
+.sidebar{width:220px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100vh;position:sticky;top:0;overflow-y:auto;}
+.sidebar-logo{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid var(--border);flex-shrink:0;cursor:pointer;}
+.sidebar-logo .s-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--accent);letter-spacing:3px;line-height:1;display:block;}
+.sidebar-logo .s-sub{font-size:.7rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:2px;display:block;}
+.sidebar-nav{flex:1;padding:.75rem 0;}
+.sidebar-section{font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;padding:.5rem 1.25rem .25rem;}
+.sidebar-link{display:flex;align-items:center;gap:.65rem;padding:.6rem 1.25rem;font-size:.85rem;font-weight:500;color:var(--muted);cursor:pointer;transition:all .18s;border-left:3px solid transparent;margin:1px 0;}
+.sidebar-link:hover{color:var(--text);background:rgba(255,255,255,.04);}
+.sidebar-link.active{color:var(--text);background:rgba(230,57,70,.08);border-left-color:var(--accent);}
+.sidebar-link.active .sl-icon{color:var(--accent);}
+.sidebar-link .sl-icon{font-size:1.1rem;flex-shrink:0;color:var(--muted);}
+.sidebar-link .sl-label{flex:1;}
+.sidebar-bottom{padding:.75rem 1rem 1rem;border-top:1px solid var(--border);flex-shrink:0;}
+.user-info-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:.65rem .85rem;margin-bottom:.6rem;}
+.uic-top{display:flex;align-items:center;gap:.5rem;margin-bottom:.35rem;}
+.uic-avatar{width:28px;height:28px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:#fff;flex-shrink:0;}
+.uic-name{font-size:.82rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.uic-badge{font-size:.6rem;font-weight:700;padding:.1rem .35rem;border-radius:3px;background:rgba(230,57,70,.18);color:var(--accent);border:1px solid rgba(230,57,70,.3);text-transform:uppercase;letter-spacing:.4px;}
+.uic-email{font-size:.72rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sidebar-logout{width:100%;padding:.5rem;border-radius:8px;border:1px solid var(--border2);background:transparent;color:var(--muted);font-size:.8rem;font-weight:500;cursor:pointer;transition:all .18s;font-family:'Inter',sans-serif;display:flex;align-items:center;justify-content:center;gap:.4rem;}
+.sidebar-logout:hover{color:var(--accent);border-color:rgba(230,57,70,.35);}
+
+/* ── TOPBAR (search only) ── */
+.topbar{height:54px;background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 1.75rem;gap:1rem;flex-shrink:0;position:sticky;top:0;z-index:50;}
+.topbar-search{display:flex;align-items:center;gap:.45rem;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.38rem .85rem;flex:1;max-width:400px;}
+.topbar-search input{background:none;border:none;outline:none;color:var(--text);font-size:.84rem;width:100%;font-family:'Inter',sans-serif;}
+.topbar-search input::placeholder{color:var(--muted);}
+.topbar-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--muted);letter-spacing:2px;margin-left:auto;}
+
+/* ── MAIN CONTENT ── */
+.main-content{flex:1;overflow-y:auto;display:flex;flex-direction:column;min-width:0;}
 .init-loader{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999;flex-direction:column;gap:1rem;}
 .init-loader .logo{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--accent);letter-spacing:4px;}
 .spin{width:20px;height:20px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .65s linear infinite;}
@@ -62,7 +96,7 @@ nav{background:rgba(9,9,15,.97);backdrop-filter:blur(14px);border-bottom:1px sol
 .btn-logout:hover{color:var(--accent);border-color:rgba(230,57,70,.35);}
 
 /* PAGES */
-.page{display:none;padding:2rem 1.5rem;max-width:1380px;margin:0 auto;width:100%;}
+.page{display:none;padding:2rem 1.75rem;width:100%;}
 .page.active{display:block;}
 
 /* HERO */
@@ -340,14 +374,14 @@ canvas#wheelCanvas{border-radius:50%;box-shadow:0 0 40px rgba(168,85,247,.3),0 0
 <body>
 
 <div class="init-loader" id="init-loader">
-  <div class="logo">CINEVAULT</div>
+  <div class="logo" style="font-size:2.2rem;letter-spacing:3px;line-height:1.2;text-align:center;">SUMIT'S<br><span style="color:var(--text);font-size:1.5rem;">MOVIES VAULT</span></div>
   <div class="spin"></div>
 </div>
 
 <!-- LOGIN -->
 <div class="screen" id="screen-login">
   <div class="login-card">
-    <span class="login-logo">CineVault</span>
+    <span class="login-logo" style="font-size:2rem;letter-spacing:3px;line-height:1.1;display:block;text-align:center;">SUMIT'S<br><span style="color:var(--text);font-size:1.4rem;">MOVIES VAULT</span></span>
     <span class="login-tag">Your personal movie &amp; series library</span>
     <div class="tab-row">
       <button class="tab-btn active" id="tab-in" onclick="switchTab('in')">Sign In</button>
@@ -370,38 +404,76 @@ canvas#wheelCanvas{border-radius:50%;box-shadow:0 0 40px rgba(168,85,247,.3),0 0
 
 <!-- APP -->
 <div class="screen" id="screen-app">
-  <nav>
-    <div class="nav-logo" onclick="navTo('home')">CINEVAULT</div>
-    <div class="nav-links">
-      <div class="nav-link active" id="nl-home"      onclick="navTo('home')">Home</div>
-      <div class="nav-link"        id="nl-movies"    onclick="navTo('movies')">Movies</div>
-      <div class="nav-link"        id="nl-series"    onclick="navTo('series')">Series</div>
-      <div class="nav-link"        id="nl-ratings"   onclick="navTo('ratings')">Ratings</div>
-      <div class="nav-link"        id="nl-picks"     onclick="navTo('picks')">⭐ Top Picks</div>
-      <div class="nav-link"        id="nl-watchlist" onclick="navTo('watchlist')">My Watchlist</div>
-      <div class="nav-link games-link" id="nl-games" onclick="navTo('games')">🎮 Games</div>
-      <div class="nav-link"        id="nl-admin"     onclick="navTo('admin')" style="display:none">Admin Panel</div>
+  <div class="app-layout">
+
+  <!-- ══ SIDEBAR ══ -->
+  <div class="sidebar">
+    <div class="sidebar-logo" onclick="navTo('home')">
+      <span class="s-name">SUMIT'S</span>
+      <span class="s-sub">Movies Vault</span>
     </div>
-    <div class="nav-right">
-      <div class="search-wrap">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input id="search-input" type="text" placeholder="Search…" oninput="handleSearch(this.value)">
+
+    <div class="sidebar-nav">
+      <div class="sidebar-section">Menu</div>
+      <div class="sidebar-link active" id="nl-home" onclick="navTo('home')">
+        <span class="sl-icon">🏠</span><span class="sl-label">Home</span>
       </div>
-      <div class="user-chip">
-        <div class="avatar" id="nav-avatar"></div>
-        <span id="nav-uname" style="font-size:.82rem;font-weight:500;"></span>
-        <span class="badge-admin" id="nav-badge" style="display:none">ADMIN</span>
+      <div class="sidebar-link" id="nl-movies" onclick="navTo('movies')">
+        <span class="sl-icon">🎬</span><span class="sl-label">Movies</span>
       </div>
-      <button class="btn-logout" onclick="doLogout()">Logout</button>
+      <div class="sidebar-link" id="nl-series" onclick="navTo('series')">
+        <span class="sl-icon">📺</span><span class="sl-label">TV Series</span>
+      </div>
+      <div class="sidebar-link" id="nl-picks" onclick="navTo('picks')">
+        <span class="sl-icon">⭐</span><span class="sl-label">Top Picks</span>
+      </div>
+      <div class="sidebar-link" id="nl-ratings" onclick="navTo('ratings')">
+        <span class="sl-icon">🏆</span><span class="sl-label">Ratings</span>
+      </div>
+      <div class="sidebar-link" id="nl-watchlist" onclick="navTo('watchlist')">
+        <span class="sl-icon">♡</span><span class="sl-label">My Watchlist</span>
+      </div>
+      <div class="sidebar-section" style="margin-top:.5rem;">Search</div>
+      <div style="padding:.25rem .85rem .5rem;">
+        <div class="topbar-search" style="max-width:100%;">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;color:var(--muted);"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input id="search-input" type="text" placeholder="Search movies…" oninput="handleSearch(this.value)" style="font-size:.82rem;">
+        </div>
+      </div>
+      <div class="sidebar-section" id="admin-section-label" style="margin-top:.5rem;display:none;">Admin</div>
+      <div class="sidebar-link" id="nl-admin" onclick="navTo('admin')" style="display:none">
+        <span class="sl-icon">⚙️</span><span class="sl-label">Admin Panel</span>
+      </div>
     </div>
-  </nav>
+
+    <div class="sidebar-bottom">
+      <div class="user-info-card">
+        <div class="uic-top">
+          <div class="uic-avatar" id="nav-avatar"></div>
+          <div style="min-width:0;">
+            <div style="display:flex;align-items:center;gap:.3rem;">
+              <span class="uic-name" id="nav-uname"></span>
+              <span class="uic-badge" id="nav-badge" style="display:none">Admin</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="sidebar-logout" onclick="doLogout()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Logout
+      </button>
+    </div>
+  </div><!-- /sidebar -->
+
+  <!-- ══ MAIN CONTENT ══ -->
+  <div class="main-content">
 
   <!-- HOME -->
   <div class="page active" id="page-home">
     <div class="hero">
       <div class="hero-eye">🎬 Your Personal Cinema</div>
-      <h1>DISCOVER<br><span>GREAT FILMS</span></h1>
-      <p>Browse movies and TV series, build your watchlist, and play fun movie games!</p>
+      <h1>SUMIT'S<br><span>MOVIES VAULT</span></h1>
+      <p>I watched them so you don't have to... unless they're actually good.</p>
       <div class="hero-stats">
         <div><div class="hs-n" id="hs-movies">—</div><div class="hs-l">Movies</div></div>
         <div><div class="hs-n" id="hs-series">—</div><div class="hs-l">Series</div></div>
@@ -494,108 +566,10 @@ canvas#wheelCanvas{border-radius:50%;box-shadow:0 0 40px rgba(168,85,247,.3),0 0
   </div>
 
   <!-- ══════ GAMES PAGE ══════ -->
-  <div class="page" id="page-games">
-    <div class="games-hero">
-      <h1>MOVIE <span>GAMES</span></h1>
-      <p>Can't decide what to watch? Let the games decide for you! 🎮</p>
-    </div>
-
-    <div class="game-tabs">
-      <button class="game-tab active" onclick="switchGame('spin',this)">🎲 Spin the Wheel</button>
-      <button class="game-tab" onclick="switchGame('battle',this)">⚔️ This or That Battle</button>
-      <button class="game-tab" onclick="switchGame('roulette',this)">🎯 Movie Roulette</button>
-    </div>
-
-    <!-- ── SPIN THE WHEEL ── -->
-    <div class="game-section active" id="game-spin">
-      <div style="margin-bottom:1rem">
-        <div style="font-size:.82rem;color:var(--muted);margin-bottom:.6rem;font-weight:500;">Filter by type:</div>
-        <div class="spin-filter-row">
-          <button class="sfbtn active" onclick="setSpinFilter('all',this)">All</button>
-          <button class="sfbtn" onclick="setSpinFilter('movie',this)">Movies only</button>
-          <button class="sfbtn" onclick="setSpinFilter('series',this)">Series only</button>
-        </div>
-      </div>
-      <div class="spin-layout">
-        <div class="wheel-wrap">
-          <div class="wheel-outer">
-            <div class="wheel-pointer">▼</div>
-            <canvas id="wheelCanvas" width="320" height="320"></canvas>
-          </div>
-          <button class="spin-btn" id="spin-btn" onclick="spinWheel()">🎲 SPIN!</button>
-        </div>
-        <div class="spin-result" id="spin-result">
-          <div class="waiting-msg">
-            <div class="big">🎡</div>
-            <div>Spin the wheel to get<br>a random pick!</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── THIS OR THAT ── -->
-    <div class="game-section" id="game-battle">
-      <div class="battle-score-row">
-        <div class="battle-score-item"><div class="bsi-n" id="battle-wins">0</div><div class="bsi-l">Rounds Won</div></div>
-        <div class="battle-score-item"><div class="bsi-n" id="battle-round">1</div><div class="bsi-l">Round</div></div>
-        <div class="battle-score-item"><div class="bsi-n" id="battle-left">—</div><div class="bsi-l">Remaining</div></div>
-      </div>
-      <div class="battle-prompt"><h3 id="battle-prompt-text">Which would you rather watch tonight?</h3></div>
-      <div class="battle-arena" id="battle-arena">
-        <div id="bc-left"></div>
-        <div class="vs-badge">VS</div>
-        <div id="bc-right"></div>
-      </div>
-      <div class="battle-actions">
-        <button class="btn btn-ghost" onclick="shuffleBattle()">🔀 New Pair</button>
-        <button class="btn btn-ghost" onclick="resetBattle()">↩ Restart</button>
-      </div>
-      <div class="battle-winner-screen" id="battle-winner">
-        <div class="bws-trophy">🏆</div>
-        <div class="bws-title">TONIGHT'S PICK!</div>
-        <div id="bws-poster-wrap"></div>
-        <div class="bws-name" id="bws-name"></div>
-        <div class="bws-meta" id="bws-meta"></div>
-        <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;">
-          <button class="btn btn-purple" id="bws-wl-btn" onclick="addBattleWinnerToWL()">♡ Add to Watchlist</button>
-          <button class="btn btn-ghost" onclick="resetBattle()">Play Again</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── MOVIE ROULETTE ── -->
-    <div class="game-section" id="game-roulette">
-      <div class="roulette-wrap">
-        <div class="roulette-filters">
-          <div class="rf-group">
-            <label>Type</label>
-            <select id="rl-type">
-              <option value="all">All (Movies + Series)</option>
-              <option value="movie">Movies only</option>
-              <option value="series">Series only</option>
-            </select>
-          </div>
-          <div class="rf-group">
-            <label>Min Rating</label>
-            <select id="rl-rating">
-              <option value="0">Any rating</option>
-              <option value="6">6+ stars</option>
-              <option value="7">7+ stars</option>
-              <option value="8">8+ stars</option>
-              <option value="9">9+ stars</option>
-            </select>
-          </div>
-        </div>
-        <button class="roulette-btn" onclick="spinRoulette()">🎯 PICK FOR ME!</button>
-        <div class="roulette-result" id="roulette-result"></div>
-      </div>
-    </div>
-  </div>
-
   <!-- ADMIN -->
   <div class="page" id="page-admin">
     <div class="admin-banner">
-      <div><div class="admin-banner-title">ADMIN <span>PANEL</span></div><div style="color:var(--muted);font-size:.8rem;margin-top:.2rem">Manage your CineVault library</div></div>
+      <div><div class="admin-banner-title">ADMIN <span>PANEL</span></div><div style="color:var(--muted);font-size:.8rem;margin-top:.2rem">Manage your Sumit's Vault library</div></div>
       <div style="display:flex;gap:.65rem">
         <button class="btn btn-red" onclick="openAdd('movie')">+ Add Movie</button>
         <button class="btn btn-ghost" onclick="openAdd('series')">+ Add Series</button>
@@ -622,7 +596,9 @@ canvas#wheelCanvas{border-radius:50%;box-shadow:0 0 40px rgba(168,85,247,.3),0 0
     <p style="color:var(--muted);font-size:.82rem;margin-bottom:1.5rem" id="search-label">Results appear here</p>
     <div class="grid" id="search-grid"></div>
   </div>
-</div>
+  </div><!-- /main-content -->
+  </div><!-- /app-layout -->
+</div><!-- /screen-app -->
 
 <!-- DETAIL MODAL -->
 <div class="overlay" id="ov-detail" onclick="bgClose(event,'ov-detail',closeDetail)">
@@ -718,9 +694,9 @@ canvas#wheelCanvas{border-radius:50%;box-shadow:0 0 40px rgba(168,85,247,.3),0 0
 /* ═══════════════ FIREBASE ═══════════════ */
 const firebaseConfig={
   apiKey:"AIzaSyCQfbPcwBu1uKMyZ2USrth0jIxOqrbfn0g",
-  authDomain:"cinevault-edd3c.firebaseapp.com",
-  projectId:"cinevault-edd3c",
-  storageBucket:"cinevault-edd3c.firebasestorage.app",
+  authDomain:"sumitsvault-edd3c.firebaseapp.com",
+  projectId:"sumitsvault-edd3c",
+  storageBucket:"sumitsvault-edd3c.firebasestorage.app",
   messagingSenderId:"100965897268",
   appId:"1:100965897268:web:b8d128d955e0116d3d2661"
 };
@@ -728,7 +704,7 @@ firebase.initializeApp(firebaseConfig);
 const auth=firebase.auth(), db=firebase.firestore();
 
 /* ═══ ADMIN EMAILS — change to YOUR email ═══ */
-const ADMIN_EMAILS=['admin@cinevault.com','sumit@cinevault.com','sumitshinde9421@gmail.com'];
+const ADMIN_EMAILS=['admin@sumitsvault.com','sumit@sumitsvault.com','sumitshinde9421@gmail.com'];
 
 /* ═══ TMDB ═══ */
 const TKEY='8265bd1679663a7ea12ac168da84d2e8',TIMG='https://image.tmdb.org/t/p/w500',TLG='https://image.tmdb.org/t/p/w780',TC={};
@@ -816,23 +792,23 @@ function enterApp(){
   document.getElementById('nav-uname').textContent=name;
   document.getElementById('nav-badge').style.display=isAdmin?'inline':'none';
   document.getElementById('nl-admin').style.display=isAdmin?'flex':'none';
+  const asl=document.getElementById('admin-section-label');
+  if(asl)asl.style.display=isAdmin?'block':'none';
   document.getElementById('add-movie-btn').style.display=isAdmin?'inline-flex':'none';
   document.getElementById('add-series-btn').style.display=isAdmin?'inline-flex':'none';
   navTo('home');
-  initWheelCanvas();
-  initBattle();
 }
 
 /* ═══ NAV ═══ */
 function navTo(p){
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));
-  document.getElementById('page-'+p).classList.add('active');
+  document.querySelectorAll('.nav-link,.sidebar-link').forEach(x=>x.classList.remove('active'));
+  const pg=document.getElementById('page-'+p);if(pg)pg.classList.add('active');
   const nl=document.getElementById('nl-'+p);if(nl)nl.classList.add('active');
   currentPage=p;window.scrollTo(0,0);
   if(p==='home')loadHome();if(p==='movies')loadMovies();if(p==='series')loadSeries();
   if(p==='ratings')loadRatings();if(p==='picks')loadPicksPage();if(p==='watchlist')loadWatchlistPage();
-  if(p==='admin')loadAdmin();if(p==='games'){initWheelCanvas();initBattle();}
+  if(p==='admin')loadAdmin();if(p==='games'){rebuildWheelItems();initWheelCanvas();}
 }
 
 /* ═══ CARD ═══ */
@@ -1137,254 +1113,6 @@ async function openUsersModal(){
 function closeUsersModal(){document.getElementById('ov-users').classList.remove('open');}
 function fmtDate(d){if(!d)return'—';const now=new Date(),diff=Math.floor((now-d)/1000);if(diff<60)return'Just now';if(diff<3600)return Math.floor(diff/60)+' min ago';if(diff<86400)return Math.floor(diff/3600)+' hr ago';if(diff<604800)return Math.floor(diff/86400)+' days ago';return d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});}
 
-/* ═══════════════════════════════════════
-   🎮 GAMES
-═══════════════════════════════════════ */
-function switchGame(g,btn){
-  document.querySelectorAll('.game-tab').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.game-section').forEach(s=>s.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('game-'+g).classList.add('active');
-  if(g==='spin')initWheelCanvas();
-  if(g==='battle')initBattle();
-}
-
-/* ── GET POOL ── */
-function getPool(filter){
-  const custom=customItems.map(i=>({...i,_fromCustom:true}));
-  const tmdb=tmdbAll.map(i=>({...i,_fromCustom:false}));
-  let all=[...custom,...tmdb];
-  if(filter==='movie')all=all.filter(i=>i._type==='movie'||(i.media_type==='movie'));
-  if(filter==='series')all=all.filter(i=>i._type==='series'||(i.media_type==='tv'));
-  return all;
-}
-function getRawId(item){return String(item.fid||item.id);}
-function getType(item){return item._type||(item.media_type==='movie'?'movie':'series');}
-function getTitle(item){return item._title||item.title||item.name||'Untitled';}
-function getPoster(item){return item.poster_path?TIMG+item.poster_path:(item._poster||'');}
-function getYear(item){return((item.release_date||item.first_air_date||item._year||'')+'').slice(0,4);}
-function getScore(item){return item._myrating||(item.vote_average?item.vote_average.toFixed(1):'');}
-
-/* ══════════════════════════
-   🎲 SPIN THE WHEEL
-══════════════════════════ */
-let spinFilter='all', isSpinning=false;
-const WHEEL_COLORS=['#e63946','#a855f7','#3b82f6','#f97316','#22c55e','#f5c518','#06b6d4','#ec4899','#84cc16','#8b5cf6'];
-
-function setSpinFilter(f,btn){
-  document.querySelectorAll('.sfbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
-  spinFilter=f;initWheelCanvas();
-}
-
-function initWheelCanvas(){
-  const canvas=document.getElementById('wheelCanvas');if(!canvas)return;
-  const ctx=canvas.getContext('2d');const pool=getPool(spinFilter);
-  const items=pool.slice(0,10);
-  if(!items.length){ctx.clearRect(0,0,320,320);ctx.fillStyle='#1c1c28';ctx.beginPath();ctx.arc(160,160,160,0,Math.PI*2);ctx.fill();ctx.fillStyle='#7878a0';ctx.font='14px Inter';ctx.textAlign='center';ctx.fillText('Add movies to spin!',160,168);return;}
-  drawWheel(ctx,items,0);
-}
-
-function drawWheel(ctx,items,rotation){
-  const cx=160,cy=160,r=155,n=items.length,arc=(Math.PI*2)/n;
-  ctx.clearRect(0,0,320,320);
-  items.forEach((item,i)=>{
-    const start=rotation+i*arc,end=start+arc;
-    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,start,end);ctx.closePath();
-    ctx.fillStyle=WHEEL_COLORS[i%WHEEL_COLORS.length];ctx.fill();
-    ctx.strokeStyle='rgba(0,0,0,.3)';ctx.lineWidth=2;ctx.stroke();
-    ctx.save();ctx.translate(cx,cy);ctx.rotate(start+arc/2);
-    ctx.textAlign='right';ctx.fillStyle='#fff';ctx.font='bold 11px Inter';
-    const title=getTitle(item);const short=title.length>14?title.slice(0,13)+'…':title;
-    ctx.shadowColor='rgba(0,0,0,.5)';ctx.shadowBlur=3;
-    ctx.fillText(short,r-10,4);ctx.restore();
-  });
-  /* center circle */
-  ctx.beginPath();ctx.arc(cx,cy,22,0,Math.PI*2);ctx.fillStyle='#09090f';ctx.fill();ctx.strokeStyle='rgba(255,255,255,.15)';ctx.lineWidth=2;ctx.stroke();
-  ctx.fillStyle='#fff';ctx.font='bold 11px Inter';ctx.textAlign='center';ctx.fillText('🎬',cx,cy+4);
-}
-
-function spinWheel(){
-  const pool=getPool(spinFilter);if(!pool.length){toast('No items to spin! Add some movies first.','err');return;}
-  if(isSpinning)return;
-  isSpinning=true;
-  document.getElementById('spin-btn').disabled=true;
-  document.getElementById('spin-result').innerHTML='<div class="waiting-msg"><div class="big" style="animation:spin .4s linear infinite;display:inline-block">🎡</div><br>Spinning…</div>';
-  const items=pool.slice(0,10);
-  const canvas=document.getElementById('wheelCanvas');const ctx=canvas.getContext('2d');
-  const winIdx=Math.floor(Math.random()*items.length);
-  const arc=(Math.PI*2)/items.length;
-  const targetAngle=-(winIdx*arc+arc/2)+(Math.PI*3/2);
-  const extraSpins=Math.PI*2*6;
-  const total=extraSpins+((targetAngle%(Math.PI*2))+(Math.PI*2))%(Math.PI*2);
-  let start=null,duration=4000,currentRot=0;
-  function animate(ts){
-    if(!start)start=ts;
-    const elapsed=ts-start,progress=Math.min(elapsed/duration,1);
-    const ease=1-Math.pow(1-progress,4);
-    currentRot=ease*total;
-    drawWheel(ctx,items,currentRot);
-    if(progress<1){requestAnimationFrame(animate);}
-    else{
-      isSpinning=false;document.getElementById('spin-btn').disabled=false;
-      const winner=items[winIdx];showSpinResult(winner);
-    }
-  }
-  requestAnimationFrame(animate);
-}
-
-function showSpinResult(item){
-  const type=getType(item),rawId=getRawId(item),title=getTitle(item),poster=getPoster(item),year=getYear(item),score=getScore(item),now=inWL(rawId,type);
-  document.getElementById('spin-result').innerHTML=`
-    <div class="spin-result-inner">
-      <div style="color:var(--gold);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:.75rem">🎉 Tonight's Pick!</div>
-      ${poster?`<img class="spin-result-poster" src="${poster}" alt="${title}">`:`<div class="spin-result-ph">${type==='movie'?'🎬':'📺'}</div>`}
-      <div class="spin-result-title">${title}</div>
-      <div class="spin-result-meta">${year}${score?' · ★ '+score:''} · ${type==='movie'?'Movie':'Series'}</div>
-      <div class="spin-result-btns">
-        <button class="btn ${now?'btn-purple':'btn-ghost'}" id="spin-wl-btn" onclick="spinWLToggle('${rawId}','${type}',${JSON.stringify(title)})">${now?'♥ In Watchlist':'♡ Watchlist'}</button>
-        <button class="btn btn-ghost" onclick="spinWheel()">🔄 Spin Again</button>
-      </div>
-    </div>`;
-}
-
-async function spinWLToggle(rawId,type,title){
-  await toggleWL(rawId,type,title);
-  const now=inWL(rawId,type);
-  const btn=document.getElementById('spin-wl-btn');
-  if(btn){btn.className='btn '+(now?'btn-purple':'btn-ghost');btn.textContent=now?'♥ In Watchlist':'♡ Watchlist';}
-}
-
-/* ══════════════════════════
-   ⚔️ THIS OR THAT BATTLE
-══════════════════════════ */
-let battlePool=[],battleQueue=[],battleWins=0,battleRound=1,battleWinner=null;
-
-function initBattle(){
-  battlePool=[...getPool('all')];shuffle(battlePool);
-  battleQueue=[...battlePool];battleWins=0;battleRound=1;battleWinner=null;
-  document.getElementById('battle-winner').style.display='none';
-  document.getElementById('battle-arena').style.display='grid';
-  updateBattleStats();drawBattlePair();
-}
-
-function updateBattleStats(){
-  document.getElementById('battle-wins').textContent=battleWins;
-  document.getElementById('battle-round').textContent=battleRound;
-  document.getElementById('battle-left').textContent=battleQueue.length;
-}
-
-function drawBattlePair(){
-  if(battleQueue.length<2){showBattleWinner();return;}
-  const a=battleQueue[0],b=battleQueue[1];
-  document.getElementById('bc-left').innerHTML=battleCardHTML(a,'left');
-  document.getElementById('bc-right').innerHTML=battleCardHTML(b,'right');
-}
-
-function battleCardHTML(item,side){
-  const type=getType(item),poster=getPoster(item),title=getTitle(item),year=getYear(item),score=getScore(item);
-  return `<div class="battle-card" onclick="pickBattle('${side}')">
-    ${poster?`<img class="battle-poster" src="${poster}" alt="${title}">`:`<div class="battle-poster-ph">${type==='movie'?'🎬':'📺'}</div>`}
-    <div class="battle-info">
-      <div class="battle-title">${title}</div>
-      <div class="battle-meta">${year} · ${type==='movie'?'Movie':'Series'}</div>
-      ${score?`<div class="battle-score">★ ${score}</div>`:''}
-    </div>
-  </div>`;
-}
-
-function pickBattle(side){
-  if(battleQueue.length<2)return;
-  const winner=side==='left'?battleQueue[0]:battleQueue[1];
-  const loserIdx=side==='left'?1:0;
-  /* animate */
-  const leftCard=document.getElementById('bc-left').querySelector('.battle-card');
-  const rightCard=document.getElementById('bc-right').querySelector('.battle-card');
-  if(side==='left'){leftCard.classList.add('winner');rightCard.classList.add('loser');}
-  else{rightCard.classList.add('winner');leftCard.classList.add('loser');}
-  battleWins++;battleRound++;
-  setTimeout(()=>{
-    /* remove both, keep winner at front */
-    battleQueue.splice(0,2);
-    battleQueue.unshift(winner);
-    updateBattleStats();
-    if(battleQueue.length<2){showBattleWinner(winner);}else{drawBattlePair();}
-  },600);
-}
-
-function showBattleWinner(winner){
-  const item=winner||battleQueue[0];if(!item)return;
-  battleWinner=item;
-  document.getElementById('battle-arena').style.display='none';
-  const el=document.getElementById('battle-winner');el.style.display='block';
-  const type=getType(item),rawId=getRawId(item),poster=getPoster(item),title=getTitle(item),year=getYear(item),score=getScore(item);
-  document.getElementById('bws-poster-wrap').innerHTML=poster?`<img class="bws-poster" src="${poster}" alt="${title}">`:`<div class="bws-ph">${type==='movie'?'🎬':'📺'}</div>`;
-  document.getElementById('bws-name').textContent=title;document.getElementById('bws-meta').textContent=year+(score?' · ★ '+score:'')+(type?' · '+(type==='movie'?'Movie':'Series'):'');
-  const wlBtn=document.getElementById('bws-wl-btn');wlBtn.textContent=inWL(rawId,type)?'♥ In Watchlist':'♡ Add to Watchlist';
-  fireConfetti();
-}
-
-async function addBattleWinnerToWL(){
-  if(!battleWinner)return;
-  const type=getType(battleWinner),rawId=getRawId(battleWinner),title=getTitle(battleWinner);
-  await toggleWL(rawId,type,title);
-  const btn=document.getElementById('bws-wl-btn');btn.textContent=inWL(rawId,type)?'♥ In Watchlist':'♡ Add to Watchlist';
-}
-
-function shuffleBattle(){battleQueue=shuffle([...getPool('all')]);battleRound++;updateBattleStats();document.getElementById('battle-winner').style.display='none';document.getElementById('battle-arena').style.display='grid';drawBattlePair();}
-function resetBattle(){initBattle();}
-function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
-
-/* ══════════════════════════
-   🎯 MOVIE ROULETTE
-══════════════════════════ */
-function spinRoulette(){
-  const typeFilter=document.getElementById('rl-type').value;
-  const minRating=parseFloat(document.getElementById('rl-rating').value)||0;
-  let pool=getPool(typeFilter);
-  if(minRating>0)pool=pool.filter(i=>{const s=parseFloat(i._myrating||i.vote_average||0);return s>=minRating;});
-  const el=document.getElementById('roulette-result');
-  if(!pool.length){
-    el.style.display='block';el.innerHTML=`<div class="no-items-msg"><div class="eico">🎯</div><p>No items match your filters.<br>Try lowering the minimum rating.</p></div>`;return;
-  }
-  /* dramatic delay */
-  el.style.display='none';
-  setTimeout(()=>{
-    const item=pool[Math.floor(Math.random()*pool.length)];
-    const type=getType(item),rawId=getRawId(item),poster=getPoster(item),title=getTitle(item),year=getYear(item),score=getScore(item),ov=item.overview||item._overview||'';
-    const now=inWL(rawId,type);
-    el.style.display='block';
-    el.innerHTML=`
-      <div class="rr-badge">${type==='movie'?'🎬 Movie':'📺 Series'}</div>
-      ${poster?`<img class="rr-poster" src="${poster}" alt="${title}">`:`<div class="rr-ph">${type==='movie'?'🎬':'📺'}</div>`}
-      <div class="rr-title">${title}</div>
-      <div class="rr-meta">${year}${score?' · ★ '+score:''}</div>
-      ${ov?`<div class="rr-overview">${ov.slice(0,180)}${ov.length>180?'…':''}</div>`:''}
-      <div class="rr-btns">
-        <button class="btn ${now?'btn-purple':'btn-ghost'}" id="rl-wl-btn" onclick="rouletteWLToggle('${rawId}','${type}',${JSON.stringify(title)})">${now?'♥ In Watchlist':'♡ Add to Watchlist'}</button>
-        <button class="btn btn-ghost" onclick="spinRoulette()">🎯 Pick Again</button>
-      </div>`;
-  },300);
-}
-
-async function rouletteWLToggle(rawId,type,title){
-  await toggleWL(rawId,type,title);
-  const now=inWL(rawId,type);
-  const btn=document.getElementById('rl-wl-btn');
-  if(btn){btn.className='btn '+(now?'btn-purple':'btn-ghost');btn.textContent=now?'♥ In Watchlist':'♡ Add to Watchlist';}
-}
-
-/* ── CONFETTI ── */
-function fireConfetti(){
-  const wrap=document.getElementById('confetti-wrap');wrap.innerHTML='';
-  const colors=['#f5c518','#e63946','#a855f7','#22c55e','#3b82f6','#f97316'];
-  for(let i=0;i<60;i++){
-    const c=document.createElement('div');c.className='conf';
-    const x=Math.random()*100,delay=Math.random()*1.5,dur=2+Math.random()*2;
-    c.style.cssText=`left:${x}%;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${dur}s;animation-delay:${delay}s;border-radius:${Math.random()>0.5?'50%':'2px'};transform:rotate(${Math.random()*360}deg);`;
-    wrap.appendChild(c);
-  }
-  setTimeout(()=>{wrap.innerHTML='';},5000);
-}
 
 /* ═══ SEARCH ═══ */
 let sT;
