@@ -18,11 +18,11 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;}
 .screen{display:none;}
-.screen.active{display:flex;flex-direction:column;height:100vh;overflow:hidden;}
+.screen.active{display:block;min-height:100vh;}
 
 /* ── SIDEBAR LAYOUT ── */
-.app-layout{display:flex;flex:1;overflow:hidden;min-height:0;}
-.sidebar{width:220px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;}
+.app-layout{display:flex;min-height:100vh;width:100%;}
+.sidebar{width:220px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;min-height:100vh;position:sticky;top:0;overflow-y:auto;}
 .sidebar-logo{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid var(--border);flex-shrink:0;cursor:pointer;}
 .sidebar-logo .s-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--accent);letter-spacing:3px;line-height:1;display:block;}
 .sidebar-logo .s-sub{font-size:.7rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:2px;display:block;}
@@ -52,7 +52,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 .topbar-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--muted);letter-spacing:2px;margin-left:auto;}
 
 /* ── MAIN CONTENT ── */
-.main-content{flex:1;overflow-y:auto;min-width:0;}
+.main-content{flex:1;min-width:0;overflow-y:auto;}
 .init-loader{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999;flex-direction:column;gap:1rem;}
 .init-loader .logo{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--accent);letter-spacing:4px;}
 .spin{width:20px;height:20px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .65s linear infinite;}
@@ -703,6 +703,18 @@ const firebaseConfig={
 firebase.initializeApp(firebaseConfig);
 const auth=firebase.auth(), db=firebase.firestore();
 
+// Safety: always hide loader after 8 seconds no matter what
+setTimeout(()=>{
+  const loader=document.getElementById('init-loader');
+  if(loader)loader.style.display='none';
+  // If neither screen is active, show login
+  const appActive=document.getElementById('screen-app').classList.contains('active');
+  const loginActive=document.getElementById('screen-login').classList.contains('active');
+  if(!appActive && !loginActive){
+    document.getElementById('screen-login').classList.add('active');
+  }
+}, 8000);
+
 /* ═══ ADMIN EMAILS — change to YOUR email ═══ */
 const ADMIN_EMAILS=['admin@sumitsvault.com','sumit@sumitsvault.com','sumitshinde9421@gmail.com'];
 
@@ -730,8 +742,8 @@ auth.onAuthStateChanged(async user=>{
       lastLogin:firebase.firestore.FieldValue.serverTimestamp()
     },{merge:true});
     await Promise.all([loadCustomItems(),loadWatchlist(),loadAdminRatings()]);
-    await loadTMDBAll();
-    enterApp();
+    enterApp(); // show app immediately
+    loadTMDBAll(); // load TMDB in background (don't await)
   }else{
     CU=null;isAdmin=false;
     document.getElementById('screen-app').classList.remove('active');
@@ -749,7 +761,10 @@ async function loadTMDBAll(){
     tmdbAll=[...mv,...sv];
     tmdbM.d=[...(a.results||[]),...(b.results||[])];tmdbM.ok=true;
     tmdbS.d=[...(c.results||[]),...(d.results||[])];tmdbS.ok=true;
-  }catch{tmdbAll=[];}
+    // Refresh current page if it needs TMDB data
+    if(currentPage==='movies')loadMovies();
+    if(currentPage==='series')loadSeries();
+  }catch(e){console.warn('TMDB load failed:',e);tmdbAll=[];}
 }
 
 /* ═══ WATCHLIST ═══ */
