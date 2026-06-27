@@ -734,20 +734,25 @@ let tmdbAll=[];
 auth.onAuthStateChanged(async user=>{
   document.getElementById('init-loader').style.display='none';
   if(user){
-    CU=user;isAdmin=ADMIN_EMAILS.includes(user.email);
-    await db.collection('users').doc(user.uid).set({
-      displayName:user.displayName||user.email.split('@')[0],email:user.email,
+    CU=user; isAdmin=ADMIN_EMAILS.includes(user.email);
+    // Save user to Firestore in background — don't block login
+    db.collection('users').doc(user.uid).set({
+      displayName:user.displayName||user.email.split('@')[0],
+      email:user.email,
       role:ADMIN_EMAILS.includes(user.email)?'admin':'user',
-      joinedAt:firebase.firestore.FieldValue.serverTimestamp(),
       lastLogin:firebase.firestore.FieldValue.serverTimestamp()
-    },{merge:true});
-    await Promise.all([loadCustomItems(),loadWatchlist(),loadAdminRatings()]);
-    enterApp(); // show app immediately
-    loadTMDBAll(); // load TMDB in background (don't await)
+    },{merge:true}).catch(e=>console.warn('User save failed:',e));
+    // Load essential data then show app
+    try{
+      await Promise.all([loadCustomItems(),loadWatchlist(),loadAdminRatings()]);
+    }catch(e){ console.warn('Data load error:',e); }
+    enterApp();
+    loadTMDBAll(); // background
   }else{
-    CU=null;isAdmin=false;
+    CU=null; isAdmin=false;
     document.getElementById('screen-app').classList.remove('active');
     document.getElementById('screen-login').classList.add('active');
+    document.getElementById('login-btn').textContent='Sign In →';
   }
 });
 
