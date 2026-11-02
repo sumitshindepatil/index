@@ -11,7 +11,7 @@ exports.handler = async (event) => {
   const path = (event.queryStringParameters || {}).path || '';
 
   // Only allow the TMDB endpoints this site actually uses
-  if (!/^\/(movie|tv|search)\/[\w\/]+(\?[\w=&%.\-+'!*()~]*)?$/.test(path)) {
+  if (!/^\/(movie|tv|search|trending)\/[\w\/]+(\?[\w=&%.,\-+'!*()~]*)?$/.test(path)) {
     return json(400, { error: 'Invalid path' });
   }
 
