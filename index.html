@@ -585,14 +585,15 @@ const db   = firebase.firestore();
 const ADMIN_EMAILS = ['sumitshinde9421@gmail.com'];
 
 // ═══════════════════ TMDB ═══════════════════
-const TKEY    = '8265bd1679663a7ea12ac168da84d2e8';
+// API calls go through our own Netlify Function (netlify/functions/tmdb.js),
+// so the key stays secret and ISP blocks on api.themoviedb.org don't matter.
 const TIMG    = 'https://image.tmdb.org/t/p/w500';
 const TIMG_LG = 'https://image.tmdb.org/t/p/w780';
 const tcache  = {};
 async function tfetch(ep) {
   if (tcache[ep]) return tcache[ep];
-  const sep = ep.includes('?') ? '&' : '?';
-  const r = await fetch(`https://api.themoviedb.org/3${ep}${sep}api_key=${TKEY}&language=en-US`);
+  const r = await fetch(`/.netlify/functions/tmdb?path=${encodeURIComponent(ep)}`);
+  if (!r.ok) throw new Error('TMDB proxy error ' + r.status);
   const d = await r.json(); tcache[ep] = d; return d;
 }
 
