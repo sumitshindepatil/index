@@ -220,6 +220,23 @@ nav{background:rgba(9,9,15,0.97);backdrop-filter:blur(14px);border-bottom:1px so
 .pick-toggle input[type=checkbox]{accent-color:var(--gold);width:16px;height:16px;cursor:pointer;}
 .pick-toggle span{font-size:0.85rem;font-weight:500;}
 
+/* TMDB AUTO-FILL SEARCH (add modal) */
+.tmdb-search-wrap{position:relative;margin-bottom:1.1rem;padding:0.9rem;background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.22);border-radius:11px;}
+.tmdb-search-wrap > label{display:block;font-size:0.75rem;font-weight:600;color:#7fb0ff;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.4rem;}
+.tmdb-search-wrap input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:0.62rem 0.9rem;color:var(--text);font-size:0.86rem;outline:none;font-family:'Inter',sans-serif;}
+.tmdb-search-wrap input:focus{border-color:var(--blue);}
+.tmdb-hint{font-size:0.72rem;color:var(--muted);margin-top:0.4rem;}
+#tmdb-results{display:none;margin-top:0.55rem;background:var(--bg3);border:1px solid var(--border2);border-radius:9px;max-height:300px;overflow-y:auto;}
+.tr-item{display:flex;align-items:center;gap:0.7rem;padding:0.5rem 0.65rem;cursor:pointer;border-bottom:1px solid var(--border);transition:background 0.15s;}
+.tr-item:last-child{border-bottom:none;}
+.tr-item:hover{background:rgba(59,130,246,0.14);}
+.tr-item img,.tr-ph{width:34px;height:50px;object-fit:cover;border-radius:4px;flex-shrink:0;background:var(--card);}
+.tr-ph{display:flex;align-items:center;justify-content:center;font-size:1rem;}
+.tr-title{font-size:0.83rem;font-weight:600;}
+.tr-meta{font-size:0.7rem;color:var(--muted);}
+.tr-msg{padding:0.8rem;font-size:0.8rem;color:var(--muted);text-align:center;}
+#tmdb-preview{display:none;width:70px;border-radius:6px;margin-top:0.65rem;border:1px solid var(--border2);}
+
 /* ADMIN */
 .admin-banner{background:linear-gradient(135deg,rgba(230,57,70,0.09) 0%,transparent 60%);border:1px solid rgba(230,57,70,0.18);border-radius:15px;padding:1.4rem 1.75rem;margin-bottom:1.75rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
 .admin-banner-title{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:1px;}
@@ -503,6 +520,16 @@ nav{background:rgba(9,9,15,0.97);backdrop-filter:blur(14px);border-bottom:1px so
     <div class="add-inner">
       <button class="modal-x" onclick="closeAdd()">✕</button>
       <div class="add-title" id="add-modal-title">ADD MOVIE</div>
+
+      <!-- TMDB AUTO-FILL -->
+      <div class="tmdb-search-wrap">
+        <label>🔍 Search TMDB to auto-fill</label>
+        <input id="tmdb-q" type="text" placeholder="Type a movie / series name…" autocomplete="off" oninput="tmdbSearchInput(this.value)">
+        <div id="tmdb-results"></div>
+        <img id="tmdb-preview" alt="Poster preview">
+        <div class="tmdb-hint">Pick a result and the poster, year, genre, director and overview fill in automatically. You can still edit everything.</div>
+      </div>
+
       <div class="fg"><label>Title *</label><input id="af-title" placeholder="Enter title"></div>
       <div class="two-fg">
         <div class="fg"><label>Year</label><input type="number" id="af-year" placeholder="2024" min="1888" max="2030"></div>
@@ -1047,6 +1074,86 @@ document.getElementById('af-toppick').addEventListener('change', function() {
   document.getElementById('pick-note-wrap').style.display = this.checked ? 'block' : 'none';
 });
 
+// ═══════════════════ TMDB AUTO-FILL ═══════════════════
+let tmdbResults = [], tmdbSearchT;
+
+function escHtml(s) {
+  return String(s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function resetTmdbSearch() {
+  const q = document.getElementById('tmdb-q'); if (q) q.value = '';
+  const box = document.getElementById('tmdb-results'); if (box) { box.style.display='none'; box.innerHTML=''; }
+  const pv = document.getElementById('tmdb-preview'); if (pv) { pv.style.display='none'; pv.removeAttribute('src'); }
+  tmdbResults = [];
+}
+
+function tmdbSearchInput(v) {
+  clearTimeout(tmdbSearchT);
+  const box = document.getElementById('tmdb-results');
+  if (!v.trim()) { box.style.display='none'; box.innerHTML=''; return; }
+  tmdbSearchT = setTimeout(()=>tmdbSearchRun(v.trim()), 400);
+}
+
+async function tmdbSearchRun(q) {
+  const type = document.getElementById('ov-add').dataset.type;
+  const box  = document.getElementById('tmdb-results');
+  box.style.display = 'block';
+  box.innerHTML = '<div class="tr-msg">Searching…</div>';
+  try {
+    const d = await tfetch(`/search/${type==='movie'?'movie':'tv'}?query=${encodeURIComponent(q)}`);
+    tmdbResults = (d.results||[]).slice(0,8);
+    box.innerHTML = tmdbResults.length
+      ? tmdbResults.map((r,i)=>{
+          const t = r.title||r.name||'Untitled';
+          const y = (r.release_date||r.first_air_date||'').slice(0,4);
+          const s = r.vote_average ? ' · ★ '+r.vote_average.toFixed(1) : '';
+          const img = r.poster_path
+            ? `<img src="https://image.tmdb.org/t/p/w92${r.poster_path}" alt="">`
+            : `<div class="tr-ph">${type==='movie'?'🎬':'📺'}</div>`;
+          return `<div class="tr-item" onclick="pickTmdb(${i})">${img}<div><div class="tr-title">${escHtml(t)}</div><div class="tr-meta">${y||'—'}${s}</div></div></div>`;
+        }).join('')
+      : '<div class="tr-msg">No results. Try another spelling.</div>';
+  } catch {
+    box.innerHTML = '<div class="tr-msg">Search failed. TMDB may be blocked on your network.</div>';
+  }
+}
+
+async function pickTmdb(i) {
+  const r = tmdbResults[i];
+  if (!r) return;
+  const type = document.getElementById('ov-add').dataset.type;
+  const box  = document.getElementById('tmdb-results');
+  box.innerHTML = '<div class="tr-msg">Loading details…</div>';
+  try {
+    const d = await tfetch(`/${type==='movie'?'movie':'tv'}/${r.id}?append_to_response=credits`);
+    const title  = d.title || d.name || '';
+    const year   = (d.release_date || d.first_air_date || '').slice(0,4);
+    const genres = (d.genres||[]).map(g=>g.name.replace('Science Fiction','Sci-Fi')).join(', ');
+    const director = type==='movie'
+      ? (d.credits?.crew||[]).filter(c=>c.job==='Director').map(c=>c.name).join(', ')
+      : (d.created_by||[]).map(c=>c.name).join(', ');
+    const poster = d.poster_path ? TIMG + d.poster_path : '';
+
+    document.getElementById('af-title').value    = title;
+    document.getElementById('af-year').value     = year;
+    document.getElementById('af-genre').value    = genres;
+    document.getElementById('af-director').value = director;
+    document.getElementById('af-overview').value = d.overview || '';
+    document.getElementById('af-poster').value   = poster;
+    document.getElementById('af-tmdb').value     = d.id;
+
+    const pv = document.getElementById('tmdb-preview');
+    if (poster) { pv.src = poster; pv.style.display = 'block'; } else { pv.style.display = 'none'; }
+
+    box.style.display = 'none'; box.innerHTML = '';
+    document.getElementById('tmdb-q').value = title;
+    toast('Details filled from TMDB','ok');
+  } catch {
+    box.innerHTML = '<div class="tr-msg">Could not load details. Try again.</div>';
+  }
+}
+
 function openAdd(type) {
   if (!isAdmin) return;
   editMode=null;
@@ -1062,6 +1169,7 @@ function openEdit(firestoreId, type) {
   const item = customItems.find(i=>i.firestoreId===firestoreId);
   if (!item) return;
   editMode={firestoreId,type};
+  resetTmdbSearch();
   document.getElementById('add-modal-title').textContent = type==='movie' ? 'EDIT MOVIE' : 'EDIT SERIES';
   document.getElementById('af-save').textContent = 'Update';
   document.getElementById('af-title').value    = item._title   ||'';
@@ -1084,6 +1192,7 @@ function clearForm() {
     .forEach(id=>{ document.getElementById(id).value=''; });
   document.getElementById('af-toppick').checked = false;
   document.getElementById('pick-note-wrap').style.display = 'none';
+  resetTmdbSearch();
 }
 
 async function saveItem() {
