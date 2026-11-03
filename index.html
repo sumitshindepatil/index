@@ -248,52 +248,69 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
 .card:hover{border-color:rgba(229,25,43,0.55);box-shadow:0 18px 45px rgba(0,0,0,0.6),0 0 28px rgba(229,25,43,0.22);}
 .pick-card:hover{box-shadow:0 18px 45px rgba(0,0,0,0.6),0 0 28px rgba(245,197,24,0.18);}
 
-/* HERO SLIDER */
-.hsl{position:relative;border-radius:22px;overflow:hidden;margin-bottom:2.5rem;border:1px solid rgba(255,255,255,0.08);background:#050508;}
-.hsl-stage{position:relative;}
-.hsl-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;}
-.hsl-track::-webkit-scrollbar{display:none;}
-.hsl-slide{position:relative;flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;min-height:clamp(440px,70vh,640px);display:flex;align-items:center;overflow:hidden;--t:12,12,20;background:rgb(var(--t));}
-.hsl-bg{position:absolute;inset:0;background-size:cover;background-position:72% 22%;background-repeat:no-repeat;}
-.hsl-slide.poster-mode .hsl-bg{filter:blur(34px) brightness(0.55) saturate(1.3);transform:scale(1.15);}
-.hsl-poster{display:none;position:absolute;right:11%;bottom:0;height:90%;aspect-ratio:2/3;object-fit:cover;border-radius:14px 14px 0 0;box-shadow:0 0 80px rgba(229,25,43,0.45),0 24px 50px rgba(0,0,0,0.6);}
-.hsl-slide.poster-mode .hsl-poster{display:block;}
-.hsl-shade{position:absolute;inset:0;pointer-events:none;background:
-  linear-gradient(90deg,rgba(var(--t),0.97) 0%,rgba(var(--t),0.85) 26%,rgba(var(--t),0.3) 56%,rgba(var(--t),0) 78%),
-  linear-gradient(0deg,rgba(5,5,8,0.65) 0%,transparent 34%);}
-.hsl-copy{position:relative;z-index:2;width:min(620px,92%);padding:3.5rem 3.25rem 4.75rem 5.5rem;animation:chUp 0.8s cubic-bezier(.22,1,.36,1) both;}
-.hsl-eyebrow{font-size:0.68rem;letter-spacing:4px;text-transform:uppercase;font-weight:600;color:rgba(255,255,255,0.72);margin-bottom:0.7rem;}
-.hsl-title{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(2.8rem,6vw,5.4rem);line-height:0.95;letter-spacing:1px;color:#fff;margin-bottom:1rem;text-shadow:0 2px 24px rgba(0,0,0,0.35);}
-.hsl-sub{font-family:'Playfair Display',serif;font-size:clamp(0.9rem,1.35vw,1.05rem);line-height:1.7;color:rgba(255,255,255,0.86);max-width:460px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
-.hsl-meta{font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-top:0.9rem;}
-.hsl-btns{display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:1.5rem;}
-.hsl-btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.85rem 1.7rem;border-radius:999px;border:none;font-size:0.86rem;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s,background 0.2s;}
-.hsl-btn:hover{transform:translateY(-2px);}
-.hsl-btn.primary{background:var(--accent);color:#fff;box-shadow:0 8px 26px rgba(229,25,43,0.4);}
-.hsl-btn.primary:hover{box-shadow:0 12px 34px rgba(229,25,43,0.6);}
-.hsl-btn.ghost{background:rgba(0,0,0,0.55);color:#fff;border:1px solid rgba(255,255,255,0.22);backdrop-filter:blur(6px);}
-.hsl-btn.ghost:hover{background:rgba(0,0,0,0.75);}
-.hsl-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,0.25);background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);color:#fff;font-size:1.7rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s,transform 0.2s;padding-bottom:3px;}
-.hsl-arrow:hover{background:var(--accent);transform:translateY(-50%) scale(1.08);}
-.hsl-arrow.prev{left:1rem;}
-.hsl-arrow.next{right:1rem;}
-.hsl-dots{position:absolute;left:0;right:0;bottom:1.1rem;z-index:5;display:flex;justify-content:center;gap:0.45rem;}
-.hsl-dot{width:8px;height:8px;border-radius:99px;border:none;background:rgba(255,255,255,0.35);cursor:pointer;padding:0;transition:all 0.3s;}
-.hsl-dot.on{width:26px;background:#fff;}
-.hsl .hero-stats{display:flex;justify-content:center;gap:3.5rem;padding:1rem 1.5rem 1.2rem;background:#07070b;border-top:1px solid rgba(255,255,255,0.08);}
-.hsl .hs-n{color:#fff;}
-@keyframes chUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
-@media(max-width:720px){
-  .hsl-slide{min-height:520px;align-items:flex-end;}
-  .hsl-copy{padding:1.5rem 1.25rem 3.5rem;width:100%;}
-  .hsl-shade{background:linear-gradient(0deg,rgba(var(--t),0.97) 0%,rgba(var(--t),0.8) 42%,rgba(var(--t),0.1) 78%,rgba(var(--t),0) 100%);}
-  .hsl-poster{right:50%;transform:translateX(50%);top:1.25rem;bottom:auto;height:50%;border-radius:12px;}
-  .hsl-arrow{top:auto;bottom:0.6rem;transform:none;width:38px;height:38px;font-size:1.4rem;}
-  .hsl-arrow:hover{transform:scale(1.08);}
-  .hsl-arrow.prev{left:0.75rem;}.hsl-arrow.next{right:0.75rem;}
-  .hsl .hero-stats{gap:1.75rem;}
-}
-@media(prefers-reduced-motion:reduce){.hsl-copy{animation:none;}}
+/* HOME */
+.home-head{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1.25rem;margin-bottom:1.6rem;}
+.home-title{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:2.3rem;letter-spacing:1px;line-height:1;}
+.home-sub{color:var(--muted);font-size:0.84rem;margin-top:0.35rem;}
+.home-stats{display:flex;gap:0.7rem;}
+.home-stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:0.55rem 1.1rem;min-width:92px;}
+.home-stat .hs-n{font-size:1.7rem;}
+
+/* PROFILE MENU (GitHub-style dropdown) */
+.profile-wrap{position:relative;}
+button.user-chip{font-family:'Inter',sans-serif;color:var(--text);cursor:pointer;transition:border-color 0.18s,background 0.18s;}
+button.user-chip:hover,button.user-chip[aria-expanded="true"]{border-color:var(--border2);background:var(--bg2);}
+.user-chip .caret{font-size:0.65rem;color:var(--muted);margin-left:0.1rem;}
+.profile-menu{display:none;position:absolute;right:0;top:calc(100% + 10px);width:280px;background:var(--bg2);border:1px solid var(--border2);border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,0.6);padding:0.4rem;z-index:300;}
+.profile-menu.open{display:block;animation:pmIn 0.16s ease-out;}
+@keyframes pmIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:none;}}
+.pm-head{display:flex;align-items:center;gap:0.75rem;padding:0.8rem 0.75rem 0.85rem;border-bottom:1px solid var(--border);margin-bottom:0.35rem;}
+.pm-head .avatar{width:40px;height:40px;font-size:1rem;}
+.pm-name{font-size:0.9rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pm-email{font-size:0.72rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:190px;}
+.pm-role{display:inline-block;margin-top:0.25rem;font-size:0.62rem;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:0.1rem 0.4rem;border-radius:4px;background:var(--bg3);color:var(--muted);border:1px solid var(--border);}
+.pm-role.admin{background:rgba(230,57,70,0.18);color:var(--accent);border-color:rgba(230,57,70,0.3);}
+.pm-item{display:flex;align-items:center;gap:0.7rem;width:100%;padding:0.55rem 0.75rem;border:none;background:transparent;color:var(--text);font-size:0.84rem;font-family:'Inter',sans-serif;border-radius:8px;cursor:pointer;text-align:left;transition:background 0.15s;}
+.pm-item:hover{background:var(--bg3);}
+.pm-item .pm-ico{width:20px;text-align:center;flex-shrink:0;}
+.pm-item .pm-count{margin-left:auto;font-size:0.72rem;color:var(--muted);background:var(--bg3);border-radius:20px;padding:0.05rem 0.5rem;}
+.pm-sep{height:1px;background:var(--border);margin:0.35rem 0.2rem;}
+.pm-item.danger{color:#ff8080;}
+.pm-item.danger:hover{background:rgba(230,57,70,0.12);}
+@media(max-width:720px){#nav-uname,#nav-badge{display:none !important;}.search-wrap input{width:90px;}}
+
+/* INFO MODAL (user details, admin details, about, help centre) */
+.info-box{background:var(--bg2);border:1px solid var(--border2);border-radius:18px;max-width:560px;width:100%;margin:auto;position:relative;}
+.info-inner{padding:2rem;}
+.info-title{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:1.8rem;letter-spacing:1px;margin-bottom:0.3rem;}
+.info-lead{color:var(--muted);font-size:0.86rem;line-height:1.7;margin-bottom:1.2rem;}
+.info-card{display:flex;align-items:center;gap:0.9rem;background:var(--card);border:1px solid var(--border);border-radius:13px;padding:0.9rem 1rem;margin-bottom:1rem;}
+.info-card .avatar{width:46px;height:46px;font-size:1.2rem;}
+.info-card .ic-name{font-size:1rem;font-weight:600;}
+.info-card .ic-sub{font-size:0.78rem;color:var(--muted);}
+.info-rows{border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.info-row{display:flex;justify-content:space-between;gap:1rem;padding:0.65rem 1rem;font-size:0.84rem;border-bottom:1px solid var(--border);}
+.info-row:last-child{border-bottom:none;}
+.info-row .k{color:var(--muted);}
+.info-row .v{font-weight:500;text-align:right;word-break:break-word;}
+.info-list{list-style:none;margin:0.4rem 0 1rem;}
+.info-list li{display:flex;gap:0.65rem;font-size:0.86rem;line-height:1.6;padding:0.4rem 0;color:var(--text);}
+.info-list li span:first-child{flex-shrink:0;width:1.4rem;text-align:center;}
+.info-note{font-size:0.72rem;color:var(--muted);line-height:1.6;margin-top:1rem;}
+.tech-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem;}
+.tech-tags span{background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:0.2rem 0.7rem;font-size:0.74rem;color:var(--muted);}
+.mail-box{display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25);border-radius:12px;padding:0.8rem 1rem;margin-bottom:1.2rem;}
+.mail-box .mb-addr{flex:1;min-width:160px;font-size:0.9rem;font-weight:600;word-break:break-all;}
+.mail-box a.btn{text-decoration:none;display:inline-flex;align-items:center;}
+.faq{border:1px solid var(--border);border-radius:11px;margin-bottom:0.5rem;background:var(--card);}
+.faq summary{cursor:pointer;padding:0.7rem 1rem;font-size:0.86rem;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:0.8rem;}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary::after{content:'+';color:var(--accent);font-size:1.1rem;line-height:1;}
+.faq[open] summary::after{content:'–';}
+.faq p{padding:0 1rem 0.85rem;font-size:0.83rem;line-height:1.65;color:var(--muted);}
+.joke-box{margin-top:1.1rem;background:rgba(245,197,24,0.07);border:1px solid rgba(245,197,24,0.22);border-radius:12px;padding:0.9rem 1rem;}
+.joke-box .jt{font-size:0.7rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:0.4rem;}
+.joke-box .jx{font-size:0.88rem;line-height:1.6;font-style:italic;margin-bottom:0.7rem;}
 
 /* TRAILER + EXTRA DETAILS (detail modal) */
 .md-tagline{font-size:0.82rem;font-style:italic;color:var(--gold);margin-bottom:0.7rem;}
@@ -407,7 +424,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
       <div class="nav-link"        id="nl-series"    onclick="navTo('series')">Series</div>
       <div class="nav-link"        id="nl-trending"  onclick="navTo('trending')">Trending</div>
       <div class="nav-link"        id="nl-top"       onclick="navTo('top')">Top Rated</div>
-      <div class="nav-link"        id="nl-watchlist" onclick="navTo('watchlist')">My Watchlist</div>
       <div class="nav-link"        id="nl-admin"     onclick="navTo('admin')" style="display:none">Admin Panel</div>
     </div>
     <div class="nav-right">
@@ -415,48 +431,49 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         <input id="search-input" type="text" placeholder="Search…" oninput="handleSearch(this.value)">
       </div>
-      <div class="user-chip">
-        <div class="avatar" id="nav-avatar"></div>
-        <span id="nav-uname" style="font-size:0.82rem;font-weight:500;"></span>
-        <span class="badge-admin" id="nav-badge" style="display:none">ADMIN</span>
+      <div class="profile-wrap" id="profile-wrap">
+        <button class="user-chip" id="profile-btn" onclick="toggleProfile(event)" aria-haspopup="true" aria-expanded="false" title="Your profile">
+          <div class="avatar" id="nav-avatar"></div>
+          <span id="nav-uname" style="font-size:0.82rem;font-weight:500;"></span>
+          <span class="badge-admin" id="nav-badge" style="display:none">ADMIN</span>
+          <span class="caret">&#9662;</span>
+        </button>
+        <div class="profile-menu" id="profile-menu" role="menu">
+          <div class="pm-head">
+            <div class="avatar" id="pm-avatar"></div>
+            <div style="min-width:0">
+              <div class="pm-name" id="pm-name"></div>
+              <div class="pm-email" id="pm-email"></div>
+              <span class="pm-role" id="pm-role">Member</span>
+            </div>
+          </div>
+          <button class="pm-item" role="menuitem" onclick="openInfo('user')"><span class="pm-ico">👤</span>User details</button>
+          <button class="pm-item" role="menuitem" onclick="openInfo('admin')"><span class="pm-ico">🛡️</span>Admin details</button>
+          <button class="pm-item" role="menuitem" onclick="pmNav('watchlist')"><span class="pm-ico">♥</span>My Watchlist<span class="pm-count" id="pm-wl-count">0</span></button>
+          <button class="pm-item" role="menuitem" onclick="openInfo('about')"><span class="pm-ico">🎬</span>What this website does</button>
+          <button class="pm-item" role="menuitem" onclick="openInfo('help')"><span class="pm-ico">💬</span>Help Centre</button>
+          <div class="pm-sep"></div>
+          <button class="pm-item danger" role="menuitem" onclick="closeProfile();doLogout()"><span class="pm-ico">⎋</span>Logout</button>
+        </div>
       </div>
-      <button class="btn-logout" onclick="doLogout()">Logout</button>
     </div>
   </nav>
 
   <!-- HOME -->
   <div class="page active" id="page-home">
-    <div class="hsl" id="hsl">
-      <div class="hsl-stage" id="hsl-stage">
-        <div class="hsl-track" id="hsl-track"></div>
-        <button class="hsl-arrow prev" id="hsl-prev" onclick="heroGo(-1)" aria-label="Previous">&#8249;</button>
-        <button class="hsl-arrow next" id="hsl-next" onclick="heroGo(1)" aria-label="Next">&#8250;</button>
-        <div class="hsl-dots" id="hsl-dots"></div>
+    <div class="home-head">
+      <div>
+        <h2 class="home-title">⭐ ADMIN TOP PICKS</h2>
+        <p class="home-sub">Hand-picked by the admin. Tap a poster for the trailer and details.</p>
       </div>
-      <div class="hero-stats">
-        <div><div class="hs-n" id="hs-movies">—</div><div class="hs-l">Movies</div></div>
-        <div><div class="hs-n" id="hs-series">—</div><div class="hs-l">Series</div></div>
-        <div><div class="hs-n" id="hs-wl">—</div><div class="hs-l">In My Watchlist</div></div>
+      <div class="home-stats">
+        <div class="home-stat"><div class="hs-n" id="hs-movies">—</div><div class="hs-l">Movies</div></div>
+        <div class="home-stat"><div class="hs-n" id="hs-series">—</div><div class="hs-l">Series</div></div>
+        <div class="home-stat"><div class="hs-n" id="hs-wl">—</div><div class="hs-l">In My Watchlist</div></div>
       </div>
     </div>
-
-
-    <div id="home-picks-section">
-      <div class="sec-hd">
-        <div class="sec-title"><div class="sec-dot-gold"></div>⭐ Admin Top Picks</div>
-      </div>
-      <div id="home-picks" class="picks-grid">
-        <div class="empty-state"><div class="eico">⭐</div><h4>No top picks yet</h4><p>Admin can mark movies &amp; series as top picks</p></div>
-      </div>
-    </div>
-
-    <div style="margin-top:2.5rem">
-      <div class="sec-hd">
-        <div class="sec-title"><div class="sec-dot"></div>Full Library</div>
-      </div>
-      <div class="grid" id="home-library">
-        <div class="loading"><div class="spin"></div> Loading…</div>
-      </div>
+    <div class="grid" id="home-picks">
+      <div class="loading"><div class="spin"></div></div>
     </div>
   </div>
 
@@ -666,6 +683,14 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
   </div>
 </div>
 
+<!-- ══ INFO MODAL (user / admin / about / help) ══ -->
+<div class="overlay" id="ov-info" onclick="bgClose(event,'ov-info',closeInfo)">
+  <div class="info-box">
+    <button class="modal-x" onclick="closeInfo()">✕</button>
+    <div class="info-inner" id="info-body"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast"><span id="toast-ico"></span><span id="toast-msg"></span></div>
 
 <script>
@@ -688,6 +713,7 @@ const db   = firebase.firestore();
 // ═══════════════════ ADMIN EMAILS ═══════════════════
 // Must match the email in your Firestore rules
 const ADMIN_EMAILS = ['sumitshinde9421@gmail.com'];
+const ADMIN_NAME   = 'Sumit Shinde';   // shown in Admin details and the Help Centre
 
 // ═══════════════════ TMDB ═══════════════════
 // API calls go through our own Netlify Function (netlify/functions/tmdb.js),
@@ -734,11 +760,17 @@ auth.onAuthStateChanged(async user => {
 });
 
 // ═══════════════════ LOAD DATA ═══════════════════
+let itemsFetchedAt = 0;
 async function loadCustomItems() {
   try {
-    const snap = await db.collection('items').orderBy('createdAt','desc').get();
-    customItems = snap.docs.map(d => ({firestoreId:d.id, ...d.data()}));
-  } catch { customItems = []; }
+    // No orderBy in the query: Firestore silently skips documents that lack the field.
+    // Sort newest-first here instead (items with no createdAt count as oldest).
+    const snap = await db.collection('items').get();
+    customItems = snap.docs
+      .map(d => ({firestoreId:d.id, ...d.data()}))
+      .sort((a,b) => (b.createdAt?.toMillis?.() || 0) - (a.createdAt?.toMillis?.() || 0));
+    itemsFetchedAt = Date.now();
+  } catch (e) { console.error('items load failed:', e); customItems = []; }
 }
 
 async function loadWatchlist() {
@@ -841,6 +873,7 @@ function syncNav() {
   document.getElementById('nl-admin').style.display    = isAdmin ? 'flex' : 'none';
   document.getElementById('add-movie-btn').style.display  = isAdmin ? 'inline-flex' : 'none';
   document.getElementById('add-series-btn').style.display = isAdmin ? 'inline-flex' : 'none';
+  updateProfileMenu();
 }
 
 // ═══════════════════ NAV ═══════════════════
@@ -877,6 +910,7 @@ async function toggleWatchlist(id, type, title) {
   try { await saveWatchlist(); } catch { toast('Could not save watchlist','err'); }
   updateWLBadges();
   updateHeroStats();
+  updateProfileMenu();
 }
 
 function updateWLBadges() {
@@ -888,9 +922,6 @@ function updateWLBadges() {
     btn.classList.toggle('added', inWL);
     btn.textContent = inWL ? '♥' : '♡';
     btn.title = inWL ? 'Remove from watchlist' : 'Add to watchlist';
-  });
-  document.querySelectorAll('.hsl-wl').forEach(b => {
-    b.textContent = inWatchlist(b.dataset.id, b.dataset.type) ? '♥ In Watchlist' : '+ Watchlist';
   });
 }
 
@@ -949,194 +980,170 @@ function makePickCard(item, type) {
   </div>`;
 }
 
-// ═══════════════════ HOME HERO SLIDER ═══════════════════
-const HERO_IMG = 'https://image.tmdb.org/t/p/';
-let heroItems = [], heroPaused = false, heroBuild = 0;
+// ═══════════════════ PROFILE MENU & INFO PAGES ═══════════════════
+function toggleProfile(e) {
+  if (e) e.stopPropagation();
+  const m = document.getElementById('profile-menu');
+  const open = !m.classList.contains('open');
+  m.classList.toggle('open', open);
+  document.getElementById('profile-btn').setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+function closeProfile() {
+  const m = document.getElementById('profile-menu');
+  if (m) m.classList.remove('open');
+  const b = document.getElementById('profile-btn');
+  if (b) b.setAttribute('aria-expanded', 'false');
+}
+function pmNav(p) { closeProfile(); navTo(p); }
 
-function cssUrl(u) { return `url("${String(u).replace(/["\\\s]/g, c => encodeURIComponent(c))}")`; }
+document.addEventListener('click', e => { if (!e.target.closest('#profile-wrap')) closeProfile(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeProfile(); closeInfo(); } });
 
-// Average colour of an image, weighted towards colourful pixels, then darkened so white text stays readable.
-function dominantColor(url) {
-  return new Promise(resolve => {
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = () => {
-      try {
-        const c = document.createElement('canvas'); c.width = c.height = 24;
-        const x = c.getContext('2d'); x.drawImage(img, 0, 0, 24, 24);
-        const d = x.getImageData(0, 0, 24, 24).data;
-        let r = 0, g = 0, b = 0, w = 0;
-        for (let i = 0; i < d.length; i += 4) {
-          const R = d[i], G = d[i+1], B = d[i+2];
-          const wt = 0.15 + (Math.max(R,G,B) - Math.min(R,G,B)) / 255;
-          r += R*wt; g += G*wt; b += B*wt; w += wt;
-        }
-        const k = 0.5 / w;
-        resolve([Math.round(r*k), Math.round(g*k), Math.round(b*k)]);
-      } catch { resolve(null); }     // canvas blocked: keep the default tint
-    };
-    img.onerror = () => resolve(null);
-    img.src = url;
-  });
+function updateProfileMenu() {
+  if (!currentUser) return;
+  const name = currentUser.displayName || currentUser.email?.split('@')[0] || '?';
+  document.getElementById('pm-avatar').textContent = name[0].toUpperCase();
+  document.getElementById('pm-name').textContent   = name;
+  document.getElementById('pm-email').textContent  = currentUser.email || '';
+  const role = document.getElementById('pm-role');
+  role.textContent = isAdmin ? 'Admin' : 'Member';
+  role.classList.toggle('admin', isAdmin);
+  document.getElementById('pm-wl-count').textContent = watchlist.length;
 }
 
-function heroSlideHTML(it, i) {
-  const type  = it._type, id = it.firestoreId;
-  const title = it._title || 'Untitled';
-  const sub   = it._picknote ? `"${it._picknote}"` : (it._overview || '');
-  const meta  = [it._year, type==='movie' ? 'Movie' : 'Series', it._myrating ? '★ '+it._myrating : ''].filter(Boolean).join('  ·  ');
-  const inWL  = inWatchlist(id, type);
-  return `<section class="hsl-slide poster-mode" id="hsl-${i}">
-    <div class="hsl-bg"></div>
-    ${it._poster ? `<img class="hsl-poster" src="${escHtml(it._poster)}" alt="" onerror="this.style.display='none'">` : ''}
-    <div class="hsl-shade"></div>
-    <div class="hsl-copy">
-      <div class="hsl-eyebrow">${it._toppick ? "Admin's top pick" : 'Featured'}</div>
-      <h2 class="hsl-title">${escHtml(title)}</h2>
-      ${sub ? `<p class="hsl-sub">${escHtml(sub)}</p>` : ''}
-      <div class="hsl-meta">${escHtml(meta)}</div>
-      <div class="hsl-btns">
-        <button class="hsl-btn primary" onclick='openDetail(${JSON.stringify(id)},"${type}",true)'>▶ Trailer &amp; details</button>
-        <button class="hsl-btn ghost hsl-wl" data-id="${escHtml(id)}" data-type="${type}" onclick="heroWL(${i})">${inWL ? '♥ In Watchlist' : '+ Watchlist'}</button>
-      </div>
+function infoRows(rows) {
+  return `<div class="info-rows">${rows.map(([k, v]) =>
+    `<div class="info-row"><span class="k">${escHtml(k)}</span><span class="v">${v}</span></div>`).join('')}</div>`;
+}
+
+function infoUser() {
+  const u = currentUser;
+  if (!u) return '';
+  const name  = u.displayName || u.email.split('@')[0];
+  const via   = (u.providerData || []).map(p => p.providerId === 'google.com' ? 'Google' : p.providerId === 'password' ? 'Email &amp; password' : escHtml(p.providerId)).join(', ') || '—';
+  const fmt   = s => s ? new Date(s).toLocaleDateString(undefined, { day:'numeric', month:'short', year:'numeric' }) : '—';
+  return `
+    <div class="info-title">USER DETAILS</div>
+    <p class="info-lead">Your account on CineVault.</p>
+    <div class="info-card">
+      <div class="avatar">${escHtml(name[0].toUpperCase())}</div>
+      <div><div class="ic-name">${escHtml(name)}</div><div class="ic-sub">${escHtml(u.email || '')}</div></div>
     </div>
-  </section>`;
+    ${infoRows([
+      ['Role', isAdmin ? 'Admin' : 'Member'],
+      ['Signed in with', via],
+      ['Email verified', u.emailVerified ? 'Yes' : 'No'],
+      ['Member since', fmt(u.metadata?.creationTime)],
+      ['Last sign-in', fmt(u.metadata?.lastSignInTime)],
+      ['Titles in your watchlist', String(watchlist.length)],
+    ])}`;
 }
 
-function setHeroSub(slide, text) {
-  let s = slide.querySelector('.hsl-sub');
-  if (!s) {
-    slide.querySelector('.hsl-title').insertAdjacentHTML('afterend', '<p class="hsl-sub"></p>');
-    s = slide.querySelector('.hsl-sub');
-  }
-  s.textContent = text;
+function infoAdmin() {
+  const mail = ADMIN_EMAILS[0];
+  return `
+    <div class="info-title">ADMIN DETAILS</div>
+    <p class="info-lead">The person behind the library.</p>
+    <div class="info-card">
+      <div class="avatar">${escHtml(ADMIN_NAME[0])}</div>
+      <div><div class="ic-name">${escHtml(ADMIN_NAME)}</div><div class="ic-sub">Admin &amp; developer of CineVault</div></div>
+    </div>
+    ${infoRows([
+      ['Contact', `<a href="mailto:${escHtml(mail)}" style="color:var(--blue)">${escHtml(mail)}</a>`],
+      ['Adds', 'Movies &amp; series in the library'],
+      ['Curates', 'Top Picks and Top Rated lists'],
+      ['Rates', 'Titles on a 1 to 10 scale'],
+    ])}
+    <p class="info-note" style="margin-top:1.1rem">Built with</p>
+    <div class="tech-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Firebase Auth</span><span>Firestore</span><span>TMDB API</span><span>Netlify</span></div>`;
 }
 
-// Switch a slide from "poster" mode to a full wide scene with a tint taken from the image
-function applyBackdrop(slide, url, tint, tagline) {
-  slide.querySelector('.hsl-bg').style.backgroundImage = cssUrl(url);
-  slide.classList.remove('poster-mode');
-  if (tint) slide.style.setProperty('--t', tint.join(','));
-  if (tagline) setHeroSub(slide, tagline);
+function infoAbout() {
+  return `
+    <div class="info-title">WHAT THIS WEBSITE DOES</div>
+    <p class="info-lead">CineVault is a personal movie and series library, hand-picked by the admin. No endless scrolling through thousands of titles, only things worth watching.</p>
+    <ul class="info-list">
+      <li><span>⭐</span><span><b>Top Picks:</b> the admin's favourites, shown right on the home page.</span></li>
+      <li><span>🎞️</span><span><b>Movies &amp; Series:</b> browse everything the admin has added, filter by genre.</span></li>
+      <li><span>🔥</span><span><b>Trending:</b> see what the world is watching today or this week.</span></li>
+      <li><span>🏆</span><span><b>Top Rated:</b> titles ranked by the admin's own ratings.</span></li>
+      <li><span>▶️</span><span><b>Trailers &amp; details:</b> open any title to watch its trailer and see cast, runtime and more.</span></li>
+      <li><span>♥</span><span><b>Watchlist:</b> tap the heart on any poster to save it for later.</span></li>
+      <li><span>🔍</span><span><b>Search:</b> find any movie or series by name.</span></li>
+    </ul>
+    <p class="info-note">This product uses the TMDB API but is not endorsed or certified by TMDB. Movie data and images are provided by TMDB.</p>`;
 }
 
-async function heroEnrich(it, i, token) {
-  if (!it._tmdbId) return;
-  try {
-    const d = await tfetch(`/${it._type==='movie'?'movie':'tv'}/${it._tmdbId}`);
-    if (token !== heroBuild) return;
-    const slide = document.getElementById('hsl-'+i);
-    if (!slide) return;
-    const tagline = it._picknote ? '' : (d.tagline || '');
-    if (!d.backdrop_path) { if (tagline) setHeroSub(slide, tagline); return; }
-    const tint = await dominantColor(HERO_IMG + 'w300' + d.backdrop_path);
-    if (token !== heroBuild) return;
-    applyBackdrop(slide, HERO_IMG + 'w1280' + d.backdrop_path, tint, tagline);
-  } catch {}
+const JOKES = [
+  "I tried to plan a movie night with my watchlist. It had 400 titles and zero attendance.",
+  "Why was the cinema so cold? All those fans.",
+  "A trailer is a two-minute promise the movie can't always keep. We fall for it every single time.",
+  "I asked the popcorn for plot twists. It just kept popping.",
+  "My watchlist and I have the same relationship as me and my gym membership: lots of good intentions.",
+  "Binge-watching: because \"just one more episode\" is the biggest lie since \"I'll sleep early tonight.\"",
+  "Why do movies make bad friends? They always leave you hanging until the sequel.",
+  "Pausing a movie to ask \"wait, who is that?\" should count as a sport."
+];
+let jokeIdx = -1;
+function nextJoke() {
+  let i; do { i = Math.floor(Math.random() * JOKES.length); } while (i === jokeIdx && JOKES.length > 1);
+  jokeIdx = i;
+  const el = document.getElementById('joke-text');
+  if (el) el.textContent = JOKES[i];
+}
+async function copyEmail() {
+  try { await navigator.clipboard.writeText(ADMIN_EMAILS[0]); toast('Email copied','ok'); }
+  catch { toast('Could not copy. Select the address and copy it by hand.','err'); }
 }
 
-function setHeroArrows(show) {
-  ['hsl-prev','hsl-next'].forEach(id => { const b = document.getElementById(id); if (b) b.style.display = show ? 'flex' : 'none'; });
+function infoHelp() {
+  const mail = ADMIN_EMAILS[0];
+  const faq = (q, a) => `<details class="faq"><summary>${q}</summary><p>${a}</p></details>`;
+  return `
+    <div class="info-title">HELP CENTRE</div>
+    <p class="info-lead">Stuck? Confused? Hungry? We can only fix two of those.</p>
+    <div class="mail-box">
+      <span style="font-size:1.2rem">✉️</span>
+      <span class="mb-addr">${escHtml(mail)}</span>
+      <a class="btn btn-red btn-sm" href="mailto:${escHtml(mail)}?subject=CineVault%20help">Email ${escHtml(ADMIN_NAME.split(' ')[0])}</a>
+      <button class="btn btn-ghost btn-sm" onclick="copyEmail()">Copy</button>
+    </div>
+    ${faq("I can't see any movies!", "First check you're logged in. Then check the popcorn is ready. If both are fine, refresh with <b>Ctrl + Shift + R</b>, the oldest IT trick and still undefeated.")}
+    ${faq("How do I add something to my watchlist?", "Tap the ♡ heart on any poster. Warning: highly addictive. Side effects include \"one more episode\" at 3 AM.")}
+    ${faq("The trailer won't play.", "Some titles don't have a trailer. Use your imagination, it's free and has amazing special effects. If other trailers work, that's the reason. If none do, check your internet.")}
+    ${faq("Where is the Admin Panel?", "Only the admin gets one. Don't worry, you're not missing a superpower, just a few extra buttons.")}
+    ${faq("I forgot my password.", "Use <b>Continue with Google</b> next time. It remembers things so your brain can save space for important stuff, like movie dialogues.")}
+    ${faq("Can you add my favourite movie?", "Email the admin! Recommendations are welcome. Bribes are accepted only in the form of really good movie suggestions.")}
+    ${faq("Is CineVault free?", "Yes. Even the jokes are free, and some of them are worth it.")}
+    <div class="joke-box">
+      <div class="jt">🎭 Joke of the moment</div>
+      <div class="jx" id="joke-text">Why was the cinema so cold? All those fans.</div>
+      <button class="btn btn-ghost btn-sm" onclick="nextJoke()">Tell me another</button>
+    </div>
+    <p class="info-note">Fun fact: the admin is one human with a laptop and a lot of chai. Be kind to the admin.</p>`;
 }
 
-function buildHero() {
-  const track = document.getElementById('hsl-track');
-  if (!track) return;
-  const token = ++heroBuild;
-  const usable = customItems.filter(i => i._poster || i._tmdbId);
-  heroItems = [...usable.filter(i=>i._toppick), ...usable.filter(i=>!i._toppick)].slice(0, 8);
-
-  if (!heroItems.length) {
-    track.innerHTML = `<section class="hsl-slide"><div class="hsl-shade"></div><div class="hsl-copy">
-      <div class="hsl-eyebrow">Your personal cinema</div>
-      <h2 class="hsl-title">Discover great films</h2>
-      <p class="hsl-sub">Hand-picked movies and series, trailers, and a watchlist of your own.</p>
-      <div class="hsl-btns"><button class="hsl-btn primary" onclick="navTo('trending')">🔥 See what's trending</button></div>
-    </div></section>`;
-    document.getElementById('hsl-dots').innerHTML = '';
-    setHeroArrows(false);
-    return;
-  }
-
-  track.innerHTML = heroItems.map(heroSlideHTML).join('');
-  heroItems.forEach((it, i) => {
-    if (it._poster) document.querySelector(`#hsl-${i} .hsl-bg`).style.backgroundImage = cssUrl(it._poster);
-  });
-  track.scrollLeft = 0;
-  document.getElementById('hsl-dots').innerHTML = heroItems.length > 1
-    ? heroItems.map((_, i) => `<button class="hsl-dot${i ? '' : ' on'}" onclick="heroTo(${i})" aria-label="Slide ${i+1}"></button>`).join('')
-    : '';
-  setHeroArrows(heroItems.length > 1);
-  heroItems.forEach((it, i) => heroEnrich(it, i, token));
+function openInfo(kind) {
+  closeProfile();
+  const body = document.getElementById('info-body');
+  body.innerHTML = ({ user: infoUser, admin: infoAdmin, about: infoAbout, help: infoHelp }[kind] || (() => ''))();
+  document.getElementById('ov-info').classList.add('open');
+  if (kind === 'help') nextJoke();
 }
-
-function heroTo(i) {
-  const t = document.getElementById('hsl-track');
-  if (t) t.scrollTo({ left: i * t.clientWidth, behavior: 'smooth' });
+function closeInfo() {
+  const o = document.getElementById('ov-info');
+  if (o) o.classList.remove('open');
 }
-function heroGo(dir) {
-  const t = document.getElementById('hsl-track');
-  if (!t || heroItems.length < 2) return;
-  const cur = Math.round(t.scrollLeft / t.clientWidth);
-  heroTo((cur + dir + heroItems.length) % heroItems.length);
-}
-async function heroWL(i) {
-  const it = heroItems[i];
-  if (it) await toggleWatchlist(it.firestoreId, it._type, it._title);
-}
-
-// dots follow the scroll position; autoplay; keyboard arrows
-(function(){
-  const t = document.getElementById('hsl-track'), st = document.getElementById('hsl-stage');
-  if (!t || !st) return;
-  let raf = 0, resume = 0;
-  t.addEventListener('scroll', () => {
-    cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(() => {
-      const i = Math.round(t.scrollLeft / t.clientWidth);
-      document.querySelectorAll('#hsl-dots .hsl-dot').forEach((d, k) => d.classList.toggle('on', k === i));
-    });
-  }, { passive: true });
-  st.addEventListener('mouseenter', () => heroPaused = true);
-  st.addEventListener('mouseleave', () => heroPaused = false);
-  st.addEventListener('touchstart', () => { heroPaused = true; clearTimeout(resume); }, { passive: true });
-  st.addEventListener('touchend',   () => { clearTimeout(resume); resume = setTimeout(() => heroPaused = false, 8000); }, { passive: true });
-  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    setInterval(() => {
-      if (!heroPaused && !document.hidden && currentPage === 'home' && !document.querySelector('.overlay.open')) heroGo(1);
-    }, 6500);
-  }
-  document.addEventListener('keydown', e => {
-    if (currentPage !== 'home' || document.querySelector('.overlay.open')) return;
-    if (/^(INPUT|TEXTAREA|SELECT)$/.test((e.target && e.target.tagName) || '')) return;
-    if (e.key === 'ArrowRight') heroGo(1);
-    if (e.key === 'ArrowLeft')  heroGo(-1);
-  });
-})();
 
 // ═══════════════════ HOME ═══════════════════
 async function loadHome() {
+  // Pick up titles the admin added since this page was loaded (skipped if refreshed in the last 20s)
+  if (Date.now() - itemsFetchedAt > 20000) await loadCustomItems();
   updateHeroStats();
-  buildHero();
-  const picks = customItems.filter(i=>i._toppick);
-  const picksEl = document.getElementById('home-picks');
-  picksEl.innerHTML = picks.length
-    ? picks.map(i=>makePickCard(i,i._type)).join('')
-    : '<div class="empty-state"><div class="eico">⭐</div><h4>No top picks yet</h4><p>Admin can mark items as top picks when adding</p></div>';
-
-  const libEl = document.getElementById('home-library');
-  libEl.innerHTML = '<div class="loading"><div class="spin"></div> Loading…</div>';
-  try {
-    const [p1,p2] = await Promise.all([tfetch('/movie/popular?page=1'),tfetch('/tv/popular?page=1')]);
-    const tmdb = [
-      ...(p1.results||[]).slice(0,8).map(m=>({...m,_type:'movie'})),
-      ...(p2.results||[]).slice(0,8).map(s=>({...s,_type:'series'}))
-    ];
-    const all  = [...customItems, ...tmdb];
-    libEl.innerHTML = all.length
-      ? all.map(i => makeCard(i, i._type||'movie')).join('')
-      : emptyHTML('🎬','No items yet');
-  } catch { libEl.innerHTML = emptyHTML('⚠️','Could not load','Check internet'); }
+  const picks = customItems.filter(i => i._toppick);
+  document.getElementById('home-picks').innerHTML = picks.length
+    ? picks.map(i => makeCard(i, i._type)).join('')
+    : emptyHTML('⭐', 'No top picks yet', 'Admin can mark titles as top picks when adding them');
 }
 
 function updateHeroStats() {
