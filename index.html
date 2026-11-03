@@ -434,6 +434,15 @@ button.user-chip:hover,button.user-chip[aria-expanded="true"]{border-color:var(-
 @media(max-width:900px){.lg-col{width:110px;}.lg-wall.on{opacity:0.4;}.lg-bar{height:5vh;}}
 @media(prefers-reduced-motion:reduce){.lg-col{animation:none;}}
 
+
+.lg-wrap{display:flex;justify-content:center;max-width:430px;}
+.login-card{width:100%;}
+.lc-head{text-align:center;}
+.lc-logo{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:5px;line-height:1;margin-bottom:0.9rem;}
+.lc-logo span{color:var(--accent);}
+.lg-wall.on{opacity:0.75!important;}
+.lg-frames{display:none!important;}
+.lg-shade{background:radial-gradient(ellipse at center,rgba(7,7,11,0.72),rgba(7,7,11,0.3) 55%,transparent 85%),linear-gradient(180deg,rgba(7,7,11,0.55),rgba(7,7,11,0.1) 30%,rgba(7,7,11,0.1) 65%,rgba(7,7,11,0.75))!important;}
 /* TRAILER + EXTRA DETAILS (detail modal) */
 .md-tagline{font-size:0.82rem;font-style:italic;color:var(--gold);margin-bottom:0.7rem;}
 .md-facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:0.6rem 1rem;margin-bottom:0.9rem;}
@@ -503,9 +512,7 @@ button.user-chip:hover,button.user-chip[aria-expanded="true"]{border-color:var(-
 <div class="screen" id="screen-login">
   <div class="lg-bg">
     <div class="lg-wall" id="lg-wall"></div>
-    <div class="lg-video" id="lg-video"></div>
     <div class="lg-shade"></div>
-    <div class="lg-bar t"></div><div class="lg-bar b"></div>
     <i class="b1"></i><i class="b2"></i><div class="lg-grid"></div>
     <div class="lg-frames">
       <i style="left:6%;top:62%;--r:-8deg"></i>
@@ -516,22 +523,9 @@ button.user-chip:hover,button.user-chip[aria-expanded="true"]{border-color:var(-
   </div>
 
   <div class="lg-wrap">
-    <section class="lg-intro">
-      <div class="lg-brand">CINE<span>VAULT</span></div>
-      <div class="lg-eyebrow">🎬 Your personal cinema</div>
-      <h1 class="lg-h">Movies &amp; series,<br><span>hand-picked</span> for you.</h1>
-      <p class="lg-p">No endless scrolling through thousands of titles. CineVault is a small, curated library: top picks, trailers, ratings and a watchlist that is all yours.</p>
-      <ul class="lg-feats">
-        <li><span class="fi">⭐</span><div><b>Admin top picks</b><small>Only the titles worth your time</small></div></li>
-        <li><span class="fi">▶️</span><div><b>Trailers &amp; details</b><small>Cast, runtime and trailer in one tap</small></div></li>
-        <li><span class="fi">🔥</span><div><b>Trending now</b><small>See what the world is watching</small></div></li>
-        <li><span class="fi">♥</span><div><b>Your watchlist</b><small>Save titles for movie night</small></div></li>
-      </ul>
-      <div class="lg-trust"><span>✓ Free to use</span><span>✓ No ads</span><span>✓ One-tap Google sign-in</span></div>
-    </section>
-
     <div class="login-card">
       <div class="lc-head">
+        <div class="lc-logo">CINE<span>VAULT</span></div>
         <div class="lc-title" id="lc-title">Welcome back 👋</div>
         <div class="lc-sub" id="lc-sub">Sign in to open your library.</div>
       </div>
@@ -570,7 +564,6 @@ button.user-chip:hover,button.user-chip[aria-expanded="true"]{border-color:var(-
     </div>
   </div>
 
-  <button class="lg-toggle" id="lg-toggle" onclick="toggleLoginClips()">🎞 Trailer background: On</button>
   <div class="lg-foot">This product uses the TMDB API but is not endorsed or certified by TMDB.</div>
 </div>
 
@@ -908,13 +901,11 @@ let movieGenre = 'all', seriesGenre = 'all';
 // ═══════════════════ AUTH LISTENER ═══════════════════
 
 // ═══════════════════ SIGN-IN IMMERSIVE BACKGROUND ═══════════════════
-// Poster wall + muted official trailers (via TMDB -> YouTube embed). Only runs on the sign-in screen.
-let lgStarted = false, lgClipsOn = true;
-try { lgClipsOn = localStorage.getItem('cv_lgclips') !== 'off'; } catch {}
-function lgSaveData() { return !!(navigator.connection && navigator.connection.saveData); }
+// Scrolling trending-poster wall behind the sign-in card.
+let lgStarted = false;
 
 async function loginBgInit() {
-  if (lgStarted) { lgPlayClips(); return; }
+  if (lgStarted) return;
   lgStarted = true;
   try {
     const trend = await tfetch('/trending/movie/week');
@@ -931,52 +922,10 @@ async function loginBgInit() {
     }
     wall.innerHTML = html;
     requestAnimationFrame(() => wall.classList.add('on'));
-    window._lgTrend = list;
-    lgPlayClips();
   } catch (e) { console.warn('login bg:', e); }
-  const t = document.getElementById('lg-toggle');
-  if (t) { t.classList.add('show'); lgToggleLabel(); }
 }
 
-async function lgPlayClips() {
-  const box = document.getElementById('lg-video');
-  if (!box || !lgClipsOn || lgSaveData() || box.firstChild) return;
-  if (currentUser) return;
-  try {
-    const top = (window._lgTrend || []).slice(0, 8);
-    const vids = await Promise.all(top.map(m => tfetch(`/movie/${m.id}/videos`).catch(() => null)));
-    const keys = vids.map(v => {
-      const r = (v?.results || []).filter(x => x.site === 'YouTube' && x.type === 'Trailer');
-      return (r.find(x => x.official) || r[0])?.key;
-    }).filter(Boolean).slice(0, 6);
-    if (!keys.length || currentUser) return;
-    const q = new URLSearchParams({
-      autoplay:1, mute:1, controls:0, loop:1, playlist:keys.join(','), modestbranding:1,
-      playsinline:1, rel:0, showinfo:0, disablekb:1, fs:0, iv_load_policy:3, cc_load_policy:0
-    });
-    const f = document.createElement('iframe');
-    f.src = `https://www.youtube-nocookie.com/embed/${keys[0]}?${q}`;
-    f.allow = 'autoplay; encrypted-media'; f.tabIndex = -1; f.setAttribute('aria-hidden', 'true');
-    f.onload = () => setTimeout(() => box.classList.add('on'), 2500);
-    box.appendChild(f);
-  } catch (e) { console.warn('login clips:', e); }
-}
-
-function loginBgStop() {
-  const box = document.getElementById('lg-video');
-  if (box) { box.classList.remove('on'); box.innerHTML = ''; }   // removing the iframe stops playback
-}
-
-function lgToggleLabel() {
-  const t = document.getElementById('lg-toggle');
-  if (t) t.textContent = '🎞 Trailer background: ' + (lgClipsOn ? 'On' : 'Off');
-}
-function toggleLoginClips() {
-  lgClipsOn = !lgClipsOn;
-  try { localStorage.setItem('cv_lgclips', lgClipsOn ? 'on' : 'off'); } catch {}
-  lgToggleLabel();
-  if (lgClipsOn) lgPlayClips(); else loginBgStop();
-}
+function loginBgStop() {}
 
 auth.onAuthStateChanged(async user => {
   document.getElementById('init-loader').style.display = 'none';
