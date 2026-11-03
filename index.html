@@ -348,6 +348,7 @@ nav{background:rgba(9,9,15,0.97);backdrop-filter:blur(14px);border-bottom:1px so
       <div class="nav-link"        id="nl-movies"    onclick="navTo('movies')">Movies</div>
       <div class="nav-link"        id="nl-series"    onclick="navTo('series')">Series</div>
       <div class="nav-link"        id="nl-trending"  onclick="navTo('trending')">Trending</div>
+      <div class="nav-link"        id="nl-top"       onclick="navTo('top')">Top Rated</div>
       <div class="nav-link"        id="nl-watchlist" onclick="navTo('watchlist')">My Watchlist</div>
       <div class="nav-link"        id="nl-admin"     onclick="navTo('admin')" style="display:none">Admin Panel</div>
     </div>
@@ -400,7 +401,7 @@ nav{background:rgba(9,9,15,0.97);backdrop-filter:blur(14px);border-bottom:1px so
   <!-- MOVIES -->
   <div class="page" id="page-movies">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.4rem">
-      <div><h2 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:1px">MOVIES</h2><p style="color:var(--muted);font-size:0.82rem;margin-top:0.2rem">TMDB popular + admin additions</p></div>
+      <div><h2 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:1px">MOVIES</h2><p style="color:var(--muted);font-size:0.82rem;margin-top:0.2rem">Hand-picked by the admin</p></div>
       <button class="btn btn-red" id="add-movie-btn" style="display:none" onclick="openAdd('movie')">+ Add Movie</button>
     </div>
     <div class="filters">
@@ -420,7 +421,7 @@ nav{background:rgba(9,9,15,0.97);backdrop-filter:blur(14px);border-bottom:1px so
   <!-- SERIES -->
   <div class="page" id="page-series">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.4rem">
-      <div><h2 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:1px">TV SERIES</h2><p style="color:var(--muted);font-size:0.82rem;margin-top:0.2rem">TMDB popular + admin additions</p></div>
+      <div><h2 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:1px">TV SERIES</h2><p style="color:var(--muted);font-size:0.82rem;margin-top:0.2rem">Hand-picked by the admin</p></div>
       <button class="btn btn-red" id="add-series-btn" style="display:none" onclick="openAdd('series')">+ Add Series</button>
     </div>
     <div class="filters">
@@ -450,6 +451,16 @@ nav{background:rgba(9,9,15,0.97);backdrop-filter:blur(14px);border-bottom:1px so
       <button class="fbtn active" onclick="setTrend('win','week',this)">This Week</button>
     </div>
     <div class="grid" id="trending-grid"><div class="loading"><div class="spin"></div></div></div>
+  </div>
+
+  <!-- ADMIN TOP RATED -->
+  <div class="page" id="page-top">
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:1px;margin-bottom:0.25rem">ADMIN TOP RATED</h2>
+    <p style="color:var(--muted);font-size:0.82rem;margin-bottom:1.75rem">Ranked by the admin's own ratings</p>
+    <div class="two-col">
+      <div><div class="sec-hd"><div class="sec-title"><div class="sec-dot"></div>Top Movies</div></div><div id="top-movies"></div></div>
+      <div><div class="sec-hd"><div class="sec-title"><div class="sec-dot"></div>Top Series</div></div><div id="top-series"></div></div>
+    </div>
   </div>
 
   <!-- WATCHLIST -->
@@ -636,7 +647,6 @@ let customItems = [];
 let watchlist   = [];
 let activeDetail = null, editMode = null;
 let movieGenre = 'all', seriesGenre = 'all';
-let tmdbMovies = {data:[],loaded:false}, tmdbSeries = {data:[],loaded:false};
 
 // ═══════════════════ AUTH LISTENER ═══════════════════
 auth.onAuthStateChanged(async user => {
@@ -783,6 +793,7 @@ function navTo(p) {
   if (p==='movies')    loadMovies();
   if (p==='series')    loadSeries();
   if (p==='trending')  loadTrending();
+  if (p==='top')       loadTop();
   if (p==='watchlist') loadWatchlistPage();
   if (p==='admin')     loadAdmin();
 }
@@ -904,32 +915,23 @@ function updateHeroStats() {
 }
 
 // ═══════════════════ MOVIES / SERIES ═══════════════════
-async function loadMovies() {
+// Only admin-added titles (from Firestore) are shown here. No TMDB popular lists.
+function loadMovies() {
   const el=document.getElementById('movies-grid');
-  el.innerHTML='<div class="loading"><div class="spin"></div></div>';
-  if (!tmdbMovies.loaded) {
-    try {
-      const [p1,p2]=await Promise.all([tfetch('/movie/popular?page=1'),tfetch('/movie/popular?page=2')]);
-      tmdbMovies.data=[...(p1.results||[]),...(p2.results||[])]; tmdbMovies.loaded=true;
-    } catch {}
-  }
-  let all=[...customItems.filter(i=>i._type==='movie'),...tmdbMovies.data];
+  let all=customItems.filter(i=>i._type==='movie');
   if (movieGenre!=='all') all=all.filter(i=>(i._genre||'').toLowerCase().includes(movieGenre.toLowerCase()));
-  el.innerHTML=all.length ? all.map(i=>makeCard(i,'movie')).join('') : emptyHTML('🎬','No movies found');
+  el.innerHTML=all.length
+    ? all.map(i=>makeCard(i,'movie')).join('')
+    : emptyHTML('🎬', movieGenre==='all' ? 'No movies added yet' : 'No '+movieGenre+' movies yet', isAdmin ? 'Use + Add Movie to add one' : 'Check back soon');
 }
 
-async function loadSeries() {
+function loadSeries() {
   const el=document.getElementById('series-grid');
-  el.innerHTML='<div class="loading"><div class="spin"></div></div>';
-  if (!tmdbSeries.loaded) {
-    try {
-      const [p1,p2]=await Promise.all([tfetch('/tv/popular?page=1'),tfetch('/tv/popular?page=2')]);
-      tmdbSeries.data=[...(p1.results||[]),...(p2.results||[])]; tmdbSeries.loaded=true;
-    } catch {}
-  }
-  let all=[...customItems.filter(i=>i._type==='series'),...tmdbSeries.data];
+  let all=customItems.filter(i=>i._type==='series');
   if (seriesGenre!=='all') all=all.filter(i=>(i._genre||'').toLowerCase().includes(seriesGenre.toLowerCase()));
-  el.innerHTML=all.length ? all.map(i=>makeCard(i,'series')).join('') : emptyHTML('📺','No series found');
+  el.innerHTML=all.length
+    ? all.map(i=>makeCard(i,'series')).join('')
+    : emptyHTML('📺', seriesGenre==='all' ? 'No series added yet' : 'No '+seriesGenre+' series yet', isAdmin ? 'Use + Add Series to add one' : 'Check back soon');
 }
 
 function setGenre(type,genre,btn) {
@@ -955,14 +957,45 @@ async function loadTrending() {
     `Trending ${trendType==='movie'?'movies':'series'} ${trendWin==='day'?'today':'this week'}`;
   el.innerHTML = '<div class="loading"><div class="spin"></div></div>';
   try {
-    const d = await tfetch(`/trending/${trendType==='movie'?'movie':'tv'}/${trendWin}`);
-    const list = (d.results||[]).slice(0,20);
+    // TMDB returns 20 per page, so fetch 2 pages and keep the first 28
+    const base = `/trending/${trendType==='movie'?'movie':'tv'}/${trendWin}`;
+    const [p1,p2] = await Promise.all([tfetch(base+'?page=1'), tfetch(base+'?page=2')]);
+    const list = [...(p1.results||[]), ...(p2.results||[])].slice(0,28);
     el.innerHTML = list.length
       ? list.map(i=>makeCard(i, trendType)).join('')
       : emptyHTML('🔥','Nothing trending right now');
   } catch {
     el.innerHTML = emptyHTML('⚠️','Could not load trending','Please try again in a moment');
   }
+}
+
+// ═══════════════════ ADMIN TOP RATED ═══════════════════
+// Ranks admin-added titles by the admin's own rating (_myrating)
+function loadTop() {
+  const render = (type, elId, label) => {
+    const list = customItems
+      .filter(i=>i._type===type && Number(i._myrating)>0)
+      .sort((a,b)=>Number(b._myrating)-Number(a._myrating) || (a._title||'').localeCompare(b._title||''))
+      .slice(0,20);
+    document.getElementById(elId).innerHTML = list.length
+      ? list.map((it,i)=>topRow(it,type,i+1)).join('')
+      : `<div class="empty-state" style="padding:1.5rem"><div class="eico">${type==='movie'?'🎬':'📺'}</div><h4>No rated ${label} yet</h4><p>Admin ratings will appear here</p></div>`;
+  };
+  render('movie','top-movies','movies');
+  render('series','top-series','series');
+}
+
+function topRow(item,type,rank) {
+  const title  = escHtml(item._title||'Untitled');
+  const meta   = [item._year, item._genre].filter(Boolean).map(escHtml).join(' · ');
+  const poster = item._poster ? escHtml(item._poster) : '';
+  const score  = Number(item._myrating).toFixed(1).replace(/\.0$/,'');
+  return `<div class="top-row" onclick='openDetail(${JSON.stringify(item.firestoreId)},"${type}",true)'>
+    <div class="top-rank">${rank}</div>
+    ${poster ? `<img src="${poster}" alt="${title}">` : `<div class="top-ph">${type==='movie'?'🎬':'📺'}</div>`}
+    <div class="top-info"><div class="top-title">${title}</div><div class="top-sub">${meta || (type==='movie'?'Movie':'Series')}</div></div>
+    <div><div class="top-score">★ ${score}</div><div class="top-votes">Admin rating</div></div>
+  </div>`;
 }
 
 // ═══════════════════ WATCHLIST PAGE ═══════════════════
@@ -1122,6 +1155,9 @@ async function openDetail(id, type, isCustom) {
 }
 
 async function loadAdminRating(itemId, type) {
+  // For admin-added titles the item's own rating is the source of truth
+  const own = customItems.find(i=>i.firestoreId===itemId);
+  if (own && Number(own._myrating) > 0) { paintStars(Math.round(Number(own._myrating))); return; }
   try {
     const doc = await db.collection('ratings').doc(`admin_${type}_${itemId}`).get();
     paintStars(doc.exists ? doc.data().rating : 0);
@@ -1167,13 +1203,20 @@ function hov(n)  { document.querySelectorAll('.star-btn').forEach((s,i)=>s.style
 function unhov() { if (activeDetail&&isAdmin) loadAdminRating(activeDetail.id, activeDetail.type); }
 
 async function rate(n) {
-  if (!isAdmin) return;
+  if (!isAdmin || !activeDetail) return;
   const key = `admin_${activeDetail.type}_${activeDetail.id}`;
   try {
     await db.collection('ratings').doc(key).set({
       rating:n, type:activeDetail.type, itemId:activeDetail.id,
       ratedAt:firebase.firestore.FieldValue.serverTimestamp()
     });
+    // Admin-added titles: also save on the item so the Top Rated ranking updates
+    if (activeDetail.isCustom) {
+      await db.collection('items').doc(activeDetail.id).update({ _myrating: n });
+      const it = customItems.find(i=>i.firestoreId===activeDetail.id);
+      if (it) it._myrating = n;
+      document.getElementById('md-rating').textContent = '★ ' + n;
+    }
     paintStars(n);
     toast(`Admin rating: ${n}/10 ★`,'ok');
   } catch { toast('Could not save rating','err'); }
@@ -1194,6 +1237,7 @@ function closeDetail() {
   resetExtras();               // removes the trailer iframe so the video stops
   document.getElementById('ov-detail').classList.remove('open');
   activeDetail = null;
+  if (currentPage==='top') loadTop();   // pick up any rating change
 }
 function openEditCurrent() { const d=activeDetail; closeDetail(); if(d) openEdit(d.id,d.type); }
 function deleteCurrent()   { const d=activeDetail; closeDetail(); if(d) deleteItem(d.id); }
@@ -1391,6 +1435,7 @@ function refreshPage() {
   if (currentPage==='series')    loadSeries();
   if (currentPage==='admin')     loadAdmin();
   if (currentPage==='watchlist') loadWatchlistPage();
+  if (currentPage==='top')       loadTop();
 }
 
 // ═══════════════════ ADMIN ═══════════════════
