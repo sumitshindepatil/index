@@ -248,20 +248,24 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
 .card:hover{border-color:rgba(229,25,43,0.55);box-shadow:0 18px 45px rgba(0,0,0,0.6),0 0 28px rgba(229,25,43,0.22);}
 .pick-card:hover{box-shadow:0 18px 45px rgba(0,0,0,0.6),0 0 28px rgba(245,197,24,0.18);}
 
-/* HERO SLIDER */
+/* HERO SLIDER (block-wipe transition) */
 .hsl{position:relative;border-radius:22px;overflow:hidden;margin-bottom:2.5rem;border:1px solid rgba(255,255,255,0.08);background:#050508;}
 .hsl-stage{position:relative;}
-.hsl-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;}
-.hsl-track::-webkit-scrollbar{display:none;}
-.hsl-slide{position:relative;flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;min-height:clamp(440px,70vh,640px);display:flex;align-items:center;overflow:hidden;--t:12,12,20;background:rgb(var(--t));}
-.hsl-bg{position:absolute;inset:0;background-size:cover;background-position:72% 22%;background-repeat:no-repeat;}
+.hsl-track{position:relative;overflow:hidden;min-height:clamp(440px,70vh,640px);}
+.hsl-slide{position:absolute;inset:0;display:flex;align-items:center;overflow:hidden;visibility:hidden;opacity:0;--t:12,12,20;--w:229,25,43;background:rgb(var(--t));}
+.hsl-slide.active{visibility:visible;opacity:1;z-index:1;}
+.hsl-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:72% 22%;background-repeat:no-repeat;}
 .hsl-slide.poster-mode .hsl-bg{filter:blur(34px) brightness(0.55) saturate(1.3);transform:scale(1.15);}
-.hsl-poster{display:none;position:absolute;right:11%;bottom:0;height:90%;aspect-ratio:2/3;object-fit:cover;border-radius:14px 14px 0 0;box-shadow:0 0 80px rgba(229,25,43,0.45),0 24px 50px rgba(0,0,0,0.6);}
+.hsl-poster{display:none;position:absolute;z-index:1;right:11%;bottom:0;height:90%;aspect-ratio:2/3;object-fit:cover;border-radius:14px 14px 0 0;box-shadow:0 0 80px rgba(229,25,43,0.45),0 24px 50px rgba(0,0,0,0.6);}
 .hsl-slide.poster-mode .hsl-poster{display:block;}
-.hsl-shade{position:absolute;inset:0;pointer-events:none;background:
+.hsl-shade{position:absolute;inset:0;z-index:2;pointer-events:none;background:
   linear-gradient(90deg,rgba(var(--t),0.97) 0%,rgba(var(--t),0.85) 26%,rgba(var(--t),0.3) 56%,rgba(var(--t),0) 78%),
-  linear-gradient(0deg,rgba(5,5,8,0.65) 0%,transparent 34%);}
-.hsl-copy{position:relative;z-index:2;width:min(620px,92%);padding:3.5rem 3.25rem 4.75rem 5.5rem;animation:chUp 0.8s cubic-bezier(.22,1,.36,1) both;}
+  linear-gradient(0deg,rgba(5,5,8,0.6) 0%,transparent 34%);}
+/* giant faded word behind the headline */
+.hsl-bigword{position:absolute;z-index:3;left:2.5rem;top:50%;transform:translateY(-50%);font-family:'Bebas Neue',sans-serif;font-size:clamp(6rem,19vw,17rem);line-height:0.85;letter-spacing:4px;text-transform:uppercase;white-space:nowrap;color:rgba(255,255,255,0.11);pointer-events:none;user-select:none;}
+.hsl-bigword.md{font-size:clamp(5rem,14vw,12rem);}
+.hsl-bigword.sm{font-size:clamp(4rem,10vw,8.5rem);}
+.hsl-copy{position:relative;z-index:4;width:min(620px,92%);padding:3.5rem 3.25rem 4.75rem 5.5rem;}
 .hsl-eyebrow{font-size:0.68rem;letter-spacing:4px;text-transform:uppercase;font-weight:600;color:rgba(255,255,255,0.72);margin-bottom:0.7rem;}
 .hsl-title{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(2.8rem,6vw,5.4rem);line-height:0.95;letter-spacing:1px;color:#fff;margin-bottom:1rem;text-shadow:0 2px 24px rgba(0,0,0,0.35);}
 .hsl-sub{font-family:'Playfair Display',serif;font-size:clamp(0.9rem,1.35vw,1.05rem);line-height:1.7;color:rgba(255,255,255,0.86);max-width:460px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
@@ -273,27 +277,54 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
 .hsl-btn.primary:hover{box-shadow:0 12px 34px rgba(229,25,43,0.6);}
 .hsl-btn.ghost{background:rgba(0,0,0,0.55);color:#fff;border:1px solid rgba(255,255,255,0.22);backdrop-filter:blur(6px);}
 .hsl-btn.ghost:hover{background:rgba(0,0,0,0.75);}
-.hsl-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,0.25);background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);color:#fff;font-size:1.7rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s,transform 0.2s;padding-bottom:3px;}
+
+/* entrance: big word first (blurred), then headline snaps into focus, then the rest fades up */
+.hsl-slide.in .hsl-bg{animation:hslZoom 1.1s cubic-bezier(.22,1,.36,1) both;}
+.hsl-slide.poster-mode.in .hsl-bg{animation:hslFade 1s ease both;}
+.hsl-slide.in .hsl-poster{animation:hslPop 0.9s 0.15s cubic-bezier(.22,1,.36,1) both;}
+.hsl-slide.in .hsl-bigword{animation:hslWord 0.95s cubic-bezier(.22,1,.36,1) both;}
+.hsl-slide.in .hsl-eyebrow{animation:hslUp 0.6s 0.3s both;}
+.hsl-slide.in .hsl-title{animation:hslFocus 0.8s 0.25s cubic-bezier(.22,1,.36,1) both;}
+.hsl-slide.in .hsl-sub{animation:hslUp 0.6s 0.5s both;}
+.hsl-slide.in .hsl-meta{animation:hslUp 0.6s 0.6s both;}
+.hsl-slide.in .hsl-btns{animation:hslUp 0.6s 0.7s both;}
+@keyframes hslZoom{from{opacity:0;transform:scale(1.12);}to{opacity:1;transform:none;}}
+@keyframes hslFade{from{opacity:0;}to{opacity:1;}}
+@keyframes hslPop{from{opacity:0;transform:translateX(60px) scale(0.94);}to{opacity:1;transform:none;}}
+@keyframes hslWord{from{opacity:0;filter:blur(18px);transform:translateY(-50%) translateX(60px);}to{opacity:1;filter:blur(0);transform:translateY(-50%);}}
+@keyframes hslFocus{from{opacity:0;filter:blur(14px);transform:translateY(18px);}to{opacity:1;filter:blur(0);transform:none;}}
+@keyframes hslUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+
+/* the block wipe */
+.hsl-wipe{position:absolute;inset:0;z-index:6;display:grid;pointer-events:none;}
+.hsl-wipe i{display:block;background:rgb(var(--w));opacity:0;}
+.hsl-wipe.cover i{opacity:1;transition:opacity 0.06s linear var(--d);}
+.hsl-wipe.uncover i{opacity:0;transition:opacity 0.26s ease var(--d);}
+
+.hsl-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:7;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,0.25);background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);color:#fff;font-size:1.7rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s,transform 0.2s;padding-bottom:3px;}
 .hsl-arrow:hover{background:var(--accent);transform:translateY(-50%) scale(1.08);}
 .hsl-arrow.prev{left:1rem;}
 .hsl-arrow.next{right:1rem;}
-.hsl-dots{position:absolute;left:0;right:0;bottom:1.1rem;z-index:5;display:flex;justify-content:center;gap:0.45rem;}
-.hsl-dot{width:8px;height:8px;border-radius:99px;border:none;background:rgba(255,255,255,0.35);cursor:pointer;padding:0;transition:all 0.3s;}
+.hsl-dots{position:absolute;left:0;right:0;bottom:1.1rem;z-index:7;display:flex;justify-content:center;gap:0.45rem;pointer-events:none;}
+.hsl-dot{pointer-events:auto;width:8px;height:8px;border-radius:99px;border:none;background:rgba(255,255,255,0.35);cursor:pointer;padding:0;transition:all 0.3s;}
 .hsl-dot.on{width:26px;background:#fff;}
 .hsl .hero-stats{display:flex;justify-content:center;gap:3.5rem;padding:1rem 1.5rem 1.2rem;background:#07070b;border-top:1px solid rgba(255,255,255,0.08);}
 .hsl .hs-n{color:#fff;}
-@keyframes chUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
 @media(max-width:720px){
-  .hsl-slide{min-height:520px;align-items:flex-end;}
+  .hsl-track{min-height:520px;}
+  .hsl-slide{align-items:flex-end;}
   .hsl-copy{padding:1.5rem 1.25rem 3.5rem;width:100%;}
+  .hsl-bigword{top:30%;left:1rem;}
   .hsl-shade{background:linear-gradient(0deg,rgba(var(--t),0.97) 0%,rgba(var(--t),0.8) 42%,rgba(var(--t),0.1) 78%,rgba(var(--t),0) 100%);}
   .hsl-poster{right:50%;transform:translateX(50%);top:1.25rem;bottom:auto;height:50%;border-radius:12px;}
+  .hsl-slide.in .hsl-poster{animation-name:hslPopM;}
+  @keyframes hslPopM{from{opacity:0;transform:translateX(50%) scale(0.92);}to{opacity:1;transform:translateX(50%);}}
   .hsl-arrow{top:auto;bottom:0.6rem;transform:none;width:38px;height:38px;font-size:1.4rem;}
   .hsl-arrow:hover{transform:scale(1.08);}
   .hsl-arrow.prev{left:0.75rem;}.hsl-arrow.next{right:0.75rem;}
   .hsl .hero-stats{gap:1.75rem;}
 }
-@media(prefers-reduced-motion:reduce){.hsl-copy{animation:none;}}
+@media(prefers-reduced-motion:reduce){.hsl-slide.in *{animation:none !important;}}
 
 /* TRAILER + EXTRA DETAILS (detail modal) */
 .md-tagline{font-size:0.82rem;font-style:italic;color:var(--gold);margin-bottom:0.7rem;}
@@ -951,11 +982,12 @@ function makePickCard(item, type) {
 
 // ═══════════════════ HOME HERO SLIDER ═══════════════════
 const HERO_IMG = 'https://image.tmdb.org/t/p/';
-let heroItems = [], heroPaused = false, heroBuild = 0;
+let heroItems = [], heroPaused = false, heroBuild = 0, heroIdx = 0, heroBusy = false;
 
 function cssUrl(u) { return `url("${String(u).replace(/["\\\s]/g, c => encodeURIComponent(c))}")`; }
 
-// Average colour of an image, weighted towards colourful pixels, then darkened so white text stays readable.
+// Theme colour of an image: {dark} tints the slide, {wipe} colours the transition blocks.
+// Returns null when the image can't be read (then the default dark + red theme is used).
 function dominantColor(url) {
   return new Promise(resolve => {
     const img = new Image();
@@ -968,28 +1000,44 @@ function dominantColor(url) {
         let r = 0, g = 0, b = 0, w = 0;
         for (let i = 0; i < d.length; i += 4) {
           const R = d[i], G = d[i+1], B = d[i+2];
-          const wt = 0.15 + (Math.max(R,G,B) - Math.min(R,G,B)) / 255;
+          const wt = 0.15 + (Math.max(R,G,B) - Math.min(R,G,B)) / 255;   // favour colourful pixels
           r += R*wt; g += G*wt; b += B*wt; w += wt;
         }
-        const k = 0.5 / w;
-        resolve([Math.round(r*k), Math.round(g*k), Math.round(b*k)]);
-      } catch { resolve(null); }     // canvas blocked: keep the default tint
+        const avg = [r/w, g/w, b/w];
+        const mx = Math.max(...avg), mn = Math.min(...avg);
+        if (mx < 1 || (mx - mn) / mx < 0.18) return resolve(null);       // too grey: keep the brand red
+        const vivid = avg.map(v => v * 230 / mx);                          // same hue, full brightness
+        resolve({ dark: vivid.map(v => Math.round(v*0.5)), wipe: vivid.map(v => Math.round(v*0.85)) });
+      } catch { resolve(null); }
     };
     img.onerror = () => resolve(null);
     img.src = url;
   });
 }
 
+// short word for the giant background text: skip a leading The/A/An, keep whole words up to ~14 characters
+function heroWord(title) {
+  let out = '';
+  for (const w of String(title).replace(/^(the|a|an)\s+/i, '').split(/\s+/)) {
+    const next = (out + ' ' + w).trim();
+    if (out && next.length > 14) break;
+    out = next;
+  }
+  return out || String(title);
+}
+
 function heroSlideHTML(it, i) {
   const type  = it._type, id = it.firestoreId;
   const title = it._title || 'Untitled';
+  const word  = heroWord(title);
   const sub   = it._picknote ? `"${it._picknote}"` : (it._overview || '');
   const meta  = [it._year, type==='movie' ? 'Movie' : 'Series', it._myrating ? '★ '+it._myrating : ''].filter(Boolean).join('  ·  ');
   const inWL  = inWatchlist(id, type);
-  return `<section class="hsl-slide poster-mode" id="hsl-${i}">
+  return `<section class="hsl-slide poster-mode${i === 0 ? ' active in' : ''}" id="hsl-${i}">
     <div class="hsl-bg"></div>
     ${it._poster ? `<img class="hsl-poster" src="${escHtml(it._poster)}" alt="" onerror="this.style.display='none'">` : ''}
     <div class="hsl-shade"></div>
+    <div class="hsl-bigword${word.length <= 9 ? '' : word.length <= 14 ? ' md' : ' sm'}">${escHtml(word)}</div>
     <div class="hsl-copy">
       <div class="hsl-eyebrow">${it._toppick ? "Admin's top pick" : 'Featured'}</div>
       <h2 class="hsl-title">${escHtml(title)}</h2>
@@ -1012,11 +1060,14 @@ function setHeroSub(slide, text) {
   s.textContent = text;
 }
 
-// Switch a slide from "poster" mode to a full wide scene with a tint taken from the image
-function applyBackdrop(slide, url, tint, tagline) {
+// Switch a slide from "poster" mode to a full wide scene, themed with colours taken from the image
+function applyBackdrop(slide, url, col, tagline) {
   slide.querySelector('.hsl-bg').style.backgroundImage = cssUrl(url);
   slide.classList.remove('poster-mode');
-  if (tint) slide.style.setProperty('--t', tint.join(','));
+  if (col) {
+    slide.style.setProperty('--t', col.dark.join(','));
+    slide.style.setProperty('--w', col.wipe.join(','));
+  }
   if (tagline) setHeroSub(slide, tagline);
 }
 
@@ -1029,30 +1080,36 @@ async function heroEnrich(it, i, token) {
     if (!slide) return;
     const tagline = it._picknote ? '' : (d.tagline || '');
     if (!d.backdrop_path) { if (tagline) setHeroSub(slide, tagline); return; }
-    const tint = await dominantColor(HERO_IMG + 'w300' + d.backdrop_path);
+    const col = await dominantColor(HERO_IMG + 'w300' + d.backdrop_path);
     if (token !== heroBuild) return;
-    applyBackdrop(slide, HERO_IMG + 'w1280' + d.backdrop_path, tint, tagline);
+    applyBackdrop(slide, HERO_IMG + 'w1280' + d.backdrop_path, col, tagline);
   } catch {}
 }
 
 function setHeroArrows(show) {
   ['hsl-prev','hsl-next'].forEach(id => { const b = document.getElementById(id); if (b) b.style.display = show ? 'flex' : 'none'; });
 }
+function heroDots() {
+  document.querySelectorAll('#hsl-dots .hsl-dot').forEach((d, k) => d.classList.toggle('on', k === heroIdx));
+}
 
 function buildHero() {
   const track = document.getElementById('hsl-track');
   if (!track) return;
   const token = ++heroBuild;
+  heroIdx = 0; heroBusy = false;
   const usable = customItems.filter(i => i._poster || i._tmdbId);
   heroItems = [...usable.filter(i=>i._toppick), ...usable.filter(i=>!i._toppick)].slice(0, 8);
 
   if (!heroItems.length) {
-    track.innerHTML = `<section class="hsl-slide"><div class="hsl-shade"></div><div class="hsl-copy">
-      <div class="hsl-eyebrow">Your personal cinema</div>
-      <h2 class="hsl-title">Discover great films</h2>
-      <p class="hsl-sub">Hand-picked movies and series, trailers, and a watchlist of your own.</p>
-      <div class="hsl-btns"><button class="hsl-btn primary" onclick="navTo('trending')">🔥 See what's trending</button></div>
-    </div></section>`;
+    track.innerHTML = `<section class="hsl-slide active in"><div class="hsl-shade"></div>
+      <div class="hsl-bigword">CINEVAULT</div>
+      <div class="hsl-copy">
+        <div class="hsl-eyebrow">Your personal cinema</div>
+        <h2 class="hsl-title">Discover great films</h2>
+        <p class="hsl-sub">Hand-picked movies and series, trailers, and a watchlist of your own.</p>
+        <div class="hsl-btns"><button class="hsl-btn primary" onclick="navTo('trending')">🔥 See what's trending</button></div>
+      </div></section>`;
     document.getElementById('hsl-dots').innerHTML = '';
     setHeroArrows(false);
     return;
@@ -1062,7 +1119,6 @@ function buildHero() {
   heroItems.forEach((it, i) => {
     if (it._poster) document.querySelector(`#hsl-${i} .hsl-bg`).style.backgroundImage = cssUrl(it._poster);
   });
-  track.scrollLeft = 0;
   document.getElementById('hsl-dots').innerHTML = heroItems.length > 1
     ? heroItems.map((_, i) => `<button class="hsl-dot${i ? '' : ' on'}" onclick="heroTo(${i})" aria-label="Slide ${i+1}"></button>`).join('')
     : '';
@@ -1070,41 +1126,82 @@ function buildHero() {
   heroItems.forEach((it, i) => heroEnrich(it, i, token));
 }
 
-function heroTo(i) {
-  const t = document.getElementById('hsl-track');
-  if (t) t.scrollTo({ left: i * t.clientWidth, behavior: 'smooth' });
+// Change slide with a block wipe: blocks of the next slide's colour cover the old slide in staggered
+// steps, the slide is swapped underneath, then the blocks clear while the new slide's text animates in.
+function heroShow(next, dir) {
+  const track = document.getElementById('hsl-track');
+  if (!track || heroBusy || next === heroIdx || next < 0 || next >= heroItems.length) return;
+  const slides = track.querySelectorAll('.hsl-slide');
+  const cur = slides[heroIdx], nxt = slides[next];
+  if (!cur || !nxt) return;
+  const token = heroBuild;
+  const swap = () => { cur.classList.remove('active', 'in'); nxt.classList.add('active', 'in'); heroIdx = next; heroDots(); };
+
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { swap(); return; }
+
+  heroBusy = true;
+  const small = innerWidth < 720, COLS = small ? 5 : 9, ROWS = small ? 8 : 5, STEP = 38, JIT = 90, ROWOFF = 22;
+  const wipe = document.createElement('div');
+  wipe.className = 'hsl-wipe';
+  wipe.style.setProperty('--w', nxt.style.getPropertyValue('--w') || '229,25,43');
+  wipe.style.gridTemplateColumns = `repeat(${COLS},1fr)`;
+  wipe.style.gridTemplateRows = `repeat(${ROWS},1fr)`;
+  let cells = '';
+  for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+    const lane = dir > 0 ? COLS - 1 - c : c;            // "next" sweeps in from the right
+    cells += `<i style="--d:${Math.round(lane*STEP + (r%2)*ROWOFF + Math.random()*JIT)}ms"></i>`;
+  }
+  wipe.innerHTML = cells;
+  track.appendChild(wipe);
+  void wipe.offsetWidth;                                // let the browser register the blocks' start state
+  wipe.classList.add('cover');
+
+  const span = COLS*STEP + ROWOFF + JIT;
+  setTimeout(() => {
+    if (token !== heroBuild) return;
+    swap();
+    wipe.classList.remove('cover'); wipe.classList.add('uncover');
+    setTimeout(() => { wipe.remove(); if (token === heroBuild) heroBusy = false; }, span + 300);
+  }, span + 90);
 }
+
+function heroTo(i) { heroShow(i, i > heroIdx ? 1 : -1); }
 function heroGo(dir) {
-  const t = document.getElementById('hsl-track');
-  if (!t || heroItems.length < 2) return;
-  const cur = Math.round(t.scrollLeft / t.clientWidth);
-  heroTo((cur + dir + heroItems.length) % heroItems.length);
+  if (heroItems.length < 2) return;
+  heroShow((heroIdx + dir + heroItems.length) % heroItems.length, dir);
 }
 async function heroWL(i) {
   const it = heroItems[i];
   if (it) await toggleWatchlist(it.firestoreId, it._type, it._title);
 }
 
-// dots follow the scroll position; autoplay; keyboard arrows
+// autoplay, swipe, horizontal trackpad scroll, keyboard arrows
 (function(){
-  const t = document.getElementById('hsl-track'), st = document.getElementById('hsl-stage');
-  if (!t || !st) return;
-  let raf = 0, resume = 0;
-  t.addEventListener('scroll', () => {
-    cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(() => {
-      const i = Math.round(t.scrollLeft / t.clientWidth);
-      document.querySelectorAll('#hsl-dots .hsl-dot').forEach((d, k) => d.classList.toggle('on', k === i));
-    });
-  }, { passive: true });
+  const st = document.getElementById('hsl-stage');
+  if (!st) return;
+  let resume = 0, tx = 0, ty = 0, wheelAt = 0;
   st.addEventListener('mouseenter', () => heroPaused = true);
   st.addEventListener('mouseleave', () => heroPaused = false);
-  st.addEventListener('touchstart', () => { heroPaused = true; clearTimeout(resume); }, { passive: true });
-  st.addEventListener('touchend',   () => { clearTimeout(resume); resume = setTimeout(() => heroPaused = false, 8000); }, { passive: true });
+  st.addEventListener('touchstart', e => {
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+    heroPaused = true; clearTimeout(resume);
+  }, { passive: true });
+  st.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) heroGo(dx < 0 ? 1 : -1);
+    clearTimeout(resume); resume = setTimeout(() => heroPaused = false, 8000);
+  }, { passive: true });
+  st.addEventListener('wheel', e => {
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 25) {
+      e.preventDefault();
+      const now = Date.now();
+      if (now - wheelAt > 900) { wheelAt = now; heroGo(e.deltaX > 0 ? 1 : -1); }
+    }
+  }, { passive: false });
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     setInterval(() => {
       if (!heroPaused && !document.hidden && currentPage === 'home' && !document.querySelector('.overlay.open')) heroGo(1);
-    }, 6500);
+    }, 7000);
   }
   document.addEventListener('keydown', e => {
     if (currentPage !== 'home' || document.querySelector('.overlay.open')) return;
