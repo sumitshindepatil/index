@@ -248,47 +248,52 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
 .card:hover{border-color:rgba(229,25,43,0.55);box-shadow:0 18px 45px rgba(0,0,0,0.6),0 0 28px rgba(229,25,43,0.22);}
 .pick-card:hover{box-shadow:0 18px 45px rgba(0,0,0,0.6),0 0 28px rgba(245,197,24,0.18);}
 
-/* HERO */
-.cine-hero{padding:0;min-height:clamp(520px,82vh,720px);display:flex;flex-direction:column;background:#050508;border:1px solid rgba(229,25,43,0.2);border-radius:20px;}
-.cine-hero::after{display:none;}
-.ch-bg{position:absolute;inset:-30px;background-size:cover;background-position:center 20%;filter:blur(40px) saturate(1.3) brightness(0.42);opacity:0.8;transform:scale(1.1);transition:background-image .6s;}
-.ch-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 55% 65% at 50% 62%,rgba(229,25,43,0.42),transparent 70%),radial-gradient(ellipse 80% 40% at 50% 0%,rgba(229,25,43,0.16),transparent 70%);}
-.ch-vignette{position:absolute;inset:0;pointer-events:none;z-index:2;background:linear-gradient(180deg,rgba(5,5,8,0.6) 0%,transparent 28%,transparent 60%,rgba(5,5,8,0.96) 100%),radial-gradient(ellipse at center,transparent 48%,rgba(0,0,0,0.7) 100%);}
-.ch-brand{position:absolute;top:1.3rem;left:1.75rem;z-index:4;font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:4px;color:#fff;}
-.ch-brand span{color:var(--accent);}
-.ch-brand em{font-family:'Inter',sans-serif;font-style:normal;font-size:0.62rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-left:0.9rem;}
-.ch-bigtitle{position:absolute;left:50%;top:6%;transform:translateX(-50%);z-index:1;font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:clamp(5rem,19vw,16rem);line-height:0.92;letter-spacing:6px;color:rgba(229,25,43,0.6);white-space:nowrap;text-shadow:0 0 70px rgba(229,25,43,0.4);user-select:none;pointer-events:none;transition:transform 0.25s ease-out;}
-.ch-bigtitle.md{font-size:clamp(3rem,9vw,7.5rem);}
-.ch-bigtitle.sm{font-size:clamp(2.4rem,7vw,5.5rem);top:11%;}
-.ch-stage{position:relative;z-index:3;flex:1;display:grid;grid-template-columns:1fr minmax(210px,330px) 1fr;align-items:end;gap:2rem;padding:5rem 2.25rem 0;}
-.ch-poster{display:block;width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:14px 14px 0 0;box-shadow:0 0 90px rgba(229,25,43,0.5),0 30px 60px rgba(0,0,0,0.7);-webkit-mask-image:linear-gradient(180deg,#000 62%,transparent 100%);mask-image:linear-gradient(180deg,#000 62%,transparent 100%);animation:chFloat 9s ease-in-out infinite;cursor:pointer;}
-.ch-side{padding-bottom:1.75rem;animation:chUp 0.9s 0.15s cubic-bezier(.22,1,.36,1) both;}
-.ch-side.right{text-align:right;animation-delay:0.3s;}
-.ch-eyebrow{font-size:0.66rem;letter-spacing:4px;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:0.55rem;}
-.ch-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.9rem,3.4vw,3.1rem);line-height:1;letter-spacing:1px;color:#fff;margin-bottom:0.8rem;}
-.ch-p{font-family:'Playfair Display',serif;font-size:0.84rem;line-height:1.75;color:rgba(238,238,245,0.72);max-width:330px;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;}
-.ch-side.right .ch-p{margin-left:auto;}
-.ch-cta{display:inline-flex;align-items:center;gap:0.6rem;margin-top:1.15rem;padding:0.72rem 1.5rem;border:1px solid rgba(255,255,255,0.55);background:rgba(0,0,0,0.25);color:#fff;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;font-family:'Inter',sans-serif;font-weight:600;cursor:pointer;transition:all 0.28s;}
-.ch-cta:hover{background:var(--accent);border-color:var(--accent);letter-spacing:4px;box-shadow:0 0 32px rgba(229,25,43,0.55);}
-.ch-score{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,5vw,4.4rem);line-height:1;color:var(--gold);text-shadow:0 0 30px rgba(245,197,24,0.35);}
-.ch-score small{font-size:0.38em;color:rgba(255,255,255,0.45);margin-left:0.2rem;}
-.ch-meta{font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin:0.5rem 0 0.8rem;}
-.ch-note{font-family:'Playfair Display',serif;font-style:italic;font-size:0.85rem;color:var(--gold);max-width:300px;margin-left:auto;line-height:1.6;}
-.cine-hero .hero-stats{position:relative;z-index:4;justify-content:center;gap:3.5rem;padding:1rem 1.5rem 1.4rem;border-top:1px solid rgba(255,255,255,0.08);background:linear-gradient(180deg,transparent,rgba(5,5,8,0.92));}
-.cine-hero .hs-n{color:#fff;}
-@keyframes chUp{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:none;}}
-@keyframes chFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
-@media(max-width:820px){
-  .ch-stage{grid-template-columns:1fr;gap:0.5rem;padding:4.5rem 1.25rem 0;justify-items:center;}
-  .ch-poster{max-width:220px;}
-  .ch-side,.ch-side.right{text-align:center;padding-bottom:0.75rem;}
-  .ch-side .ch-p,.ch-side.right .ch-p,.ch-note{margin-left:auto;margin-right:auto;}
-  .ch-stage > .ch-side:first-child{order:2;}
-  .ch-stage > .ch-side.right{order:3;}
-  .cine-hero .hero-stats{gap:1.75rem;}
-  .ch-brand em{display:none;}
+/* HERO SLIDER */
+.hsl{position:relative;border-radius:22px;overflow:hidden;margin-bottom:2.5rem;border:1px solid rgba(255,255,255,0.08);background:#050508;}
+.hsl-stage{position:relative;}
+.hsl-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;}
+.hsl-track::-webkit-scrollbar{display:none;}
+.hsl-slide{position:relative;flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;min-height:clamp(440px,70vh,640px);display:flex;align-items:center;overflow:hidden;--t:12,12,20;background:rgb(var(--t));}
+.hsl-bg{position:absolute;inset:0;background-size:cover;background-position:72% 22%;background-repeat:no-repeat;}
+.hsl-slide.poster-mode .hsl-bg{filter:blur(34px) brightness(0.55) saturate(1.3);transform:scale(1.15);}
+.hsl-poster{display:none;position:absolute;right:11%;bottom:0;height:90%;aspect-ratio:2/3;object-fit:cover;border-radius:14px 14px 0 0;box-shadow:0 0 80px rgba(229,25,43,0.45),0 24px 50px rgba(0,0,0,0.6);}
+.hsl-slide.poster-mode .hsl-poster{display:block;}
+.hsl-shade{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(90deg,rgba(var(--t),0.97) 0%,rgba(var(--t),0.85) 26%,rgba(var(--t),0.3) 56%,rgba(var(--t),0) 78%),
+  linear-gradient(0deg,rgba(5,5,8,0.65) 0%,transparent 34%);}
+.hsl-copy{position:relative;z-index:2;width:min(620px,92%);padding:3.5rem 3.25rem 4.75rem 5.5rem;animation:chUp 0.8s cubic-bezier(.22,1,.36,1) both;}
+.hsl-eyebrow{font-size:0.68rem;letter-spacing:4px;text-transform:uppercase;font-weight:600;color:rgba(255,255,255,0.72);margin-bottom:0.7rem;}
+.hsl-title{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(2.8rem,6vw,5.4rem);line-height:0.95;letter-spacing:1px;color:#fff;margin-bottom:1rem;text-shadow:0 2px 24px rgba(0,0,0,0.35);}
+.hsl-sub{font-family:'Playfair Display',serif;font-size:clamp(0.9rem,1.35vw,1.05rem);line-height:1.7;color:rgba(255,255,255,0.86);max-width:460px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.hsl-meta{font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-top:0.9rem;}
+.hsl-btns{display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:1.5rem;}
+.hsl-btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.85rem 1.7rem;border-radius:999px;border:none;font-size:0.86rem;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s,background 0.2s;}
+.hsl-btn:hover{transform:translateY(-2px);}
+.hsl-btn.primary{background:var(--accent);color:#fff;box-shadow:0 8px 26px rgba(229,25,43,0.4);}
+.hsl-btn.primary:hover{box-shadow:0 12px 34px rgba(229,25,43,0.6);}
+.hsl-btn.ghost{background:rgba(0,0,0,0.55);color:#fff;border:1px solid rgba(255,255,255,0.22);backdrop-filter:blur(6px);}
+.hsl-btn.ghost:hover{background:rgba(0,0,0,0.75);}
+.hsl-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,0.25);background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);color:#fff;font-size:1.7rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s,transform 0.2s;padding-bottom:3px;}
+.hsl-arrow:hover{background:var(--accent);transform:translateY(-50%) scale(1.08);}
+.hsl-arrow.prev{left:1rem;}
+.hsl-arrow.next{right:1rem;}
+.hsl-dots{position:absolute;left:0;right:0;bottom:1.1rem;z-index:5;display:flex;justify-content:center;gap:0.45rem;}
+.hsl-dot{width:8px;height:8px;border-radius:99px;border:none;background:rgba(255,255,255,0.35);cursor:pointer;padding:0;transition:all 0.3s;}
+.hsl-dot.on{width:26px;background:#fff;}
+.hsl .hero-stats{display:flex;justify-content:center;gap:3.5rem;padding:1rem 1.5rem 1.2rem;background:#07070b;border-top:1px solid rgba(255,255,255,0.08);}
+.hsl .hs-n{color:#fff;}
+@keyframes chUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
+@media(max-width:720px){
+  .hsl-slide{min-height:520px;align-items:flex-end;}
+  .hsl-copy{padding:1.5rem 1.25rem 3.5rem;width:100%;}
+  .hsl-shade{background:linear-gradient(0deg,rgba(var(--t),0.97) 0%,rgba(var(--t),0.8) 42%,rgba(var(--t),0.1) 78%,rgba(var(--t),0) 100%);}
+  .hsl-poster{right:50%;transform:translateX(50%);top:1.25rem;bottom:auto;height:50%;border-radius:12px;}
+  .hsl-arrow{top:auto;bottom:0.6rem;transform:none;width:38px;height:38px;font-size:1.4rem;}
+  .hsl-arrow:hover{transform:scale(1.08);}
+  .hsl-arrow.prev{left:0.75rem;}.hsl-arrow.next{right:0.75rem;}
+  .hsl .hero-stats{gap:1.75rem;}
 }
-@media(prefers-reduced-motion:reduce){.ch-poster,.ch-side{animation:none;}}
+@media(prefers-reduced-motion:reduce){.hsl-copy{animation:none;}}
 
 /* TRAILER + EXTRA DETAILS (detail modal) */
 .md-tagline{font-size:0.82rem;font-style:italic;color:var(--gold);margin-bottom:0.7rem;}
@@ -421,19 +426,20 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
 
   <!-- HOME -->
   <div class="page active" id="page-home">
-    <div class="hero cine-hero" id="cine-hero">
-      <div class="ch-bg" id="ch-bg"></div>
-      <div class="ch-glow"></div>
-      <div class="ch-bigtitle" id="ch-bigtitle">CINEVAULT</div>
-      <div class="ch-brand">CINE<span>VAULT</span><em>Your personal cinema</em></div>
-      <div class="ch-stage" id="ch-stage"></div>
-      <div class="ch-vignette"></div>
+    <div class="hsl" id="hsl">
+      <div class="hsl-stage" id="hsl-stage">
+        <div class="hsl-track" id="hsl-track"></div>
+        <button class="hsl-arrow prev" id="hsl-prev" onclick="heroGo(-1)" aria-label="Previous">&#8249;</button>
+        <button class="hsl-arrow next" id="hsl-next" onclick="heroGo(1)" aria-label="Next">&#8250;</button>
+        <div class="hsl-dots" id="hsl-dots"></div>
+      </div>
       <div class="hero-stats">
         <div><div class="hs-n" id="hs-movies">—</div><div class="hs-l">Movies</div></div>
         <div><div class="hs-n" id="hs-series">—</div><div class="hs-l">Series</div></div>
         <div><div class="hs-n" id="hs-wl">—</div><div class="hs-l">In My Watchlist</div></div>
       </div>
     </div>
+
 
     <div id="home-picks-section">
       <div class="sec-hd">
@@ -883,6 +889,9 @@ function updateWLBadges() {
     btn.textContent = inWL ? '♥' : '♡';
     btn.title = inWL ? 'Remove from watchlist' : 'Add to watchlist';
   });
+  document.querySelectorAll('.hsl-wl').forEach(b => {
+    b.textContent = inWatchlist(b.dataset.id, b.dataset.type) ? '♥ In Watchlist' : '+ Watchlist';
+  });
 }
 
 // ═══════════════════ CARD RENDER ═══════════════════
@@ -940,83 +949,175 @@ function makePickCard(item, type) {
   </div>`;
 }
 
-// ═══════════════════ CINEMATIC HERO ═══════════════════
-function renderHero(item, type, isCustom) {
-  const stage = document.getElementById('ch-stage');
-  const bigEl = document.getElementById('ch-bigtitle');
-  const bg    = document.getElementById('ch-bg');
-  if (!stage) return;
+// ═══════════════════ HOME HERO SLIDER ═══════════════════
+const HERO_IMG = 'https://image.tmdb.org/t/p/';
+let heroItems = [], heroPaused = false, heroBuild = 0;
 
-  if (!item) {
-    bigEl.textContent = 'CINEVAULT'; bigEl.className = 'ch-bigtitle';
-    bg.style.backgroundImage = '';
-    stage.innerHTML = `
-      <div class="ch-side">
-        <div class="ch-eyebrow">Your personal cinema</div>
-        <div class="ch-h">Discover great films</div>
-        <p class="ch-p">Hand-picked movies and series, trailers, and a watchlist of your own.</p>
-        <button class="ch-cta" onclick="navTo('trending')">See what's trending →</button>
-      </div><div></div><div></div>`;
+function cssUrl(u) { return `url("${String(u).replace(/["\\\s]/g, c => encodeURIComponent(c))}")`; }
+
+// Average colour of an image, weighted towards colourful pixels, then darkened so white text stays readable.
+function dominantColor(url) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      try {
+        const c = document.createElement('canvas'); c.width = c.height = 24;
+        const x = c.getContext('2d'); x.drawImage(img, 0, 0, 24, 24);
+        const d = x.getImageData(0, 0, 24, 24).data;
+        let r = 0, g = 0, b = 0, w = 0;
+        for (let i = 0; i < d.length; i += 4) {
+          const R = d[i], G = d[i+1], B = d[i+2];
+          const wt = 0.15 + (Math.max(R,G,B) - Math.min(R,G,B)) / 255;
+          r += R*wt; g += G*wt; b += B*wt; w += wt;
+        }
+        const k = 0.5 / w;
+        resolve([Math.round(r*k), Math.round(g*k), Math.round(b*k)]);
+      } catch { resolve(null); }     // canvas blocked: keep the default tint
+    };
+    img.onerror = () => resolve(null);
+    img.src = url;
+  });
+}
+
+function heroSlideHTML(it, i) {
+  const type  = it._type, id = it.firestoreId;
+  const title = it._title || 'Untitled';
+  const sub   = it._picknote ? `"${it._picknote}"` : (it._overview || '');
+  const meta  = [it._year, type==='movie' ? 'Movie' : 'Series', it._myrating ? '★ '+it._myrating : ''].filter(Boolean).join('  ·  ');
+  const inWL  = inWatchlist(id, type);
+  return `<section class="hsl-slide poster-mode" id="hsl-${i}">
+    <div class="hsl-bg"></div>
+    ${it._poster ? `<img class="hsl-poster" src="${escHtml(it._poster)}" alt="" onerror="this.style.display='none'">` : ''}
+    <div class="hsl-shade"></div>
+    <div class="hsl-copy">
+      <div class="hsl-eyebrow">${it._toppick ? "Admin's top pick" : 'Featured'}</div>
+      <h2 class="hsl-title">${escHtml(title)}</h2>
+      ${sub ? `<p class="hsl-sub">${escHtml(sub)}</p>` : ''}
+      <div class="hsl-meta">${escHtml(meta)}</div>
+      <div class="hsl-btns">
+        <button class="hsl-btn primary" onclick='openDetail(${JSON.stringify(id)},"${type}",true)'>▶ Trailer &amp; details</button>
+        <button class="hsl-btn ghost hsl-wl" data-id="${escHtml(id)}" data-type="${type}" onclick="heroWL(${i})">${inWL ? '♥ In Watchlist' : '+ Watchlist'}</button>
+      </div>
+    </div>
+  </section>`;
+}
+
+function setHeroSub(slide, text) {
+  let s = slide.querySelector('.hsl-sub');
+  if (!s) {
+    slide.querySelector('.hsl-title').insertAdjacentHTML('afterend', '<p class="hsl-sub"></p>');
+    s = slide.querySelector('.hsl-sub');
+  }
+  s.textContent = text;
+}
+
+// Switch a slide from "poster" mode to a full wide scene with a tint taken from the image
+function applyBackdrop(slide, url, tint, tagline) {
+  slide.querySelector('.hsl-bg').style.backgroundImage = cssUrl(url);
+  slide.classList.remove('poster-mode');
+  if (tint) slide.style.setProperty('--t', tint.join(','));
+  if (tagline) setHeroSub(slide, tagline);
+}
+
+async function heroEnrich(it, i, token) {
+  if (!it._tmdbId) return;
+  try {
+    const d = await tfetch(`/${it._type==='movie'?'movie':'tv'}/${it._tmdbId}`);
+    if (token !== heroBuild) return;
+    const slide = document.getElementById('hsl-'+i);
+    if (!slide) return;
+    const tagline = it._picknote ? '' : (d.tagline || '');
+    if (!d.backdrop_path) { if (tagline) setHeroSub(slide, tagline); return; }
+    const tint = await dominantColor(HERO_IMG + 'w300' + d.backdrop_path);
+    if (token !== heroBuild) return;
+    applyBackdrop(slide, HERO_IMG + 'w1280' + d.backdrop_path, tint, tagline);
+  } catch {}
+}
+
+function setHeroArrows(show) {
+  ['hsl-prev','hsl-next'].forEach(id => { const b = document.getElementById(id); if (b) b.style.display = show ? 'flex' : 'none'; });
+}
+
+function buildHero() {
+  const track = document.getElementById('hsl-track');
+  if (!track) return;
+  const token = ++heroBuild;
+  const usable = customItems.filter(i => i._poster || i._tmdbId);
+  heroItems = [...usable.filter(i=>i._toppick), ...usable.filter(i=>!i._toppick)].slice(0, 8);
+
+  if (!heroItems.length) {
+    track.innerHTML = `<section class="hsl-slide"><div class="hsl-shade"></div><div class="hsl-copy">
+      <div class="hsl-eyebrow">Your personal cinema</div>
+      <h2 class="hsl-title">Discover great films</h2>
+      <p class="hsl-sub">Hand-picked movies and series, trailers, and a watchlist of your own.</p>
+      <div class="hsl-btns"><button class="hsl-btn primary" onclick="navTo('trending')">🔥 See what's trending</button></div>
+    </div></section>`;
+    document.getElementById('hsl-dots').innerHTML = '';
+    setHeroArrows(false);
     return;
   }
 
-  const title   = item._title || item.title || item.name || 'Untitled';
-  const year    = ((item.release_date||item.first_air_date||item._year||'')+'').slice(0,4);
-  const poster  = item.poster_path ? TIMG_LG + item.poster_path : (item._poster || '');
-  const overview = item._overview || item.overview || '';
-  const id      = item.firestoreId || item.id;
-  const score   = isCustom ? item._myrating : (item.vote_average ? item.vote_average.toFixed(1) : '');
-  const open    = `openDetail(${JSON.stringify(id)},"${type}",${isCustom})`;
-
-  // Big background text: skip a leading "The/A/An", keep whole words up to ~14 characters
-  let bigText = '';
-  for (const w of title.replace(/^(the|a|an)\s+/i,'').split(/\s+/)) {
-    const next = (bigText + ' ' + w).trim();
-    if (bigText && next.length > 14) break;
-    bigText = next;
-  }
-  bigText = bigText || title;
-  bigEl.textContent = bigText;
-  bigEl.className = 'ch-bigtitle' + (bigText.length <= 9 ? '' : bigText.length <= 14 ? ' md' : ' sm');
-  bg.style.backgroundImage = poster ? `url("${poster.replace(/"/g,'%22')}")` : '';
-
-  stage.innerHTML = `
-    <div class="ch-side">
-      <div class="ch-eyebrow">${item._toppick ? "Admin's top pick" : 'Featured'}</div>
-      <div class="ch-h">${escHtml(title)}</div>
-      ${overview ? `<p class="ch-p">${escHtml(overview)}</p>` : ''}
-      <button class="ch-cta" onclick='${open}'>▶ Trailer &amp; details</button>
-    </div>
-    ${poster ? `<img class="ch-poster" src="${escHtml(poster)}" alt="${escHtml(title)}" onclick='${open}' onerror="this.style.display='none'">` : '<div></div>'}
-    <div class="ch-side right">
-      ${score ? `<div class="ch-score">${escHtml(score)}<small>/10</small></div>` : ''}
-      <div class="ch-meta">${[year, type==='movie'?'Movie':'Series'].filter(Boolean).join(' · ')}</div>
-      ${item._picknote ? `<div class="ch-note">"${escHtml(item._picknote)}"</div>` : ''}
-    </div>`;
+  track.innerHTML = heroItems.map(heroSlideHTML).join('');
+  heroItems.forEach((it, i) => {
+    if (it._poster) document.querySelector(`#hsl-${i} .hsl-bg`).style.backgroundImage = cssUrl(it._poster);
+  });
+  track.scrollLeft = 0;
+  document.getElementById('hsl-dots').innerHTML = heroItems.length > 1
+    ? heroItems.map((_, i) => `<button class="hsl-dot${i ? '' : ' on'}" onclick="heroTo(${i})" aria-label="Slide ${i+1}"></button>`).join('')
+    : '';
+  setHeroArrows(heroItems.length > 1);
+  heroItems.forEach((it, i) => heroEnrich(it, i, token));
 }
 
-// subtle mouse parallax on the big background title
+function heroTo(i) {
+  const t = document.getElementById('hsl-track');
+  if (t) t.scrollTo({ left: i * t.clientWidth, behavior: 'smooth' });
+}
+function heroGo(dir) {
+  const t = document.getElementById('hsl-track');
+  if (!t || heroItems.length < 2) return;
+  const cur = Math.round(t.scrollLeft / t.clientWidth);
+  heroTo((cur + dir + heroItems.length) % heroItems.length);
+}
+async function heroWL(i) {
+  const it = heroItems[i];
+  if (it) await toggleWatchlist(it.firestoreId, it._type, it._title);
+}
+
+// dots follow the scroll position; autoplay; keyboard arrows
 (function(){
-  const hero = document.getElementById('cine-hero');
-  if (!hero || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const big = document.getElementById('ch-bigtitle');
-  hero.addEventListener('mousemove', e => {
-    const r = hero.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width  - 0.5;
-    const y = (e.clientY - r.top)  / r.height - 0.5;
-    big.style.transform = `translate(calc(-50% + ${x * -28}px), ${y * -16}px)`;
+  const t = document.getElementById('hsl-track'), st = document.getElementById('hsl-stage');
+  if (!t || !st) return;
+  let raf = 0, resume = 0;
+  t.addEventListener('scroll', () => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      const i = Math.round(t.scrollLeft / t.clientWidth);
+      document.querySelectorAll('#hsl-dots .hsl-dot').forEach((d, k) => d.classList.toggle('on', k === i));
+    });
+  }, { passive: true });
+  st.addEventListener('mouseenter', () => heroPaused = true);
+  st.addEventListener('mouseleave', () => heroPaused = false);
+  st.addEventListener('touchstart', () => { heroPaused = true; clearTimeout(resume); }, { passive: true });
+  st.addEventListener('touchend',   () => { clearTimeout(resume); resume = setTimeout(() => heroPaused = false, 8000); }, { passive: true });
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setInterval(() => {
+      if (!heroPaused && !document.hidden && currentPage === 'home' && !document.querySelector('.overlay.open')) heroGo(1);
+    }, 6500);
+  }
+  document.addEventListener('keydown', e => {
+    if (currentPage !== 'home' || document.querySelector('.overlay.open')) return;
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test((e.target && e.target.tagName) || '')) return;
+    if (e.key === 'ArrowRight') heroGo(1);
+    if (e.key === 'ArrowLeft')  heroGo(-1);
   });
-  hero.addEventListener('mouseleave', () => { big.style.transform = 'translateX(-50%)'; });
 })();
 
 // ═══════════════════ HOME ═══════════════════
 async function loadHome() {
   updateHeroStats();
-  // Featured title for the hero: a random admin top pick (else any admin title with a poster)
-  const withPoster = customItems.filter(i=>i._poster);
-  const pool = withPoster.filter(i=>i._toppick).length ? withPoster.filter(i=>i._toppick) : withPoster;
-  const featured = pool.length ? pool[Math.floor(Math.random()*pool.length)] : null;
-  renderHero(featured, featured ? featured._type : null, true);
+  buildHero();
   const picks = customItems.filter(i=>i._toppick);
   const picksEl = document.getElementById('home-picks');
   picksEl.innerHTML = picks.length
