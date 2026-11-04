@@ -443,6 +443,35 @@ button.user-chip:hover,button.user-chip[aria-expanded="true"]{border-color:var(-
 .lg-wall.on{opacity:0.75!important;}
 .lg-frames{display:none!important;}
 .lg-shade{background:radial-gradient(ellipse at center,rgba(7,7,11,0.72),rgba(7,7,11,0.3) 55%,transparent 85%),linear-gradient(180deg,rgba(7,7,11,0.55),rgba(7,7,11,0.1) 30%,rgba(7,7,11,0.1) 65%,rgba(7,7,11,0.75))!important;}
+/* HOME EXTRAS: welcome strip, Top 10 row, genre chips, NEW badge */
+.hm-welcome{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin:0 0 2.2rem;padding:1.1rem 1.4rem;border-radius:16px;border:1px solid var(--border);background:linear-gradient(110deg,rgba(229,25,43,0.14),rgba(20,20,28,0.6) 55%,rgba(245,197,24,0.07));}
+.hm-hi{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:1px;line-height:1.05;}
+.hm-hi span{color:var(--accent);}
+.hm-sub{font-size:0.84rem;color:var(--muted);margin-top:0.25rem;}
+.hm-actions{display:flex;gap:0.6rem;flex-wrap:wrap;}
+.hm-btn{font:600 0.82rem 'Inter',sans-serif;padding:0.6rem 1.1rem;border-radius:10px;cursor:pointer;border:1px solid var(--border2);background:rgba(255,255,255,0.05);color:var(--text);transition:all .18s;}
+.hm-btn:hover{border-color:var(--accent);transform:translateY(-2px);}
+.hm-btn.pri{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 8px 22px rgba(229,25,43,0.35);}
+.hm-sec{margin-bottom:2.4rem;}
+.hm-sec-h{display:flex;align-items:baseline;gap:0.7rem;margin-bottom:0.9rem;}
+.hm-sec-h h3{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:1.7rem;letter-spacing:1px;}
+.hm-sec-h small{color:var(--muted);font-size:0.78rem;}
+.t10{display:flex;gap:0.4rem;overflow-x:auto;scroll-snap-type:x proximity;padding:0.4rem 0.2rem 1rem;scrollbar-width:thin;scrollbar-color:var(--border2) transparent;}
+.t10-item{position:relative;flex:0 0 auto;display:flex;align-items:flex-end;cursor:pointer;scroll-snap-align:start;padding-left:0.2rem;}
+.t10-n{font-family:'Bebas Neue',sans-serif;font-size:9.5rem;line-height:0.78;color:#0a0a0f;-webkit-text-stroke:3px rgba(255,255,255,0.55);margin-right:-0.9rem;z-index:0;transition:-webkit-text-stroke-color .2s,transform .25s;user-select:none;}
+.t10-item:hover .t10-n{-webkit-text-stroke-color:var(--accent);transform:scale(1.04);}
+.t10-poster{position:relative;z-index:1;width:132px;aspect-ratio:2/3;border-radius:11px;overflow:hidden;border:1px solid var(--border2);background:var(--card);box-shadow:0 12px 30px rgba(0,0,0,0.6);transition:transform .25s,box-shadow .25s;}
+.t10-item:hover .t10-poster{transform:translateY(-6px) scale(1.03);box-shadow:0 18px 40px rgba(0,0,0,0.7),0 0 26px rgba(229,25,43,0.3);}
+.t10-poster img{width:100%;height:100%;object-fit:cover;display:block;}
+.t10-poster b{position:absolute;left:6px;bottom:6px;font-size:0.72rem;background:rgba(0,0,0,0.75);color:var(--gold);padding:0.15rem 0.45rem;border-radius:6px;}
+.hm-chips{margin-top:-0.4rem;}
+.new-badge{position:absolute;top:30px;left:7px;z-index:2;font-size:0.58rem;font-weight:800;letter-spacing:0.6px;padding:0.14rem 0.38rem;border-radius:4px;background:var(--gold);color:#111;animation:newPulse 2s ease-in-out infinite;}
+@keyframes newPulse{0%,100%{box-shadow:0 0 0 0 rgba(245,197,24,0.5);}50%{box-shadow:0 0 0 5px rgba(245,197,24,0);}}
+#home-picks .card{animation:cardIn .55s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(var(--i,0)*45ms);}
+@keyframes cardIn{from{opacity:0;transform:translateY(24px) scale(.97);}to{opacity:1;transform:none;}}
+@media(max-width:640px){.t10-n{font-size:7rem;margin-right:-0.8rem;}.t10-poster{width:108px;}.hm-hi{font-size:1.5rem;}.hm-welcome{padding:1rem;}}
+@media(prefers-reduced-motion:reduce){#home-picks .card,.new-badge{animation:none;}}
+
 /* TRAILER + EXTRA DETAILS (detail modal) */
 .md-tagline{font-size:0.82rem;font-style:italic;color:var(--gold);margin-bottom:0.7rem;}
 .md-facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:0.6rem 1rem;margin-bottom:0.9rem;}
@@ -623,6 +652,23 @@ button.user-chip:hover,button.user-chip[aria-expanded="true"]{border-color:var(-
       </div>
     </div>
 
+    <div class="hm-welcome">
+      <div>
+        <div class="hm-hi" id="hm-hi">Welcome</div>
+        <div class="hm-sub" id="hm-sub">Pick something to watch tonight.</div>
+      </div>
+      <div class="hm-actions">
+        <button class="hm-btn pri" onclick="surpriseMe()">🎲 Surprise me</button>
+        <button class="hm-btn" onclick="navTo('watchlist')">♥ My watchlist</button>
+        <button class="hm-btn" onclick="navTo('trending')">🔥 Trending</button>
+      </div>
+    </div>
+
+    <div class="hm-sec" id="top10-sec" style="display:none">
+      <div class="hm-sec-h"><h3>🏆 TOP 10</h3><small>Highest rated by the admin</small></div>
+      <div class="t10" id="top10"></div>
+    </div>
+
     <div class="home-head">
       <div>
         <h2 class="home-title">⭐ ADMIN TOP PICKS</h2>
@@ -634,6 +680,7 @@ button.user-chip:hover,button.user-chip[aria-expanded="true"]{border-color:var(-
         <div class="home-stat"><div class="hs-n" id="hs-wl">—</div><div class="hs-l">In My Watchlist</div></div>
       </div>
     </div>
+    <div class="filters hm-chips" id="home-chips" style="display:none"></div>
     <div class="grid" id="home-picks">
       <div class="loading"><div class="spin"></div></div>
     </div>
@@ -1152,6 +1199,7 @@ function makeCard(item, type) {
 
   return `<div class="card" onclick='openDetail(${JSON.stringify(id)},"${type}",${isCustom})'>
     <span class="type-badge tb-${type==='movie'?'movie':'series'}">${type==='movie'?'Movie':'Series'}</span>
+    ${(item.createdAt?.toMillis?.() || 0) > Date.now()-7*864e5 ? '<span class="new-badge">NEW</span>' : ''}
     <button class="wl-btn ${inWL?'added':''}" data-id="${id}" data-type="${type}"
       title="${inWL?'Remove from watchlist':'Add to watchlist'}"
       onclick='event.stopPropagation();toggleWatchlist(${JSON.stringify(id)},"${type}",${JSON.stringify(title).replace(/'/g,"&#39;")})'>${inWL?'♥':'♡'}</button>
@@ -1512,16 +1560,68 @@ function closeInfo() {
 }
 
 // ═══════════════════ HOME ═══════════════════
+let homeGenre = 'all';
 async function loadHome() {
   // Pick up titles the admin added since this page was loaded (skipped if refreshed in the last 20s)
   if (Date.now() - itemsFetchedAt > 20000) await loadCustomItems();
   updateHeroStats();
   buildHero();
-  const picks = customItems.filter(i => i._toppick);
-  document.getElementById('home-picks').innerHTML = picks.length
-    ? picks.map(i => makeCard(i, i._type)).join('')
-    : emptyHTML('⭐', 'No top picks yet', 'Admin can mark titles as top picks when adding them');
+  buildWelcome();
+  buildTop10();
+  buildHomePicks();
 }
+
+function buildWelcome() {
+  const hr = new Date().getHours();
+  const g  = hr < 5 ? 'Late night' : hr < 12 ? 'Good morning' : hr < 17 ? 'Good afternoon' : hr < 22 ? 'Good evening' : 'Late night';
+  const nm = (currentUser?.displayName || currentUser?.email || 'movie fan').split(/[ @]/)[0];
+  document.getElementById('hm-hi').innerHTML = `${g}, <span>${nm.replace(/[<>&]/g,'')}</span> 👋`;
+  const n = customItems.length;
+  document.getElementById('hm-sub').textContent = n
+    ? `${n} hand-picked title${n===1?'':'s'} in the vault. Can't decide? Hit Surprise me.`
+    : 'The vault is warming up. Check back soon.';
+}
+
+function surpriseMe() {
+  if (!customItems.length) { toast('Nothing in the vault yet'); return; }
+  const it = customItems[Math.floor(Math.random()*customItems.length)];
+  openDetail(it.firestoreId, it._type, true);
+}
+
+function buildTop10() {
+  const sec = document.getElementById('top10-sec'), box = document.getElementById('top10');
+  const top = customItems.filter(i => Number(i._myrating) > 0)
+    .sort((a,b) => Number(b._myrating) - Number(a._myrating) || (a._title||'').localeCompare(b._title||''))
+    .slice(0, 10);
+  if (top.length < 3) { sec.style.display = 'none'; return; }
+  sec.style.display = '';
+  const esc = s => String(s||'').replace(/[<>&"]/g,'');
+  box.innerHTML = top.map((i, k) => `
+    <div class="t10-item" onclick='openDetail(${JSON.stringify(i.firestoreId)},"${i._type}",true)' title="${esc(i._title)}">
+      <span class="t10-n">${k+1}</span>
+      <div class="t10-poster">${i._poster ? `<img src="${i._poster}" alt="${esc(i._title)}" loading="lazy">` : ''}<b>★ ${Number(i._myrating).toFixed(1).replace(/\.0$/,'')}</b></div>
+    </div>`).join('');
+}
+
+function buildHomePicks() {
+  const picks = customItems.filter(i => i._toppick);
+  // Genre chips built from the picks themselves
+  const genres = [...new Set(picks.flatMap(i => String(i._genre||'').split(/[,/·|]/).map(s=>s.trim()).filter(Boolean)))].slice(0, 9);
+  if (homeGenre !== 'all' && !genres.includes(homeGenre)) homeGenre = 'all';
+  const chips = document.getElementById('home-chips');
+  if (genres.length > 1) {
+    chips.style.display = '';
+    chips.innerHTML = ['all', ...genres].map(g =>
+      `<button class="fbtn ${g===homeGenre?'active':''}" onclick="setHomeGenre(this.dataset.g)" data-g="${g.replace(/"/g,'')}">${g==='all'?'All':g}</button>`).join('');
+  } else chips.style.display = 'none';
+  const shown = homeGenre === 'all' ? picks : picks.filter(i => String(i._genre||'').toLowerCase().includes(homeGenre.toLowerCase()));
+  const el = document.getElementById('home-picks');
+  el.innerHTML = shown.length
+    ? shown.map(i => makeCard(i, i._type)).join('')
+    : emptyHTML('⭐', 'No top picks yet', 'Admin can mark titles as top picks when adding them');
+  el.querySelectorAll('.card').forEach((c, k) => c.style.setProperty('--i', Math.min(k, 14)));
+}
+function setHomeGenre(g) { homeGenre = g; buildHomePicks(); }
 
 function updateHeroStats() {
   document.getElementById('hs-movies').textContent = customItems.filter(i=>i._type==='movie').length || '—';
