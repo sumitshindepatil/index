@@ -472,6 +472,66 @@ button.user-chip:hover,button.user-chip[aria-expanded="true"]{border-color:var(-
 @media(max-width:640px){.t10-n{font-size:7rem;margin-right:-0.8rem;}.t10-poster{width:108px;}.hm-hi{font-size:1.5rem;}.hm-welcome{padding:1rem;}}
 @media(prefers-reduced-motion:reduce){#home-picks .card,.new-badge{animation:none;}}
 
+/* REELS */
+.nav-links{min-width:0;overflow-x:auto;scrollbar-width:none;}
+.nav-links::-webkit-scrollbar{display:none;}
+#page-reels{padding:0;max-width:none;position:relative;background:#000;}
+.rl-feed{height:calc(100vh - var(--nav-h));height:calc(100dvh - var(--nav-h));overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;overscroll-behavior:contain;}
+.rl-feed::-webkit-scrollbar{display:none;}
+.reel{position:relative;height:100%;scroll-snap-align:start;scroll-snap-stop:always;display:flex;justify-content:center;overflow:hidden;background:#05050a;}
+.reel-bg{position:absolute;inset:-50px;background-size:cover;background-position:center;filter:blur(40px) brightness(0.38) saturate(1.4);transform:scale(1.1);}
+.reel-card{position:relative;width:min(100%,430px);height:100%;background:#050508;box-shadow:0 0 70px rgba(0,0,0,0.75);overflow:hidden;}
+.reel-vid{position:absolute;left:0;right:0;top:50%;height:60%;transform:translateY(-50%);background:#000 center/cover no-repeat;cursor:pointer;overflow:hidden;}
+.reel-vid::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,8,0.55),transparent 22%,transparent 78%,rgba(5,5,8,0.75));pointer-events:none;}
+.reel-vid iframe{position:absolute;top:0;left:50%;height:100%;aspect-ratio:16/9;transform:translateX(-50%);border:0;pointer-events:none;opacity:0;transition:opacity 0.7s;}
+.reel-vid iframe.on{opacity:1;}
+.reel-spin{position:absolute;top:50%;left:50%;width:34px;height:34px;margin:-17px 0 0 -17px;border:3px solid rgba(255,255,255,0.2);border-top-color:#fff;border-radius:50%;animation:rlSpin 0.8s linear infinite;z-index:1;}
+@keyframes rlSpin{to{transform:rotate(360deg);}}
+.reel-vid.playing .reel-spin{display:none;}
+.reel-pause{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:rgba(0,0,0,0.55);color:#fff;font-size:1.6rem;display:none;align-items:center;justify-content:center;z-index:2;pointer-events:none;}
+.reel-vid.paused .reel-pause{display:flex;}
+.rl-info{position:absolute;left:0;right:0;bottom:0;padding:3rem 4.6rem 1.4rem 1.2rem;background:linear-gradient(0deg,rgba(5,5,8,0.97) 20%,rgba(5,5,8,0.75) 60%,transparent);z-index:3;}
+.rl-badges{display:flex;gap:0.4rem;margin-bottom:0.5rem;flex-wrap:wrap;}
+.rl-badge{font-size:0.6rem;font-weight:800;letter-spacing:0.7px;text-transform:uppercase;padding:0.18rem 0.5rem;border-radius:5px;background:rgba(255,255,255,0.14);color:#fff;}
+.rl-badge.pick{background:var(--gold);color:#111;}
+.rl-badge.mv{background:var(--accent);}
+.rl-badge.sr{background:#2f6fdc;}
+.rl-title{font-family:'Bebas Neue',sans-serif;font-size:2.1rem;letter-spacing:1px;line-height:1;margin-bottom:0.35rem;}
+.rl-meta{font-size:0.78rem;color:rgba(238,238,245,0.75);margin-bottom:0.5rem;}
+.rl-meta b{color:var(--gold);font-weight:600;}
+.rl-over{font-size:0.8rem;line-height:1.5;color:rgba(238,238,245,0.68);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0.8rem;}
+.rl-go{font:600 0.8rem 'Inter',sans-serif;background:#fff;color:#111;border:none;border-radius:9px;padding:0.55rem 1.1rem;cursor:pointer;}
+.rl-go:hover{background:var(--accent);color:#fff;}
+.rl-rail{position:absolute;right:0.8rem;bottom:1.6rem;z-index:4;display:flex;flex-direction:column;gap:0.8rem;align-items:center;}
+.rl-rail button,.rl-rail .wl-btn{position:static;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,0.18);background:rgba(20,20,28,0.65);backdrop-filter:blur(8px);color:#fff;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform 0.18s,background 0.18s;}
+.rl-rail button:hover,.rl-rail .wl-btn:hover{transform:scale(1.1);background:rgba(229,25,43,0.75);}
+.rl-rail .wl-btn.added{background:var(--accent);border-color:var(--accent);}
+.rl-top{position:absolute;top:0.8rem;left:0;right:0;z-index:10;display:flex;justify-content:center;gap:0.4rem;flex-wrap:wrap;pointer-events:none;padding:0 0.8rem;}
+.rl-top > *{pointer-events:auto;}
+.rl-chip{font:600 0.74rem 'Inter',sans-serif;padding:0.42rem 0.85rem;border-radius:99px;border:1px solid rgba(255,255,255,0.2);background:rgba(15,15,22,0.65);backdrop-filter:blur(10px);color:rgba(255,255,255,0.8);cursor:pointer;}
+.rl-chip.on{background:#fff;color:#111;border-color:#fff;}
+.rl-count{font:600 0.72rem 'Inter',sans-serif;padding:0.42rem 0.7rem;color:rgba(255,255,255,0.7);background:rgba(15,15,22,0.5);border-radius:99px;}
+.rl-nav{position:absolute;right:1.6rem;top:50%;transform:translateY(-50%);z-index:10;display:none;flex-direction:column;gap:0.7rem;}
+.rl-nav button{width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);background:rgba(20,20,28,0.7);color:#fff;font-size:1.2rem;cursor:pointer;}
+.rl-nav button:hover{background:var(--accent);}
+@media(min-width:900px){.rl-nav{display:flex;}}
+.rl-state{height:calc(100vh - var(--nav-h));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.8rem;color:var(--muted);text-align:center;padding:2rem;}
+.rl-snd.hint{animation:newPulse 1.6s ease-in-out infinite;}
+@media(max-width:480px){.rl-title{font-size:1.8rem;}.reel-vid{height:56%;}}
+
+/* MOBILE NAV: links move to their own scrollable row under the logo */
+:root{--nav-h:58px;}
+@media(max-width:720px){
+  :root{--nav-h:102px;}
+  nav{height:var(--nav-h);flex-wrap:wrap;align-content:flex-start;padding:0 1rem;}
+  .nav-logo{height:58px;display:flex;align-items:center;margin-right:0.5rem;font-size:1.35rem;letter-spacing:1.5px;}
+  .nav-right{height:58px;flex:1 1 auto;min-width:0;justify-content:flex-end;}
+  .search-wrap{min-width:0;flex:0 1 auto;}
+  .search-wrap input{width:72px !important;}
+  .nav-links{order:3;flex:0 0 calc(100% + 2rem);height:44px;margin:0 -1rem;padding:0 0.5rem;border-top:1px solid var(--border);}
+  .nav-link{height:44px;padding:0 0.85rem;}
+}
+
 /* TRAILER + EXTRA DETAILS (detail modal) */
 .md-tagline{font-size:0.82rem;font-style:italic;color:var(--gold);margin-bottom:0.7rem;}
 .md-facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:0.6rem 1rem;margin-bottom:0.9rem;}
@@ -605,6 +665,7 @@ button.user-chip:hover,button.user-chip[aria-expanded="true"]{border-color:var(-
       <div class="nav-link"        id="nl-movies"    onclick="navTo('movies')">Movies</div>
       <div class="nav-link"        id="nl-series"    onclick="navTo('series')">Series</div>
       <div class="nav-link"        id="nl-trending"  onclick="navTo('trending')">Trending</div>
+      <div class="nav-link"        id="nl-reels"     onclick="navTo('reels')">Reels</div>
       <div class="nav-link"        id="nl-top"       onclick="navTo('top')">Top Rated</div>
       <div class="nav-link"        id="nl-admin"     onclick="navTo('admin')" style="display:none">Admin Panel</div>
     </div>
@@ -660,6 +721,7 @@ button.user-chip:hover,button.user-chip[aria-expanded="true"]{border-color:var(-
       <div class="hm-actions">
         <button class="hm-btn pri" onclick="surpriseMe()">🎲 Surprise me</button>
         <button class="hm-btn" onclick="navTo('watchlist')">♥ My watchlist</button>
+        <button class="hm-btn" onclick="navTo('reels')">🎞 Reels</button>
         <button class="hm-btn" onclick="navTo('trending')">🔥 Trending</button>
       </div>
     </div>
@@ -704,6 +766,18 @@ button.user-chip:hover,button.user-chip[aria-expanded="true"]{border-color:var(-
       <button class="fbtn" onclick="setGenre('movie','Animation',this)">Animation</button>
     </div>
     <div class="grid" id="movies-grid"><div class="loading"><div class="spin"></div></div></div>
+  </div>
+
+  <!-- REELS -->
+  <div class="page" id="page-reels">
+    <div class="rl-top" id="rl-top">
+      <button class="rl-chip on" data-s="popular" onclick="setReelSort('popular')">🔥 Most popular</button>
+      <button class="rl-chip" data-s="top" onclick="setReelSort('top')">⭐ Top rated</button>
+      <button class="rl-chip" data-s="new" onclick="setReelSort('new')">🆕 Newest</button>
+      <span class="rl-count" id="rl-count"></span>
+    </div>
+    <div class="rl-nav"><button onclick="reelStep(-1)" aria-label="Previous reel">▲</button><button onclick="reelStep(1)" aria-label="Next reel">▼</button></div>
+    <div class="rl-feed" id="rl-feed"></div>
   </div>
 
   <!-- SERIES -->
@@ -1137,6 +1211,8 @@ function navTo(p) {
   const nl=document.getElementById('nl-'+p);
   if (nl) nl.classList.add('active');
   currentPage=p; window.scrollTo(0,0);
+  if (p!=='reels')     reelsStop();
+  if (p==='reels')     loadReels();
   if (p==='home')      loadHome();
   if (p==='movies')    loadMovies();
   if (p==='series')    loadSeries();
@@ -1655,6 +1731,206 @@ function setGenre(type,genre,btn) {
   if (type==='movie') { movieGenre=genre; loadMovies(); }
   else { seriesGenre=genre; loadSeries(); }
 }
+
+
+// ═══════════════════ REELS ═══════════════════
+// Short official clips (TMDB -> YouTube) for titles that are in YOUR library only.
+let reelsData = null, reelsSig = '', reelsSort = 'popular', reelsMuted = true;
+let reelsActive = -1, reelsObs = null, reelsTimer = null, reelsBuilding = false;
+const REEL_PREF = ['Teaser', 'Clip', 'Trailer', 'Featurette', 'Behind the Scenes'];
+const REEL_LANGS = 'en,hi,ta,te,ml,kn,mr,bn,null';
+const rlEsc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function pickReelVideo(d) {
+  const v = (d.videos?.results || []).filter(x => x.site === 'YouTube');
+  for (const t of REEL_PREF) {
+    const m = v.filter(x => x.type === t);
+    if (m.length) return (m.find(x => x.official) || m[0]).key;
+  }
+  return v[0]?.key || null;
+}
+
+async function reelFor(it) {
+  const t = it._type === 'movie' ? 'movie' : 'tv';
+  let id = it._tmdbId;
+  if (!id) {
+    const yr = it._year ? (t === 'movie' ? '&year=' : '&first_air_date_year=') + encodeURIComponent(it._year) : '';
+    const s = await tfetch(`/search/${t}?query=${encodeURIComponent(it._title || '')}${yr}`);
+    id = s.results?.[0]?.id;
+  }
+  if (!id) return null;
+  const d = await tfetch(`/${t}/${id}?append_to_response=videos&include_video_language=${REEL_LANGS}`);
+  const key = pickReelVideo(d);
+  if (!key) return null;
+  return { it, key, pop: d.popularity || 0, back: d.backdrop_path, over: d.overview || '' };
+}
+
+async function buildReelsData(feed) {
+  const queue = customItems.slice(), total = queue.length, out = [];
+  let done = 0;
+  const worker = async () => {
+    while (queue.length) {
+      const it = queue.shift();
+      try { const r = await reelFor(it); if (r) out.push(r); } catch {}
+      done++;
+      const el = document.getElementById('rl-prog'); if (el) el.textContent = `${done} / ${total}`;
+    }
+  };
+  await Promise.all(Array.from({ length: 6 }, worker));
+  return out;
+}
+
+async function loadReels() {
+  const feed = document.getElementById('rl-feed');
+  if (reelsBuilding) return;
+  if (Date.now() - itemsFetchedAt > 20000) await loadCustomItems();
+  const sig = customItems.map(i => i.firestoreId).join(',');
+  if (!customItems.length) {
+    feed.innerHTML = `<div class="rl-state"><div style="font-size:2.4rem">🎞</div><b style="color:var(--text)">No reels yet</b><span>Titles in the library will show up here.</span></div>`;
+    return;
+  }
+  if (!reelsData || sig !== reelsSig) {
+    reelsBuilding = true;
+    feed.innerHTML = `<div class="rl-state"><div class="spin"></div><span>Loading reels…<br><b id="rl-prog" style="color:var(--text)"></b></span></div>`;
+    try { reelsData = await buildReelsData(feed); reelsSig = sig; } finally { reelsBuilding = false; }
+    if (currentPage !== 'reels') return;
+  }
+  renderReels();
+}
+
+function reelList() {
+  const L = (reelsData || []).slice();
+  const ms = r => r.it.createdAt?.toMillis?.() || 0;
+  if (reelsSort === 'top') L.sort((a, b) => (Number(b.it._myrating) || 0) - (Number(a.it._myrating) || 0) || b.pop - a.pop);
+  else if (reelsSort === 'new') L.sort((a, b) => ms(b) - ms(a));
+  else L.sort((a, b) => b.pop - a.pop);
+  return L;
+}
+
+function renderReels() {
+  const feed = document.getElementById('rl-feed');
+  const L = reelList();
+  window._reelL = L;
+  if (!L.length) {
+    feed.innerHTML = `<div class="rl-state"><div style="font-size:2.4rem">🎞</div><b style="color:var(--text)">No clips found</b><span>None of your library titles have an official clip on TMDB yet.</span></div>`;
+    return;
+  }
+  document.querySelectorAll('.rl-chip').forEach(c => c.classList.toggle('on', c.dataset.s === reelsSort));
+  feed.innerHTML = L.map((r, i) => {
+    const it = r.it, id = it.firestoreId, type = it._type;
+    const thumb = r.back ? `https://image.tmdb.org/t/p/w780${r.back}` : (it._poster || '');
+    const bg = it._poster || thumb;
+    const cssUrl = u => String(u||'').replace(/'/g,'%27').replace(/\(/g,'%28').replace(/\)/g,'%29').replace(/"/g,'%22');
+    const rating = Number(it._myrating) > 0 ? `<b>★ ${Number(it._myrating).toFixed(1).replace(/\.0$/, '')}</b>` : '';
+    const meta = [it._year, it._genre, ].filter(Boolean).map(rlEsc).join(' · ');
+    const inWL = inWatchlist(id, type);
+    return `<section class="reel" data-i="${i}" data-key="${r.key}">
+      <div class="reel-bg" style="background-image:url('${cssUrl(bg)}')"></div>
+      <div class="reel-card">
+        <div class="reel-vid" style="background-image:url('${cssUrl(thumb)}')" onclick="reelTap(this)"><div class="reel-spin"></div><div class="reel-pause">▶</div></div>
+        <div class="rl-rail">
+          <button class="wl-btn ${inWL ? 'added' : ''}" data-id="${id}" data-type="${type}" title="Add to watchlist"
+            onclick='toggleWatchlist(${JSON.stringify(id)},"${type}",${JSON.stringify(it._title || '').replace(/'/g, '&#39;')})'>${inWL ? '♥' : '♡'}</button>
+          <button class="rl-snd ${reelsMuted ? 'hint' : ''}" onclick="reelSound()" title="Sound">${reelsMuted ? '🔇' : '🔊'}</button>
+          <button onclick='reelDetails(${JSON.stringify(id)},"${type}")' title="Details">ⓘ</button>
+        </div>
+        <div class="rl-info">
+          <div class="rl-badges">
+            <span class="rl-badge ${type === 'movie' ? 'mv' : 'sr'}">${type === 'movie' ? 'Movie' : 'Series'}</span>
+            ${it._toppick ? '<span class="rl-badge pick">★ Top pick</span>' : ''}
+            ${i < 3 && reelsSort === 'popular' ? '<span class="rl-badge">🔥 #' + (i + 1) + ' popular</span>' : ''}
+          </div>
+          <div class="rl-title">${rlEsc(it._title)}</div>
+          <div class="rl-meta">${rating} ${rating && meta ? ' · ' : ''}${meta}</div>
+          <div class="rl-over">${rlEsc(r.over)}</div>
+          <button class="rl-go" onclick='reelDetails(${JSON.stringify(id)},"${type}")'>▶ Full details</button>
+        </div>
+      </div>
+    </section>`;
+  }).join('');
+  feed.scrollTop = 0;
+  reelsActive = -1;
+  reelsObserve(feed);
+  const first = feed.querySelector('.reel'); if (first) reelActivate(0);
+}
+
+function reelsObserve(feed) {
+  reelsObs?.disconnect();
+  reelsObs = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting && e.intersectionRatio >= 0.65) reelActivate(+e.target.dataset.i); });
+  }, { root: feed, threshold: [0.65] });
+  feed.querySelectorAll('.reel').forEach(r => reelsObs.observe(r));
+}
+
+function ytCmd(f, func) {
+  try { f.contentWindow.postMessage(JSON.stringify({ event: 'command', func, args: [] }), '*'); } catch {}
+}
+function activeFrame() { return document.querySelector('.reel-vid iframe'); }
+
+function reelActivate(i) {
+  if (i === reelsActive) return;
+  reelsActive = i;
+  clearTimeout(reelsTimer);
+  document.querySelectorAll('.reel-vid iframe').forEach(f => f.remove());
+  document.querySelectorAll('.reel-vid').forEach(v => v.classList.remove('playing', 'paused'));
+  const L = window._reelL || [];
+  const cnt = document.getElementById('rl-count'); if (cnt) cnt.textContent = `${i + 1} / ${L.length}`;
+  const reel = document.querySelector(`.reel[data-i="${i}"]`);
+  if (!reel) return;
+  reelsTimer = setTimeout(() => {           // small delay so fast scrolling doesn't load every clip
+    if (reelsActive !== i || currentPage !== 'reels') return;
+    const key = reel.dataset.key, vid = reel.querySelector('.reel-vid');
+    const q = new URLSearchParams({ autoplay: 1, mute: 1, controls: 0, loop: 1, playlist: key, modestbranding: 1,
+      playsinline: 1, rel: 0, disablekb: 1, fs: 0, iv_load_policy: 3, enablejsapi: 1, origin: location.origin });
+    const f = document.createElement('iframe');
+    f.src = `https://www.youtube-nocookie.com/embed/${key}?${q}`;
+    f.allow = 'autoplay; encrypted-media'; f.tabIndex = -1; f.setAttribute('aria-hidden', 'true');
+    f.onload = () => setTimeout(() => {
+      f.classList.add('on'); vid.classList.add('playing');
+      if (!reelsMuted) ytCmd(f, 'unMute');
+    }, 900);
+    vid.appendChild(f);
+  }, 280);
+}
+
+function reelTap(vid) {
+  const f = vid.querySelector('iframe'); if (!f) return;
+  const paused = vid.classList.toggle('paused');
+  ytCmd(f, paused ? 'pauseVideo' : 'playVideo');
+}
+
+function reelSound() {
+  reelsMuted = !reelsMuted;
+  const f = activeFrame(); if (f) ytCmd(f, reelsMuted ? 'mute' : 'unMute');
+  document.querySelectorAll('.rl-snd').forEach(b => { b.textContent = reelsMuted ? '🔇' : '🔊'; b.classList.toggle('hint', reelsMuted); });
+}
+
+function reelDetails(id, type) {
+  const f = activeFrame(); if (f) { ytCmd(f, 'pauseVideo'); f.closest('.reel-vid').classList.add('paused'); }
+  openDetail(id, type, true);
+}
+
+function setReelSort(s) { reelsSort = s; if (reelsData) renderReels(); }
+
+function reelStep(d) {
+  const feed = document.getElementById('rl-feed');
+  feed.scrollBy({ top: d * feed.clientHeight, behavior: 'smooth' });
+}
+
+function reelsStop() {
+  clearTimeout(reelsTimer); reelsActive = -1;
+  document.querySelectorAll('.reel-vid iframe').forEach(f => f.remove());   // removing the iframe stops playback
+  document.querySelectorAll('.reel-vid').forEach(v => v.classList.remove('playing', 'paused'));
+}
+
+document.addEventListener('keydown', e => {
+  if (currentPage !== 'reels' || e.target.matches('input,textarea,select')) return;
+  if (document.querySelector('.overlay.open')) return;
+  if (e.key === 'ArrowDown' || e.key === 'j') { e.preventDefault(); reelStep(1); }
+  else if (e.key === 'ArrowUp' || e.key === 'k') { e.preventDefault(); reelStep(-1); }
+  else if (e.key === 'm') reelSound();
+  else if (e.key === ' ') { e.preventDefault(); const v = document.querySelector('.reel-vid.playing'); if (v) reelTap(v); }
+});
 
 // ═══════════════════ TRENDING ═══════════════════
 let trendType = 'movie', trendWin = 'week';
